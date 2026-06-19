@@ -59,3 +59,54 @@ Updated:
 Notes:
 - Reviewed the Aspire ingest output for source references, relative links, learning value and synthesis-first reading order.
 - Clarified the practical quality-gate mapping between coding agents and knowledge/wiki agents.
+
+## 2026-06-19 - update - Phase 1 Status Report
+
+Source:
+- `raw/articles/karpathy-llm-wiki.md`
+- `raw/repos/aspire-agents-md.md`
+
+Created:
+- `wiki/projects/phase-1-status-report.md`
+
+Updated:
+- `wiki/index.md`
+- `wiki/log.md`
+
+Notes:
+- Added a Turkish Phase 1 status report summarizing the current architecture, completed work, workflow, strengths, weaknesses and next steps.
+- Linked the report from the main index under Projects.
+
+## 2026-06-19 - update - Phase 1 Open Questions Decisions
+
+Source:
+- `raw/articles/karpathy-llm-wiki.md`
+- `raw/repos/aspire-agents-md.md`
+
+Created:
+- None
+
+Updated:
+- `wiki/projects/phase-1-status-report.md`
+- `wiki/log.md`
+
+Notes:
+- Resolved Phase 1.5 direction in favor of script-based prompt helpers before README or Obsidian notes.
+- Resolved Phase 2 validation direction in favor of a .NET CLI instead of starting with PowerShell validation scripts.
+
+## 2026-06-19 - update - Phase 1 Decisions Detail
+
+Source:
+- `raw/articles/karpathy-llm-wiki.md`
+- `raw/repos/aspire-agents-md.md`
+
+Created:
+- None
+
+Updated:
+- `wiki/projects/phase-1-status-report.md`
+- `wiki/log.md`
+
+Notes:
+- Expanded the Phase 1 open-question decisions with explicit rationale and priority order.
+- Recorded that Phase 1.5 helper scripts will use PowerShell and Phase 2 validation CLI will be built with .NET.
