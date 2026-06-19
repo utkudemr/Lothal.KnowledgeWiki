@@ -2,27 +2,30 @@
 
 ## Short Definition
 
-LLM Wiki, ham kaynaklar ile kullanicinin sorulari arasinda duran, LLM tarafindan surekli guncellenen kalici bir markdown bilgi katmanidir. LLM yeni kaynaklari sadece ileride aramak icin indekslemez; okur, ozetler, mevcut sayfalara entegre eder, ilgili baglantilari kurar ve celiskileri gorunur hale getirir.
+LLM Wiki, ham kaynaklardan (`raw/`) LLM tarafından türetilen ve sürekli güncellenen kalıcı bir markdown bilgi katmanıdır. `raw/` immutable kaynaklar olarak kalır; `wiki/` ise bu kaynakların işlenmiş read modeli, proje edilmiş bir rehberidir.
 
 ## Why It Matters
 
-Klasik dosya yukleme veya RAG deneyiminde model her soruda bilgiyi yeniden bulup birlestirmek zorundadir. LLM Wiki yaklasiminda sentez bir kez uretilir ve sonraki kaynaklarla buyur. Bu, ozellikle uzun vadeli ogrenme, teknik arastirma, is gorusmesi hazirligi ve proje dokumantasyonu icin degerlidir.
+Klasik dosya yükleme veya RAG deneyiminde model her soruda bilgiyi yeniden bulup birleştirmek zorundadır. LLM Wiki yaklaşımında ise kaynaklar ingest anında işlenir; ana fikirler `wiki/` içinde kalıcı bir read model olarak birikir. Bu, özellikle uzun vadeli öğrenme, teknik araştırma, iş görüşmesi hazırlığı ve proje dokümantasyonu için değerlidir.
 
-Bir muhendis acisindan asil fayda, bilginin sohbet gecmisinde kaybolmamasi ve her ingest sonrasi kalici bir artefakta donusmesidir. Sayfalar git ile izlenebilir, incelenebilir ve zaman icinde iyilestirilebilir.
+Bir mühendis açısından asıl fayda, bilginin sohbet geçmişinde kaybolmaması ve her ingest sonrası kalıcı bir artefaktın üretilmesidir. Sayfalar git ile izlenebilir, incelenebilir ve zaman içinde iyileştirilebilir.
+
+`raw/` ham kaynak, `wiki/` ise LLM tarafından düzenlenmiş projeksiyon olduğunda, aynı kaynaktan sürekli yeniden çıkarım yapmak gerekmez.
 
 ## Key Ideas
 
-- Ham kaynaklar degistirilmez; kaynak dogrulugu icin `raw/` altinda korunur.
-- Wiki, LLM tarafindan uretilen ve bakimi yapilan islenmis bilgi katmanidir.
-- `AGENTS.md` gibi bir sema dosyasi, ajana dizin yapisini, yazim kurallarini ve ingest akisini ogretir.
-- Index, icerik odakli navigasyon saglar; log, kronolojik islem gecmisi saglar.
-- Soru cevaplari, karsilastirmalar ve analizler de degerliyse wiki sayfasi olarak geri yazilabilir.
+- Ham kaynaklar değiştirilmeyen `raw/` altında tutulur.
+- `wiki/`, bu ham kaynakların LLM tarafından işlenmiş, kalıcı ve bağlamlı bir projeksiyonudur.
+- `AGENTS.md` gibi bir şema dosyası, ajana dizin yapısını, yazım kurallarını ve ingest akışını öğretir.
+- Index, içerik odaklı navigasyon sağlar; log, kronolojik işlem geçmişini kaydeder.
+- Soru cevapları, karşılaştırmalar ve analizler değerliyse wiki sayfası olarak geri yazılmalıdır.
+- RAG query-time retrieval yaparken, LLM Wiki ingest-time sentez ve kalıcı bakım üretir.
 
 ## Example
 
-Bir .NET backend gelistirici, `raw/articles/` altina rate limiting ile ilgili bir makale ekler. LLM bu makaleyi okur, `wiki/concepts/sliding-window-rate-limit.md` sayfasini olusturur veya gunceller, ilgili interview notunu baglar, `wiki/index.md` dosyasina navigasyon ekler ve `wiki/log.md` dosyasina ingest kaydi yazar.
+Bir .NET backend geliştirici, `raw/articles/` altına rate limiting ve distributed cache ile ilgili bir makale ekler. LLM bu kaynağı okur, `wiki/concepts/sliding-window-rate-limit.md` sayfasını oluşturur veya günceller, ilgili interview notunu bağlar, `wiki/index.md` dosyasına navigasyon ekler ve `wiki/log.md` dosyasına ingest kaydı yazar.
 
-Sonraki hafta Redis tabanli dagitik rate limiting hakkinda baska bir kaynak eklendiginde LLM eski sayfayi bastan uretmez; mevcut sayfaya dagitik sistem notlarini ekler, varsa onceki iddialarla celiskileri `Open Questions` altinda belirtir.
+Sonraki hafta Redis tabanlı dağıtık rate limiting hakkında başka bir kaynak eklendiğinde, LLM mevcut sayfayı tamamen yeniden üretmez; bunun yerine mevcut senteze yeni dağıtık sistem notları ekler ve önceki iddialarla çelişkiyi `Open Questions` altında belirtir.
 
 ## .NET / Backend Relevance
 

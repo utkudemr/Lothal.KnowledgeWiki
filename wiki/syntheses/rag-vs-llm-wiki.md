@@ -2,7 +2,9 @@
 
 ## Summary
 
-RAG ve LLM Wiki, LLM'leri harici bilgiyle calistirmanin iki farkli yoludur. RAG genellikle soru aninda ilgili dokuman parcalarini bulup cevap uretir. LLM Wiki ise yeni kaynaklari ingest aninda isleyerek kalici, baglantili ve surumlenebilir bir markdown bilgi tabani olusturur.
+RAG ve LLM Wiki, LLM'leri harici bilgiyle çalıştırmanın iki farklı yoludur. RAG genellikle soru anında ilgili doküman parçalarını bulup cevap üretir. LLM Wiki ise yeni kaynakları ingest anında işleyerek kalıcı, bağlantılı ve sürümlenebilir bir markdown bilgi tabanı oluşturur.
+
+Bu repo bağlamında `raw/` ham kaynağın, `wiki/` ise LLM tarafından üretilmiş read modelin karşılığıdır.
 
 ## Compared Ideas
 
@@ -12,18 +14,23 @@ RAG ve LLM Wiki, LLM'leri harici bilgiyle calistirmanin iki farkli yoludur. RAG 
 
 ## Key Differences
 
-RAG'de bilgi genellikle ham dokuman chunk'larindan her soruda yeniden derlenir. LLM Wiki'de kaynak bir kez okunur, ana fikirler wikiye islenir ve sonraki kaynaklarla birlikte mevcut sentez guncellenir.
+RAG'de bilgi genellikle ham doküman chunk'larından her soruda yeniden derlenir. LLM Wiki'de kaynak bir kez okunur, ana fikirler wikiye işlenir ve sonraki kaynaklarla birlikte mevcut sentez güncellenir.
 
-RAG daha cok arama ve cevaplama altyapisidir. LLM Wiki ise bilgi yonetimi, editoryal bakim ve ogrenme artefakti uretme yaklasimidir.
+RAG daha çok arama ve cevaplama altyapısıdır. LLM Wiki ise daha çok bilgi yönetimi, editoryal bakım ve öğrenme artefaktı üretme yaklaşımıdır.
+
+- Raw kaynak: `raw/` üzerinde immutable kaynaklar.
+- LLM Wiki: `wiki/` üzerinde işlenmiş markdown projeksiyonu.
+- RAG: runtime'da retrieval yapan destekleyici arama katmanı.
 
 RAG'de en kritik kalite faktoru retrieval kalitesidir. LLM Wiki'de ise kaynak referansi, duplicate onleme, link kalitesi, celiski notlari, index ve log disiplini kritik hale gelir.
 
 ## Practical Takeaways
 
-- Hizli soru cevap ve buyuk dokuman koleksiyonunda kaynak bulma gerekiyorsa RAG gucludur.
-- Uzun vadeli teknik ogrenme, interview hazirligi ve proje bilgisi biriktirme gerekiyorsa LLM Wiki daha kalici deger uretir.
-- Iki yaklasim rakip olmak zorunda degildir; buyuyen bir wiki ileride RAG veya markdown arama araci ile desteklenebilir.
-- LLM Wiki, "cevap" yerine "bakimi yapilan bilgi tabani" uretmeye odaklanir.
+- Hızlı soru cevap ve büyük doküman koleksiyonunda kaynak bulma gerekiyorsa RAG güçlüdür.
+- Uzun vadeli teknik öğrenme, interview hazırlığı ve proje bilgisi biriktirme gerekiyorsa LLM Wiki daha kalıcı değer üretir.
+- İki yaklaşım rakip olmak zorunda değildir; büyüyen bir wiki ileride RAG veya markdown arama aracı ile desteklenebilir.
+- Bu repo bağlamında, `raw/` ham kaynak, `wiki/` ise LLM tarafından bakımı yapılan bilgi read modelidir.
+- LLM Wiki, yalnızca cevap üretmek yerine sürekli bakımı yapılan, gözden geçirilebilen bilgi tabanı üretmeye odaklanır.
 
 ## When To Use Which
 

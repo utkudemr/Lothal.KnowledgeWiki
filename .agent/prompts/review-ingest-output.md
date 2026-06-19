@@ -82,6 +82,7 @@ Validate the following:
 - [ ] Interview relevance noted
 - [ ] Next steps suggested
 - [ ] Open questions flagged
+- [ ] Recommended reading order prioritizes synthesis pages before concept pages when a synthesis page exists
 
 ### Wiki Template Compliance
 
@@ -141,9 +142,11 @@ Please provide:
 
 4. **Suggestions for Improvement:** List optional enhancements
 
-5. **Checklist Results:** Summary of checklist compliance
+5. **Recommended Reading Order:** List the files the user should read first. Prefer synthesis pages first when they exist.
 
-6. **Final Recommendation:**
+6. **Checklist Results:** Summary of checklist compliance
+
+7. **Final Recommendation:**
    - ✅ Ready to commit
    - ⚠️ Ready with minor notes
    - ❌ Needs revision before commit

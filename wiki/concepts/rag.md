@@ -2,19 +2,20 @@
 
 ## Short Definition
 
-RAG, yani Retrieval-Augmented Generation, modelin cevap uretmeden once ilgili dokuman parcalarini bulup bu parcalari cevap baglami olarak kullanmasidir. Bilgi genellikle sorgu aninda geri getirilir ve cevap icin yeniden sentezlenir.
+RAG, yani Retrieval-Augmented Generation, modelin cevap üretmeden önce ilgili doküman parçalarını bulup bu parçaları cevap bağlamı olarak kullanmasıdır. RAG, raw kaynakların veya embedding'lenmiş belge parçalarının sorgu anında geri getirilmesine dayanır; bu bağlam genellikle kalıcı bir wiki ya da read model olarak saklanmaz.
 
 ## Why It Matters
 
-RAG, LLM'in egitim verisinde olmayan veya guncel olmayan bilgiyle calismasini saglar. Ancak kaynaklar arasinda uzun vadeli birikim, kalici sentez ve bakim otomatik olarak olusmaz. Her yeni soru, ilgili parcalarin tekrar bulunmasini ve yeniden birlestirilmesini gerektirir.
+RAG, LLM'in eğitim verisinde olmayan veya güncel olmayan bilgiyle çalışmasını sağlar. Ancak kaynaklar arasında uzun vadeli birikim, kalıcı sentez ve bakım otomatik olarak oluşmaz. Her yeni soru, ilgili parçaların tekrar bulunmasını ve yeniden birleştirilmesini gerektirir. Bu nedenle RAG genellikle bir bilgi projeksiyonu değil, bir retrieval katmanı olarak düşünülmelidir.
 
 ## Key Ideas
 
-- Retrieval, cevap aninda yapilir.
-- Dokuman parcalari genellikle chunk bazli indekslenir.
-- Sistem, iyi arama kalitesine ve iyi chunk stratejisine baglidir.
-- Sentez cogu zaman kalici bir artefakta donusmez.
-- RAG ham kaynaklara yakin kalmak icin gucludur, fakat bilgi tabani bakimini tek basina cozmez.
+- Retrieval, cevap anında yapılır.
+- Doküman parçaları genellikle chunk bazlı indekslenir.
+- Sistem, iyi arama kalitesine ve iyi chunk stratejisine bağlıdır.
+- Sentez çoğu zaman kalıcı bir artefakta dönüşmez.
+- RAG ham kaynaklara yakın kalmak için güçlüdür, fakat bilgi tabanı bakımını tek başına çözmez.
+- RAG, `raw/` veya embedding deposundan sorgu anında bilgi getirir; bu bilgi `wiki/` tipi bir projeksiyon değildir.
 
 ## Example
 
@@ -22,9 +23,11 @@ Bir takim, tum teknik dokumanlarini embedding indeksine koyup "outbox pattern ne
 
 ## .NET / Backend Relevance
 
-.NET backend sistemlerinde RAG, internal docs, runbook'lar, API sozlesmeleri, incident notlari veya kod dokumantasyonu uzerinden soru cevaplamak icin kullanilabilir. Azure AI Search, PostgreSQL vector extension, Elasticsearch veya benzeri altyapilarla uygulanabilir.
+.NET backend sistemlerinde RAG, internal docs, runbook'lar, API sözleşmeleri, incident notları veya kod dokümantasyonu üzerinden soru cevaplamak için kullanılabilir. Azure AI Search, PostgreSQL vector extension, Elasticsearch veya benzeri altyapılarla uygulanabilir.
 
-Backend tasariminda dikkat edilmesi gereken noktalar:
+RAG genellikle raw kaynaklar ya da embedding depoları ile çalışır; buna karşın LLM Wiki bu raw kaynaklardan türetilmiş bir markdown read modelidir.
+
+Backend tasarımında dikkat edilmesi gereken noktalar:
 
 - Kaynak dokuman versiyonlama ve yetkilendirme.
 - Chunk boyutu, metadata ve source citation kalitesi.
@@ -51,4 +54,5 @@ LLM Wiki ile fark sorulursa, RAG'in query-time retrieval yaptigi; LLM Wiki'nin i
 ## Open Questions
 
 - Bu wiki icin ileride basit markdown aramasi yeterli mi, yoksa qmd benzeri BM25/vector tabanli bir arac gerekli olacak mi?
-- RAG ile LLM Wiki birlikte kullanildiginda, kaynak dogrulama ve kalici sentez arasindaki sinir nasil tanimlanmali?
+- RAG ile LLM Wiki birlikte kullanıldığında, kaynak doğrulama ve kalıcı sentez arasındaki sınır nasıl tanımlanmalı?
+- RAG çıktısı hangi koşullarda `wiki/` içine yeni bir sayfa veya güncelleme olarak kaydedilmeli?
