@@ -11,10 +11,12 @@ This is the main navigation page for the knowledge wiki.
 - [LLM Wiki](concepts/llm-wiki.md) - LLM tarafindan bakimi yapilan kalici markdown bilgi katmani.
 - [RAG](concepts/rag.md) - Sorgu aninda ilgili dokuman parcalarini getirerek cevap uretme yaklasimi.
 - [Agent Workflow](concepts/agent-workflow.md) - Ajanin kaynak ingest, query, lint ve wiki bakimini kuralli sekilde yapmasi.
+- [Agent Instructions](concepts/agent-instructions.md) - Repository icinde ajanlara proje kurallarini, kalite kapilarini ve maintainer beklentilerini anlatan talimat katmani.
 
 ## Syntheses
 
 - [RAG vs LLM Wiki](syntheses/rag-vs-llm-wiki.md) - Query-time retrieval ile ingest-time kalici sentez arasindaki farklar.
+- [Coding Agent vs Knowledge Wiki Agent](syntheses/coding-agent-vs-knowledge-wiki-agent.md) - Kod degistiren ajanlarla bilgi wiki'si ureten ajanlarin farkli riskleri ve kalite kapilari.
 
 ## Interview Notes
 

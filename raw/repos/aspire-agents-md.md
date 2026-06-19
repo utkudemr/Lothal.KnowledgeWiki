@@ -1,4 +1,4 @@
-# Microsoft Aspire - AGENTS.md
+﻿# Microsoft Aspire - AGENTS.md
 
 ## Kaynak Bilgileri
 
@@ -14,10 +14,9 @@ Bu kaynak, büyük bir .NET repository içinde AGENTS.md dosyasının nasıl kul
 Amaç:
 - Lothal.KnowledgeWiki içindeki AGENTS.md yapısını iyileştirmek
 - agent instruction dosyalarının gerçek projelerde nasıl yazıldığını görmek
-- büyük repo convention’larının agent’a nasıl anlatıldığını anlamak
+- büyük repo convention'larının agent'a nasıl anlatıldığını anlamak
 - coding agent ile knowledge/wiki agent kuralları arasındaki farkları çıkarmak
 - agent workflow, repository rules ve maintainer talimatlarını daha iyi tasarlamak
-
 ## Raw Content
 
 # Agent Instructions
@@ -568,3 +567,4 @@ Additional instructions are automatically applied when editing files matching sp
 | `tools/QuarantineTools/*` | `.github/instructions/quarantine.instructions.md` - QuarantineTools usage |
 | `tests/**/*.cs` | `.github/instructions/test-review-guidelines.instructions.md` - Flaky test patterns and test review guidelines |
 | `eng/scripts/get-aspire-cli*.sh`, `eng/scripts/get-aspire-cli*.ps1` | `.github/instructions/acquisition-tests.instructions.md` - CLI acquisition script tests |
+
