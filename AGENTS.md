@@ -85,6 +85,25 @@ Source categories:
 * `raw/interview-questions/` for interview questions and prepared answers
 * `raw/chat-summaries/` for summaries exported from conversations
 
+## Raw Source Template Rule
+
+New raw source files should preferably use `.agent/templates/source.md`.
+
+Raw source files should include:
+
+* title
+* source URL
+* captured date
+* source type
+* context notes
+* raw content
+
+Files under `raw/` are still immutable after being added unless the user explicitly asks for a change.
+
+`Context Notes` should explain why the source was added, not only what it contains.
+
+Good context notes help the agent produce better wiki output because they clarify the learning goal, project relevance, interview relevance or engineering question behind the source.
+
 ### `wiki/`
 
 The `wiki/` directory contains processed knowledge pages.
