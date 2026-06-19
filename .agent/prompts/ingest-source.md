@@ -5,8 +5,11 @@ Use this prompt template as a guide when ingesting a new source into the wiki.
 ## Instructions
 
 1. Copy this template into a new message.
-2. Fill in the SOURCE_CONTENT section with the source material.
-3. Run the prompt with the Explore agent for codebase context if needed.
+2. Replace SOURCE_PATH with the raw source file path.
+3. Use a path under raw/, for example:
+   - `raw/articles/karpathy-llm-wiki.md`
+   - `raw/repos/aspire-agents-md.md`
+   - `raw/interview-questions/why-isnt-everything-async.md`
 4. Follow AGENTS.md workflow rules carefully.
 
 ## Template
@@ -15,16 +18,22 @@ Use this prompt template as a guide when ingesting a new source into the wiki.
 
 You are ingesting a new source into Lothal.KnowledgeWiki.
 
-**Repository Structure:**
-- Read AGENTS.md carefully
-- All wiki files are in Turkish unless the source requires English
-- Raw sources are immutable under raw/
-- Use relative markdown links
-- Preserve source references
+**Source Path:**
 
-**Source Material:**
+SOURCE_PATH
 
-SOURCE_CONTENT
+**Repository Rules:**
+- Read AGENTS.md first.
+- Read the raw source file from SOURCE_PATH.
+- Do not modify anything under raw/.
+- Create or update relevant pages under wiki/.
+- Write generated wiki content in Turkish unless the source requires English.
+- Preserve source references using the raw file path.
+- Avoid duplicate pages; update existing pages when the topic already exists.
+- Use relative markdown links.
+- Use lowercase kebab-case file names.
+- Update wiki/index.md when pages are created or meaningfully updated.
+- Append an entry to wiki/log.md.
 
 ---
 
@@ -67,8 +76,7 @@ SOURCE_CONTENT
 
 5. **Follow these rules:**
    - Keep raw sources immutable
-   - Use kebab-case filenames
-   - Add source references (`raw/path/to/source.md`)
+   - Add source references using SOURCE_PATH
    - Link to related wiki pages
    - Update wiki/index.md if you create new pages
    - Append to wiki/log.md with the format:
@@ -76,7 +84,7 @@ SOURCE_CONTENT
      ## YYYY-MM-DD - action - Source Title
      
      Source:
-     - `raw/path/to/source.md`
+     - `SOURCE_PATH`
      
      Created:
      - `wiki/concepts/example.md`
@@ -93,7 +101,10 @@ SOURCE_CONTENT
    - Created files
    - Updated files
    - Important decisions
+   - Recommended reading order
    - Open questions
+
+Prefer synthesis pages first in the recommended reading order when a synthesis page exists.
 
 ---
 
@@ -124,6 +135,10 @@ When you finish the ingest:
 - Follow-up source: ...
 - Concept to deepen: ...
 - Project application: ...
+
+### Recommended Reading Order
+1. `wiki/syntheses/example.md`
+2. `wiki/concepts/example.md`
 
 ### Open Questions
 - ?
