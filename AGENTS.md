@@ -641,3 +641,17 @@ When you finish a task, summarize:
 * any open questions
 
 Keep the summary concise.
+
+## Learning Output Rule
+
+After ingesting a source or performing a significant update, structure your output to support active learning:
+
+1. **Explain the main insight** – Describe what the source teaches or the key decision made.
+2. **Connect to existing knowledge** – Show how this relates to existing wiki pages and engineering experience.
+3. **Highlight practical implications** – Explain why this matters for .NET backend development, microservices, distributed systems or agent workflows.
+4. **List related concepts** – Identify other wiki pages or topics that should be explored alongside this.
+5. **Note interview relevance** – Mention if and how this concept appears in technical interviews.
+6. **Suggest next steps** – Propose logical follow-up sources, related concepts to deepen, or project applications.
+7. **Flag open questions** – Call out unclear points or assumptions that need clarification.
+
+This approach ensures that ingested knowledge becomes actionable learning material, not just archived facts. Use the [Reading Guide](wiki/reading-guide.md) to understand how to best consume and retain generated wiki outputs.

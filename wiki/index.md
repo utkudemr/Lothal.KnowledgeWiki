@@ -2,6 +2,10 @@
 
 This is the main navigation page for the knowledge wiki.
 
+## Getting Started
+
+- [Reading Guide](reading-guide.md) - Learn how to effectively read and use generated wiki outputs.
+
 ## Core Concepts
 
 - [LLM Wiki](concepts/llm-wiki.md) - LLM tarafindan bakimi yapilan kalici markdown bilgi katmani.
