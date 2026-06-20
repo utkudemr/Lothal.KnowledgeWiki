@@ -5,7 +5,7 @@ Use this prompt template as a guide when ingesting a new source into the wiki.
 ## Instructions
 
 1. Copy this template into a new message.
-2. Replace SOURCE_PATH with the raw source file path.
+2. The helper script replaces the braced source-path placeholder with the raw source file path.
 3. Use a path under raw/, for example:
    - `raw/articles/karpathy-llm-wiki.md`
    - `raw/repos/aspire-agents-md.md`
@@ -20,11 +20,11 @@ You are ingesting a new source into Lothal.KnowledgeWiki.
 
 **Source Path:**
 
-SOURCE_PATH
+{{SOURCE_PATH}}
 
 **Repository Rules:**
 - Read AGENTS.md first.
-- Read the raw source file from SOURCE_PATH.
+- Read the raw source file from {{SOURCE_PATH}}.
 - Do not modify anything under raw/.
 - Create or update relevant pages under wiki/.
 - Write generated wiki content in Turkish unless the source requires English.
@@ -76,7 +76,7 @@ SOURCE_PATH
 
 5. **Follow these rules:**
    - Keep raw sources immutable
-   - Add source references using SOURCE_PATH
+   - Add source references using {{SOURCE_PATH}}
    - Link to related wiki pages
    - Update wiki/index.md if you create new pages
    - Append to wiki/log.md with the format:
@@ -84,7 +84,7 @@ SOURCE_PATH
      ## YYYY-MM-DD - action - Source Title
      
      Source:
-     - `SOURCE_PATH`
+     - `{{SOURCE_PATH}}`
      
      Created:
      - `wiki/concepts/example.md`
