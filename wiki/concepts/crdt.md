@@ -28,6 +28,12 @@ Bir kanban uygulamasinda iki kullanici ayni anda farkli islemler yapsin:
 
 CRDT tabanli modelde bu iki degisiklik sonradan birlestirildiginde kart hem yeni kolonda olur hem de yorumu icerir. Geleneksel dosya sync modelinde bu durum "conflicted copy" gibi manuel cozulmesi gereken bir probleme donusebilir.
 
+## Automerge Nerede Duruyor?
+
+Automerge, local-first kaynaginda yalnizca gelecekte arastirilacak bir fikir olarak degil, Ink & Switch tarafindan gelistirilen acik kaynak bir JavaScript CRDT implementasyonu olarak konumlanir. JSON CRDT arastirmasina dayanir ve Trellis, Pixelpusher ve PushPin gibi local-first prototiplerde veri katmani olarak kullanilmistir.
+
+Bu prototiplerde Automerge'in ana rolu, kullanicilarin ayni dokuman uzerinde es zamanli yaptigi degisiklikleri otomatik olarak merge etmektir. Kaynak, Automerge'i local-first isbirligi icin umut verici bir pratik deney zemini olarak anlatir; fakat teknolojinin hala deneysel oldugunu ve bugun Firebase gibi olgun production sistemlerinin yerine dogrudan gecirilmesinin onerilmedigini de vurgular.
+
 ## .NET / Backend Relevance
 
 .NET backend sistemlerinde CRDT'ler her problem icin ilk tercih degildir. Finansal mutabakat, odeme, envanter rezervasyonu veya stok dusme gibi domain'lerde guclu tutarlilik ve domain invariant'lari gerekebilir. Fakat collaborative notes, offline form doldurma, cihazlar arasi state sync, read model preference'lari veya agent workspace state'i gibi alanlarda CRDT fikri cok degerlidir.
