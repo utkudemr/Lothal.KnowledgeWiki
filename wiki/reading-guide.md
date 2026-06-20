@@ -157,7 +157,7 @@ Wiki öğrenmesini uzun vadeli kalıcı yapmak için:
 Wiki çıktılarında şu işaretleri görebilirsin:
 
 - **`raw/path/to/source.md`** — Bilginin kaynağı. Asıl kaynağı incelemeyi düşün.
-- **`[Related Page](../concepts/example.md)`** — Derinlemesine gitmek için bir başka wiki sayfası.
+- **`Related Page -> ../concepts/example.md`** — Derinlemesine gitmek için kullanılan örnek relative link formatı.
 - **Open Questions** — Belirsiz noktalar. Gelecekteki kaynaklar bu alanları doldurabilirim.
 
 ## Öğrenmeyi Projelerle Bağlama
