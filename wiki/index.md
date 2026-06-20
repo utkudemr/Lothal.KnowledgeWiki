@@ -12,15 +12,18 @@ This is the main navigation page for the knowledge wiki.
 - [RAG](concepts/rag.md) - Sorgu aninda ilgili dokuman parcalarini getirerek cevap uretme yaklasimi.
 - [Agent Workflow](concepts/agent-workflow.md) - Ajanin kaynak ingest, query, lint ve wiki bakimini kuralli sekilde yapmasi.
 - [Agent Instructions](concepts/agent-instructions.md) - Repository icinde ajanlara proje kurallarini, kalite kapilarini ve maintainer beklentilerini anlatan talimat katmani.
+- [Local-first Software](concepts/local-first-software.md) - Yerel cihazdaki veriyi birincil kabul eden, cloud'u destekleyici sync/backup katmani olarak kullanan mimari yaklasim.
+- [CRDT](concepts/crdt.md) - Es zamanli dagitik degisiklikleri deterministik merge edebilen veri yapisi ailesi.
 
 ## Syntheses
 
 - [RAG vs LLM Wiki](syntheses/rag-vs-llm-wiki.md) - Query-time retrieval ile ingest-time kalici sentez arasindaki farklar.
 - [Coding Agent vs Knowledge Wiki Agent](syntheses/coding-agent-vs-knowledge-wiki-agent.md) - Kod degistiren ajanlarla bilgi wiki'si ureten ajanlarin farkli riskleri ve kalite kapilari.
+- [Cloud-first vs Offline-first vs Local-first](syntheses/cloud-first-vs-offline-first-vs-local-first.md) - Server-authoritative, offline-capable ve local-authoritative mimari yaklasimlarin pratik farklari.
 
 ## Interview Notes
 
-_No interview notes yet._
+- [Offline-first ile local-first arasindaki fark nedir?](interview/offline-first-ile-local-first-arasindaki-fark-nedir.md) - Offline mimari, local data ownership ve sync tradeoff'larini anlatan mulakat cevabi.
 
 ## Projects
 

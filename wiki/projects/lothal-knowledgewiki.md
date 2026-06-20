@@ -22,14 +22,19 @@ Repo, LLM Wiki desenini uygulayan basit ama genisleyebilir bir yapiya sahip:
 - [RAG](../concepts/rag.md)
 - [Agent Workflow](../concepts/agent-workflow.md)
 - [Agent Instructions](../concepts/agent-instructions.md)
+- [Local-first Software](../concepts/local-first-software.md)
+- [CRDT](../concepts/crdt.md)
 - [RAG vs LLM Wiki](../syntheses/rag-vs-llm-wiki.md)
 - [Coding Agent vs Knowledge Wiki Agent](../syntheses/coding-agent-vs-knowledge-wiki-agent.md)
+- [Cloud-first vs Offline-first vs Local-first](../syntheses/cloud-first-vs-offline-first-vs-local-first.md)
 
 ## Architecture Notes
 
 Bu repo, ham kaynak ile islenmis bilgi arasinda net bir ayrim kurar. `raw/` source of truth olarak kalir; LLM bu katmani degistirmez. `wiki/` ise kaynaklardan turetilen, linklenen ve zaman icinde guncellenen bilgi katmanidir.
 
 Bu ayrim backend mimarisindeki event log ve read model ayrimina benzer. Ham kaynaklar audit edilebilir girdi, wiki sayfalari ise sorgulanabilir ve insan tarafindan tuketilebilir projeksiyondur.
+
+Local-first software kaynagi bu proje icin ek bir lens sunar: `raw/` ve `wiki/` birlikte, cloud service'e bagli olmayan, git ile tasinabilir ve lokal olarak okunabilir bir bilgi sistemi olusturur. Bu repo tam anlamiyla collaborative CRDT uygulamasi degildir; fakat veri sahipligi, uzun omurluluk, offline okunabilirlik ve export edilebilir markdown formatlari acisindan local-first degerleriyle uyumludur.
 
 ## Agent Workflow Notes
 
@@ -54,16 +59,22 @@ Aspire `AGENTS.md` ornegi, bu repoda talimatlarin daha da operasyonel hale getir
 - Interview hazirligi icin konsept sayfalarindan cevap odakli interview sayfalari uretmek.
 - `AGENTS.md` icinde review prompt'unun hangi durumlarda calistirilacagini ve hangi kalite kontrollerinin zorunlu oldugunu daha net yazmak.
 - Aspire'daki pattern-based instruction fikrini bu repo icin sade bir sekilde uyarlamak: `raw/`, `wiki/concepts/`, `wiki/syntheses/`, `wiki/interview/` ve `wiki/projects/` icin ayrik beklentiler.
+- Local-first bakisiyla wiki'nin tamamen offline okunabilir, export edilebilir ve baska araclarla islenebilir kalmasini kalite hedefi yapmak.
+- Ileride cok kullanicili wiki duzenleme ihtiyaci dogarsa CRDT veya Git tabanli merge stratejilerini ayri bir sentezde degerlendirmek.
 
 ## Related Pages
 
 - [LLM Wiki](../concepts/llm-wiki.md)
 - [Agent Workflow](../concepts/agent-workflow.md)
 - [Agent Instructions](../concepts/agent-instructions.md)
+- [Local-first Software](../concepts/local-first-software.md)
+- [CRDT](../concepts/crdt.md)
 - [RAG vs LLM Wiki](../syntheses/rag-vs-llm-wiki.md)
 - [Coding Agent vs Knowledge Wiki Agent](../syntheses/coding-agent-vs-knowledge-wiki-agent.md)
+- [Cloud-first vs Offline-first vs Local-first](../syntheses/cloud-first-vs-offline-first-vs-local-first.md)
 
 ## Source References
 
 - `raw/articles/karpathy-llm-wiki.md`
 - `raw/repos/aspire-agents-md.md`
+- `raw/articles/2026-06-20-local-first-software.md`

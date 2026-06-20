@@ -110,3 +110,25 @@ Updated:
 Notes:
 - Expanded the Phase 1 open-question decisions with explicit rationale and priority order.
 - Recorded that Phase 1.5 helper scripts will use PowerShell and Phase 2 validation CLI will be built with .NET.
+
+## 2026-06-20 - ingest - Local-first Software
+
+Source:
+- `raw/articles/2026-06-20-local-first-software.md`
+
+Created:
+- `wiki/concepts/local-first-software.md`
+- `wiki/concepts/crdt.md`
+- `wiki/syntheses/cloud-first-vs-offline-first-vs-local-first.md`
+- `wiki/interview/offline-first-ile-local-first-arasindaki-fark-nedir.md`
+
+Updated:
+- `wiki/projects/lothal-knowledgewiki.md`
+- `wiki/index.md`
+- `wiki/log.md`
+
+Notes:
+- Added local-first software as a practical architecture concept for ownership, offline work, sync and collaboration.
+- Added CRDT as a reusable distributed systems concept connected to conflict-free collaboration.
+- Compared cloud-first, offline-first and local-first for .NET backend, POS and microservice design.
+- Extracted an interview-ready explanation of offline-first versus local-first.
