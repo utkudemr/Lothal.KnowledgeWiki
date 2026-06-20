@@ -5,9 +5,9 @@
 - Başlık: {{TITLE}}
 - Kaynak URL: {{SOURCE_URL}}
 - Yakalanma Tarihi: {{CAPTURED_AT}}
-- Kaynak Türü: {{SOURCE_TYPE}}
+- Source Type: {{SOURCE_TYPE}}
 
-> Kaynak türü örnekleri: Article, Gist, GitHub Repository File, Tweet, LinkedIn Post, Video Transcript, Job Posting, Interview Question, Chat Summary
+> Source type examples: Article, Gist, GitHub Repository File, Tweet, LinkedIn Post, Video Transcript, Job Posting, Interview Question, Chat Summary
 
 ## Context Notes
 
