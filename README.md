@@ -30,6 +30,65 @@ This repository experiments with a persistent wiki layer maintained by agents.
 4. Agent updates `wiki/index.md`.
 5. Agent appends an entry to `wiki/log.md`.
 
+## Phase 1.5 Usage Workflow
+
+1. Create a raw source file:
+
+   ```powershell
+   .\scripts\new-source.ps1 article "Article Title" "https://example.com/article"
+   ```
+
+2. Fill the generated raw source file:
+   - Context Notes
+   - Raw Content
+
+3. Commit the raw source:
+
+   ```powershell
+   git add raw/
+   git commit -m "add article title source"
+   ```
+
+4. Generate an ingest prompt:
+
+   ```powershell
+   .\scripts\ingest-prompt.ps1 raw/articles/<generated-file>.md
+   ```
+
+   Paste the copied prompt into the IDE agent/chat.
+
+5. After ingest completes, generate a review prompt:
+
+   ```powershell
+   .\scripts\review-prompt.ps1 raw/articles/<generated-file>.md
+   ```
+
+   Paste the copied prompt into the IDE agent/chat and replace `INGEST_OUTPUT` with the ingest summary.
+
+6. Review git diff.
+
+7. Commit wiki changes:
+
+   ```powershell
+   git add wiki
+   git commit -m "ingest article title source"
+   ```
+
+Notes:
+
+- `raw/` is the immutable source archive.
+- `wiki/` is the generated learning layer.
+- `.agent/templates/source.md` defines the raw source format.
+- `.agent/prompts/` contains reusable prompt templates.
+- `scripts/` only generate files or prompts; they do not run agents or call external APIs.
+
 ## Status
 
-Phase 1: Manual markdown wiki and agent-assisted ingestion.
+Phase 1: Manual markdown wiki and agent-assisted ingestion completed.
+
+Phase 1.5: Helper scripts added for:
+- raw source creation
+- ingest prompt generation
+- review prompt generation
+
+Next: test the workflow with a new article end-to-end.
