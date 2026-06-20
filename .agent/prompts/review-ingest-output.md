@@ -6,7 +6,7 @@ Use this prompt template to review and validate an ingest output before finalizi
 
 1. Copy this template into a new message.
 2. Paste the ingest output or summary into INGEST_OUTPUT section.
-3. Provide the source path in the SOURCE_PATH field.
+3. The helper script replaces the braced source-path placeholder with the raw source file path.
 4. Run the prompt to validate quality and completeness.
 
 ## Template
@@ -15,7 +15,7 @@ Use this prompt template to review and validate an ingest output before finalizi
 
 You are reviewing an ingest output for Lothal.KnowledgeWiki.
 
-**Source:** SOURCE_PATH
+**Source:** {{SOURCE_PATH}}
 
 **Repository Rules (from AGENTS.md):**
 - Turkish is default for user-facing content
@@ -147,9 +147,9 @@ Please provide:
 6. **Checklist Results:** Summary of checklist compliance
 
 7. **Final Recommendation:**
-   - ✅ Ready to commit
-   - ⚠️ Ready with minor notes
-   - ❌ Needs revision before commit
+   - READY_TO_COMMIT
+   - READY_WITH_MINOR_NOTES
+   - NEEDS_REVISION_BEFORE_COMMIT
 
 ---
 
@@ -170,13 +170,13 @@ Please provide:
 - Consider adding a related synthesis page about "LLM Wiki vs Vector DB" for database comparison
 
 ### Checklist Results
-- ✅ All content quality checks pass
-- ✅ Repository rules compliance 100%
-- ✅ Learning Output Rule sections present
-- ✅ Template structure correct
+- PASS: All content quality checks pass
+- PASS: Repository rules compliance 100%
+- PASS: Learning Output Rule sections present
+- PASS: Template structure correct
 
 ### Final Recommendation
-✅ Ready to commit
+READY_TO_COMMIT
 
 Files to commit:
 - wiki/concepts/example.md
