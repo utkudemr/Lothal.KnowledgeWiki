@@ -132,3 +132,23 @@ Notes:
 - Added CRDT as a reusable distributed systems concept connected to conflict-free collaboration.
 - Compared cloud-first, offline-first and local-first for .NET backend, POS and microservice design.
 - Extracted an interview-ready explanation of offline-first versus local-first.
+
+## 2026-06-21 - update - Phase 2 Status Report
+
+Source:
+- `scripts/validate-wiki.ps1`
+- `.github/workflows/validate-wiki.yml`
+- `.agent/prompts/ingest-source.md`
+- `.agent/prompts/review-ingest-output.md`
+- `README.md`
+
+Created:
+- `wiki/projects/phase-2-status-report.md`
+
+Updated:
+- `wiki/index.md`
+- `wiki/log.md`
+
+Notes:
+- Added a Turkish Phase 2 status report documenting deterministic validation and GitHub Actions validation.
+- Recorded the current workflow, known limitations, important decisions and next validation candidates.
