@@ -152,3 +152,26 @@ Updated:
 Notes:
 - Added a Turkish Phase 2 status report documenting deterministic validation and GitHub Actions validation.
 - Recorded the current workflow, known limitations, important decisions and next validation candidates.
+
+## 2026-06-21 - update - Automation Roadmap
+
+Source:
+- `wiki/projects/phase-2-status-report.md`
+- `wiki/projects/phase-1-status-report.md`
+- `scripts/new-source.ps1`
+- `scripts/ingest-prompt.ps1`
+- `scripts/review-prompt.ps1`
+- `scripts/validate-wiki.ps1`
+- `.github/workflows/validate-wiki.yml`
+- `README.md`
+
+Created:
+- `wiki/projects/automation-roadmap.md`
+
+Updated:
+- `wiki/index.md`
+- `wiki/log.md`
+
+Notes:
+- Added a Turkish automation roadmap for reducing manual ingest, review and validation workflow steps after Phase 2.
+- Documented phased next candidates including start-ingest helper, review summary automation, run artifacts, validation ergonomics and commit assistance.
