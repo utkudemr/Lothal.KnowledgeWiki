@@ -34,6 +34,8 @@ You are ingesting a new source into Lothal.KnowledgeWiki.
 - Use lowercase kebab-case file names.
 - Update wiki/index.md when pages are created or meaningfully updated.
 - Append an entry to wiki/log.md.
+- After creating or updating wiki pages, run `.\scripts\validate-wiki.ps1` to perform deterministic validation.
+- Do not recommend a final commit until review and deterministic validation pass (Errors: 0).
 
 ---
 
@@ -102,6 +104,7 @@ You are ingesting a new source into Lothal.KnowledgeWiki.
    - Updated files
    - Important decisions
    - Recommended reading order
+   - Validation reminder
    - Open questions
 
 Prefer synthesis pages first in the recommended reading order when a synthesis page exists.
@@ -158,5 +161,12 @@ When you finish the ingest:
 
 ### Remaining Questions
 - Areas needing clarification
+
+### Validation Reminder
+Run:
+
+```powershell
+.\scripts\validate-wiki.ps1
+```
 ```
 
