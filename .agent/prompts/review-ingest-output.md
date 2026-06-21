@@ -73,6 +73,13 @@ Validate the following:
   - Brief explanation
   ```
 
+### Deterministic Validation
+
+- [ ] `.\scripts\validate-wiki.ps1` was run after ingest/review changes
+- [ ] Validation result has Errors: 0
+- [ ] Validation warnings were reviewed
+- [ ] Commit is not recommended if validation has errors
+
 ### Learning Output Rule Compliance
 
 - [ ] Main insight explained clearly
@@ -146,10 +153,15 @@ Please provide:
 
 6. **Checklist Results:** Summary of checklist compliance
 
-7. **Final Recommendation:**
+7. **Validation Result:** PASS / WARNINGS / NOT RUN / FAILED
+
+8. **Final Recommendation:**
    - READY_TO_COMMIT
+     - Use only when required fixes are complete and deterministic validation shows `Errors: 0`.
    - READY_WITH_MINOR_NOTES
+     - May be used when deterministic validation shows `Errors: 0` but there are warnings or optional improvements remaining.
    - NEEDS_REVISION_BEFORE_COMMIT
+     - Use when deterministic validation reports errors or required fixes still remain.
 
 ---
 
@@ -174,6 +186,9 @@ Please provide:
 - PASS: Repository rules compliance 100%
 - PASS: Learning Output Rule sections present
 - PASS: Template structure correct
+
+### Validation Result
+PASS (Errors: 0, Warnings: 0)
 
 ### Final Recommendation
 READY_TO_COMMIT
