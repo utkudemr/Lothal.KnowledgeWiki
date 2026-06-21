@@ -82,6 +82,29 @@ Notes:
 - `.agent/prompts/` contains reusable prompt templates.
 - `scripts/` only generate files or prompts; they do not run agents or call external APIs.
 
+## Phase 2 Validation Workflow
+
+After ingest and review, run:
+
+```powershell
+.\scripts\validate-wiki.ps1
+```
+
+The validator checks:
+
+- required files exist
+- relative markdown links inside `wiki/**/*.md` resolve
+- wiki pages have Source References
+- `raw/...` references point to existing `raw/` files
+- placeholder/template leftovers are reported
+
+If validation returns errors, fix them before committing. If validation returns warnings, review them before committing.
+
+A clean result should show:
+
+- Errors: 0
+- Warnings: 0
+
 ## Status
 
 Phase 1: Manual markdown wiki and agent-assisted ingestion completed.
@@ -90,5 +113,7 @@ Phase 1.5: Helper scripts added for:
 - raw source creation
 - ingest prompt generation
 - review prompt generation
+
+Phase 2: Deterministic wiki validation MVP added with `scripts/validate-wiki.ps1`.
 
 Next: test the workflow with a new article end-to-end.
