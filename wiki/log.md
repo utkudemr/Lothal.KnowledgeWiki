@@ -175,3 +175,22 @@ Updated:
 Notes:
 - Added a Turkish automation roadmap for reducing manual ingest, review and validation workflow steps after Phase 2.
 - Documented phased next candidates including start-ingest helper, review summary automation, run artifacts, validation ergonomics and commit assistance.
+
+## 2026-06-21 - ingest - To Cache or Not to Cache
+
+Source:
+- `raw/articles/2026-06-21-to-cache-or-not-to-cache.md`
+
+Created:
+- `wiki/concepts/cache-karar-kriterleri.md`
+- `wiki/syntheses/cache-vs-source-of-truth.md`
+- `wiki/interview/cache-ne-zaman-kullanilmali.md`
+
+Updated:
+- `wiki/index.md`
+- `wiki/log.md`
+
+Notes:
+- Added cache decision criteria as a reusable backend/system design concept.
+- Compared cache with source of truth and connected the distinction to local-first and offline-first data models.
+- Extracted an interview-ready answer for when cache should and should not be used.
