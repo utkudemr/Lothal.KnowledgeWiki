@@ -12,7 +12,7 @@ Phase 2.1 ile bu validator yerel kullanimdan cikarilip GitHub Actions uzerinden 
 - Validator gerekli root dosyalarini kontrol ediyor: `AGENTS.md`, `wiki/index.md`, `wiki/log.md`.
 - Validator `wiki/**/*.md` icindeki relative markdown linkleri kontrol ediyor.
 - Validator wiki sayfalarinda `Source References` bolumlerini kontrol ediyor.
-- Validator `raw/...` referanslarinin gercek dosyalara isaret edip etmedigini kontrol ediyor.
+- Validator raw source references ifadelerinin gercek kaynak arsivi dosyalarina isaret edip etmedigini kontrol ediyor.
 - Validator placeholder/template kalintilarini warning olarak raporluyor.
 - README icinde validation workflow dokumante edildi.
 - Ingest prompt artik validation calistirmayi hatirlatiyor.
@@ -24,7 +24,7 @@ Phase 2.1 ile bu validator yerel kullanimdan cikarilip GitHub Actions uzerinden 
 
 LLM review ve deterministik validation ayni kalite problemini cozmez. LLM review, ogrenme ve icerik kalitesine odaklanir: anlatim net mi, kaynak dogru yorumlanmis mi, .NET/backend baglami kurulmus mu, interview veya proje degeri var mi?
 
-Deterministik validation ise repository correctness tarafini korur: gerekli dosyalar var mi, linkler kirik mi, source reference bolumleri unutulmus mu, `raw/...` path'leri gercek mi, template kalintilari kalmis mi?
+Deterministik validation ise repository correctness tarafini korur: gerekli dosyalar var mi, linkler kirik mi, source reference bolumleri unutulmus mu, raw path references gercek mi, template kalintilari kalmis mi?
 
 Bu ayrim backend dunyasindaki code review ve test ayrimina benzer. Code review niyeti, tasarimi ve okunabilirligi yakalar; testler ve CI tekrar edilebilir dogruluk sinyali verir. Lothal.KnowledgeWiki icin de LLM review bilgi kalitesini, deterministik validation ise repo hijyenini guvence altina alir.
 
@@ -45,7 +45,7 @@ Bu ayrim backend dunyasindaki code review ve test ayrimina benzer. Code review n
 - `wiki/**/*.md` altindaki local relative `.md` linkleri dosya sisteminde cozulur.
 - External URL, `mailto:`, anchor-only link ve absolute path kontrolleri kapsam disi birakilir.
 - Belirli istisnalar disindaki wiki sayfalarinda `Source References` bolumu aranir.
-- Markdown icerigindeki `raw/...` referanslarinin mevcut dosyalara isaret edip etmedigi kontrol edilir.
+- Markdown icerigindeki raw source references ifadelerinin mevcut kaynak arsivi dosyalarina isaret edip etmedigi kontrol edilir.
 - Placeholder/template token'lari warning olarak raporlanir.
 - Yaygin tamamlanmamis-is ve karar-bekliyor marker'lari case-insensitive warning olarak raporlanir.
 - Error varsa script non-zero exit code ile biter; error yoksa basarili kabul edilir.
