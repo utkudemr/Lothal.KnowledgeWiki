@@ -22,10 +22,12 @@ Repo, LLM Wiki desenini uygulayan basit ama genisleyebilir bir yapiya sahip:
 - [RAG](../concepts/rag.md)
 - [Agent Workflow](../concepts/agent-workflow.md)
 - [Agent Instructions](../concepts/agent-instructions.md)
+- [AI Caginda Judgment](../concepts/ai-caginda-judgment.md)
 - [Local-first Software](../concepts/local-first-software.md)
 - [CRDT](../concepts/crdt.md)
 - [RAG vs LLM Wiki](../syntheses/rag-vs-llm-wiki.md)
 - [Coding Agent vs Knowledge Wiki Agent](../syntheses/coding-agent-vs-knowledge-wiki-agent.md)
+- [Prompt Playbook vs Kalibre Judgment](../syntheses/prompt-playbook-vs-kalibre-judgment.md)
 - [Cloud-first vs Offline-first vs Local-first](../syntheses/cloud-first-vs-offline-first-vs-local-first.md)
 
 ## Architecture Notes
@@ -51,6 +53,8 @@ Ingest akisi su sekilde islemelidir:
 
 Aspire `AGENTS.md` ornegi, bu repoda talimatlarin daha da operasyonel hale getirilebilecegini gosterir. Sadece "Turkce yaz" veya "raw'a dokunma" gibi genel kurallar degil, hangi prompt'un ne zaman kullanilacagi, review'un hangi kalite kapilarini kontrol edecegi, source reference eksikliginin nasil ele alinacagi ve index/log tutarsizliklarinin nasil yakalanacagi da acik yazilabilir.
 
+AI judgment kaynagi bu workflow'un neden sadece prompt template'lerinden ibaret olmamasi gerektigini netlestirir. Ingest prompt'u baslatma aracidir; asil kalite, agent ciktisinin kaynakla, mevcut wiki graph'iyle, insan review'uyla ve `validate-wiki.ps1` gibi deterministik kontrollerle kalibre edilmesinden gelir.
+
 ## Next Ideas
 
 - Periyodik lint akisi tanimlamak: orphan sayfalar, eksik source reference, stale index entry ve eksik related page kontrolleri.
@@ -58,6 +62,7 @@ Aspire `AGENTS.md` ornegi, bu repoda talimatlarin daha da operasyonel hale getir
 - Belirli sayfa sayisindan sonra markdown aramasi, BM25 veya qmd benzeri lokal arama araclarini degerlendirmek.
 - Interview hazirligi icin konsept sayfalarindan cevap odakli interview sayfalari uretmek.
 - `AGENTS.md` icinde review prompt'unun hangi durumlarda calistirilacagini ve hangi kalite kontrollerinin zorunlu oldugunu daha net yazmak.
+- AI judgment icin kisa bir review checklist'i denemek: varsayimlar, source reference, duplicate riski, uygulanabilirlik ve validation sonucu.
 - Aspire'daki pattern-based instruction fikrini bu repo icin sade bir sekilde uyarlamak: `raw/`, `wiki/concepts/`, `wiki/syntheses/`, `wiki/interview/` ve `wiki/projects/` icin ayrik beklentiler.
 - Local-first bakisiyla wiki'nin tamamen offline okunabilir, export edilebilir ve baska araclarla islenebilir kalmasini kalite hedefi yapmak.
 - Ileride cok kullanicili wiki duzenleme ihtiyaci dogarsa CRDT veya Git tabanli merge stratejilerini ayri bir sentezde degerlendirmek.
@@ -67,10 +72,12 @@ Aspire `AGENTS.md` ornegi, bu repoda talimatlarin daha da operasyonel hale getir
 - [LLM Wiki](../concepts/llm-wiki.md)
 - [Agent Workflow](../concepts/agent-workflow.md)
 - [Agent Instructions](../concepts/agent-instructions.md)
+- [AI Caginda Judgment](../concepts/ai-caginda-judgment.md)
 - [Local-first Software](../concepts/local-first-software.md)
 - [CRDT](../concepts/crdt.md)
 - [RAG vs LLM Wiki](../syntheses/rag-vs-llm-wiki.md)
 - [Coding Agent vs Knowledge Wiki Agent](../syntheses/coding-agent-vs-knowledge-wiki-agent.md)
+- [Prompt Playbook vs Kalibre Judgment](../syntheses/prompt-playbook-vs-kalibre-judgment.md)
 - [Cloud-first vs Offline-first vs Local-first](../syntheses/cloud-first-vs-offline-first-vs-local-first.md)
 
 ## Source References
@@ -78,3 +85,4 @@ Aspire `AGENTS.md` ornegi, bu repoda talimatlarin daha da operasyonel hale getir
 - `raw/articles/karpathy-llm-wiki.md`
 - `raw/repos/aspire-agents-md.md`
 - `raw/articles/2026-06-20-local-first-software.md`
+- `raw/articles/2026-06-23-the-most-important-skill-in-the-age-of-ai-judgment.md`

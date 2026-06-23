@@ -15,6 +15,7 @@ This is the main navigation page for the knowledge wiki.
 - [Local-first Software](concepts/local-first-software.md) - Yerel cihazdaki veriyi birincil kabul eden, cloud'u destekleyici sync/backup katmani olarak kullanan mimari yaklasim.
 - [CRDT](concepts/crdt.md) - Es zamanli dagitik degisiklikleri deterministik merge edebilen veri yapisi ailesi.
 - [Cache Karar Kriterleri](concepts/cache-karar-kriterleri.md) - Cache kullanma kararini frekans, maliyet, stabilite, guvenlik ve olceklenebilirlik acisindan degerlendirme yaklasimi.
+- [AI Caginda Judgment](concepts/ai-caginda-judgment.md) - LLM ve agent ciktilarini varsayim, risk, baglam ve dogruluk acisindan degerlendirme becerisi.
 
 ## Syntheses
 
@@ -22,11 +23,13 @@ This is the main navigation page for the knowledge wiki.
 - [Coding Agent vs Knowledge Wiki Agent](syntheses/coding-agent-vs-knowledge-wiki-agent.md) - Kod degistiren ajanlarla bilgi wiki'si ureten ajanlarin farkli riskleri ve kalite kapilari.
 - [Cloud-first vs Offline-first vs Local-first](syntheses/cloud-first-vs-offline-first-vs-local-first.md) - Server-authoritative, offline-capable ve local-authoritative mimari yaklasimlarin pratik farklari.
 - [Cache vs Source of Truth](syntheses/cache-vs-source-of-truth.md) - Cache'in gecici performans kopyasi, source of truth'un ise yetkili domain kaydi olmasi arasindaki fark.
+- [Prompt Playbook vs Kalibre Judgment](syntheses/prompt-playbook-vs-kalibre-judgment.md) - Hazir prompt kaliplari ile AI ciktisini kalibre ederek degerlendirme arasindaki fark.
 
 ## Interview Notes
 
 - [Offline-first ile local-first arasindaki fark nedir?](interview/offline-first-ile-local-first-arasindaki-fark-nedir.md) - Offline mimari, local data ownership ve sync tradeoff'larini anlatan mulakat cevabi.
 - [Cache ne zaman kullanilmali?](interview/cache-ne-zaman-kullanilmali.md) - Cache kararini system design mulakatinda TTL, invalidation, guvenlik ve stale data tradeoff'lariyla savunma cevabi.
+- [AI ciktilarini nasil degerlendirirsin?](interview/ai-ciktilarini-nasil-degerlendirirsin.md) - LLM ciktisini varsayim, domain bilgisi, test, review ve validation ile kontrol etmeyi anlatan mulakat cevabi.
 
 ## Projects
 

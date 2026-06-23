@@ -214,3 +214,40 @@ Updated:
 Notes:
 - Added a Phase 3 MVP helper that creates a raw source file and prepares the ingest prompt through existing scripts.
 - Documented that the helper does not fetch content, call LLMs, modify wiki pages or commit changes.
+
+## 2026-06-23 - ingest - The Most Important Skill in the Age of AI Judgment
+
+Source:
+- `raw/articles/2026-06-23-the-most-important-skill-in-the-age-of-ai-judgment.md`
+
+Created:
+- `wiki/concepts/ai-caginda-judgment.md`
+- `wiki/syntheses/prompt-playbook-vs-kalibre-judgment.md`
+- `wiki/interview/ai-ciktilarini-nasil-degerlendirirsin.md`
+
+Updated:
+- `wiki/concepts/agent-workflow.md`
+- `wiki/projects/lothal-knowledgewiki.md`
+- `wiki/index.md`
+- `wiki/log.md`
+
+Notes:
+- Added AI-era judgment as a reusable concept for evaluating LLM and agent output.
+- Compared prompt playbooks with calibrated judgment and connected the idea to ingest, review and deterministic validation.
+- Extracted an interview-ready answer for explaining mature AI usage in software engineering workflows.
+
+## 2026-06-23 - review - The Most Important Skill in the Age of AI Judgment ingest
+
+Source:
+- `raw/articles/2026-06-23-the-most-important-skill-in-the-age-of-ai-judgment.md`
+
+Created:
+- None
+
+Updated:
+- `wiki/log.md`
+
+Notes:
+- Reviewed the AI judgment ingest for template completeness, source references, relative links and duplicate risk.
+- Confirmed generated wiki content does not contain absolute local filesystem paths.
+- Confirmed deterministic validation passes with zero errors and zero warnings.

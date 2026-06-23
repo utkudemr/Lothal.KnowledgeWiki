@@ -18,10 +18,13 @@ Bu, bilgi yonetimini yazilim gelistirme is akisi gibi ele alir. Kurallar repo ic
 - Her anlamli degisiklik index ve log ile izlenebilir hale gelir.
 - Insan kaynak secer, oncelik verir ve kaliteyi denetler; ajan operasyonel bakimi yapar.
 - Buyuk repository'lerde agent workflow, genel talimatlarin yaninda dosya sahipligi, generated dosya sinirlari, test komutlari ve kalite kapilariyla desteklenmelidir.
+- AI ciktisi final karar degil, review ve validation'dan gecmesi gereken aday ciktidir.
 
 ## Example
 
 Bu repoda yeni bir makale eklendiginde ajan once `AGENTS.md` dosyasini okur, sonra kaynak dosyayi inceler, mevcut wiki sayfalarini kontrol eder, duplicate olusturmadan ilgili konsept ve sentez sayfalarini gunceller. Is bitince `wiki/index.md` ve `wiki/log.md` dosyalarini da gunceller.
+
+AI judgment kaynagi bu ornege ek bir kalite lensi ekler: ajan ciktisinin akici olmasi yeterli degildir. Cikti hangi varsayimlara dayaniyor, kaynakla izlenebilir mi, mevcut bilgiyle celisiyor mu, review ve deterministik validation'dan geciyor mu diye kontrol edilmelidir.
 
 ## .NET / Backend Relevance
 
@@ -43,16 +46,19 @@ Agent workflow konusu, "LLM'i production sureclerine nasil kontrollu eklersin?" 
 ## Related Pages
 
 - [Agent Instructions](agent-instructions.md)
+- [AI Caginda Judgment](ai-caginda-judgment.md)
 - [LLM Wiki](llm-wiki.md)
 - [RAG](rag.md)
 - [RAG vs LLM Wiki](../syntheses/rag-vs-llm-wiki.md)
 - [Coding Agent vs Knowledge Wiki Agent](../syntheses/coding-agent-vs-knowledge-wiki-agent.md)
+- [Prompt Playbook vs Kalibre Judgment](../syntheses/prompt-playbook-vs-kalibre-judgment.md)
 - [Lothal KnowledgeWiki](../projects/lothal-knowledgewiki.md)
 
 ## Source References
 
 - `raw/articles/karpathy-llm-wiki.md`
 - `raw/repos/aspire-agents-md.md`
+- `raw/articles/2026-06-23-the-most-important-skill-in-the-age-of-ai-judgment.md`
 
 ## Open Questions
 
