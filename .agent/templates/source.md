@@ -1,6 +1,6 @@
 # {{TITLE}}
 
-## Kaynak Bilgileri
+## Source Metadata
 
 - Title: {{TITLE}}
 - Source URL: {{SOURCE_URL}}
@@ -11,12 +11,12 @@
 
 ## Context Notes
 
-Bu kaynak neden eklendi? Hangi teknik soru, proje ihtiyacı, mülakat konusu veya öğrenme hedefi için faydalı olabilir?
+Explain why this source was added. Mention the technical question, project need, interview topic, or learning goal this source supports.
 
 {{CONTEXT_NOTES}}
 
 ## Raw Content
 
-Kaynak içeriğini burada mümkün olduğunca bozmadan saklayın. Alıntı, transkript, not, README parçası veya manuel yakalanmış içerik olabilir.
+Paste the source content here as faithfully as possible. This can be an excerpt, transcript, note, README section, article content, or manually captured content.
 
 {{RAW_CONTENT}}
