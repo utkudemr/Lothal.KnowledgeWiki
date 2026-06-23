@@ -105,6 +105,16 @@ A clean result should show:
 - Errors: 0
 - Warnings: 0
 
+### Start Ingest Helper
+
+To create a raw source file and prepare the ingest prompt in one step:
+
+```powershell
+.\scripts\start-ingest.ps1 article "Article Title" "[https://example.com/article](https://example.com/article)"
+```
+
+This helper creates the raw source file and prepares the ingest prompt, but it does not fetch content, call LLMs, modify wiki files or commit changes.
+
 ## Status
 
 Phase 1: Manual markdown wiki and agent-assisted ingestion completed.
@@ -115,5 +125,7 @@ Phase 1.5: Helper scripts added for:
 - review prompt generation
 
 Phase 2: Deterministic wiki validation MVP added with `scripts/validate-wiki.ps1`.
+
+Phase 3 MVP: Start ingest helper added with `scripts/start-ingest.ps1`.
 
 Next: test the workflow with a new article end-to-end.

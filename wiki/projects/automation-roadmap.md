@@ -33,19 +33,19 @@ Bu roadmap'in amaci, ingest/review/validation akisini kademeli olarak daha az ma
 
 ## Phase 3 - Start Ingest Helper
 
-Gelecek `scripts/start-ingest.ps1`, yeni bir kaynagi ingest workflow'una sokmak icin tek giris noktasi olabilir.
+`scripts/start-ingest.ps1` MVP olarak eklendi. Yeni bir kaynagi ingest workflow'una sokmak icin `new-source.ps1` ve `ingest-prompt.ps1` adimlarini tek komutta birlestirir.
 
 Hedefler:
 
-- Raw source dosyasini olusturmak.
-- Kullaniciya sonraki adimlari yazdirmak.
-- Ingest prompt'unu hazirlamak veya clipboard'a kopyalamak.
-- Hatirlanmasi gereken komut sayisini azaltmak.
-- `raw/` dosyasinin once insan tarafindan doldurulmasi gerektigini net gostermek.
+- Raw source dosyasini olusturmak. (MVP: tamamlandi)
+- Kullaniciya sonraki adimlari yazdirmak. (MVP: tamamlandi)
+- Ingest prompt'unu hazirlamak ve clipboard'a kopyalamak. (MVP: tamamlandi)
+- Hatirlanmasi gereken komut sayisini azaltmak. (MVP: tamamlandi)
+- `raw/` dosyasinin once insan tarafindan doldurulmasi gerektigini net gostermek. (MVP: tamamlandi)
 
 Bu fazda script LLM cagirmamali. Sadece dosya, prompt ve yonlendirme yardimcisi olarak kalmali. Boylece sistem, Phase 1.5'teki guvenli helper script modelini bozmadan daha ergonomik hale gelir.
 
-Olası kullanim:
+Kullanim:
 
 ```powershell
 .\scripts\start-ingest.ps1 article "Article Title" "https://example.com/article"
@@ -58,6 +58,8 @@ Beklenen cikti:
 - Raw source commit onerisi.
 - Ingest prompt'unu hazirlama veya kopyalama adimi.
 - Validation ve review hatirlatmasi.
+
+MVP bilincli olarak URL icerigini fetch etmez, LLM cagirmasi yapmaz, wiki dosyalarini degistirmez ve commit atmaz. Bu nedenle workflow hala insanin source context'ini ve raw content'i bilincli sekilde doldurmasini zorunlu tutar.
 
 ## Phase 3.5 - Review Summary Automation
 

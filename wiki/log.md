@@ -194,3 +194,23 @@ Notes:
 - Added cache decision criteria as a reusable backend/system design concept.
 - Compared cache with source of truth and connected the distinction to local-first and offline-first data models.
 - Extracted an interview-ready answer for when cache should and should not be used.
+
+## 2026-06-23 - update - Start Ingest Helper
+
+Source:
+- `scripts/new-source.ps1`
+- `scripts/ingest-prompt.ps1`
+- `README.md`
+- `wiki/projects/automation-roadmap.md`
+
+Created:
+- `scripts/start-ingest.ps1`
+
+Updated:
+- `README.md`
+- `wiki/projects/automation-roadmap.md`
+- `wiki/log.md`
+
+Notes:
+- Added a Phase 3 MVP helper that creates a raw source file and prepares the ingest prompt through existing scripts.
+- Documented that the helper does not fetch content, call LLMs, modify wiki pages or commit changes.
