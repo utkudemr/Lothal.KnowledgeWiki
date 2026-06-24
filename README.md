@@ -42,6 +42,14 @@ This repository experiments with a persistent wiki layer maintained by agents.
    - Context Notes
    - Raw Content
 
+   To import Raw Content from the clipboard, first copy article markdown/text from the browser, reader mode, or MarkDownload, then run:
+
+   ```powershell
+   .\scripts\import-clipboard-source.ps1 raw/articles/example.md
+   ```
+
+   This helper fills only the `{{RAW_CONTENT}}` placeholder. It does not fetch URL content or call an LLM.
+
 3. Commit the raw source:
 
    ```powershell

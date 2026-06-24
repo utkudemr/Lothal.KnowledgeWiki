@@ -72,8 +72,6 @@ $content = $content.Replace('{{TITLE}}', $Title)
 $content = $content.Replace('{{SOURCE_URL}}', $Url)
 $content = $content.Replace('{{CAPTURED_AT}}', $capturedAt)
 $content = $content.Replace('{{SOURCE_TYPE}}', $Type)
-$content = $content.Replace('{{CONTEXT_NOTES}}', 'Bu kaynak neden eklendiğini burada açıklayın.')
-$content = $content.Replace('{{RAW_CONTENT}}', 'Kaynak içeriğini buraya yapıştırın.')
 
 Set-Content -LiteralPath $targetPath -Value $content -Encoding UTF8 -NoNewline
 

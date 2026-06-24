@@ -270,3 +270,20 @@ Notes:
 - Documented Obsidian as an optional reading and browsing layer for the markdown wiki.
 - Clarified that Rider/VS Code remain the editing, agent workflow, validation and commit environment.
 - Added reading UX and future automation candidates to the automation roadmap.
+
+## 2026-06-24 - update - Clipboard Raw Content Import Helper
+
+Source:
+- `scripts/import-clipboard-source.ps1`
+- `README.md`
+
+Created:
+- `scripts/import-clipboard-source.ps1`
+
+Updated:
+- `README.md`
+- `wiki/log.md`
+
+Notes:
+- Added a PowerShell helper for importing clipboard text into an existing raw source file's Raw Content placeholder.
+- Documented that the helper does not fetch URLs, call LLMs or append content when the placeholder is missing.
