@@ -105,6 +105,19 @@ A clean result should show:
 - Errors: 0
 - Warnings: 0
 
+## Reading With Obsidian
+
+Repository root'u opsiyonel olarak Obsidian vault olarak acilabilir. Bu, `wiki/` altindaki markdown sayfalarini okumak, linkler arasinda gezinmek, backlinks'i gormek ve graph/canvas ile konu iliskilerini kesfetmek icindir.
+
+Obsidian Git'in, validation scriptlerinin veya agent workflow'unun yerine gecmez. Duzenleme, prompt hazirlama, agent calistirma, validation ve commit akisi icin Rider veya VS Code ana ortam olarak kalir.
+
+Onerilen kullanim ayrimi:
+
+- Rider / VS Code: scriptler, promptlar, agent calismasi, validation, diff review ve commit.
+- Obsidian: okuma, browse, backlinks, graph/canvas kesfi ve tekrar calisma.
+
+Obsidian kullanilirsa `.obsidian/` klasoru varsayilan olarak Git'e alinmamalidir. Obsidian ayarlari daha sonra bilincli sekilde versiyonlanmak istenirse bu karar ayrica verilebilir.
+
 ### Start Ingest Helper
 
 To create a raw source file and prepare the ingest prompt in one step:

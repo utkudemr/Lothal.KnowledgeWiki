@@ -251,3 +251,22 @@ Notes:
 - Reviewed the AI judgment ingest for template completeness, source references, relative links and duplicate risk.
 - Confirmed generated wiki content does not contain absolute local filesystem paths.
 - Confirmed deterministic validation passes with zero errors and zero warnings.
+
+## 2026-06-24 - update - Obsidian Reading Layer Documentation
+
+Source:
+- `README.md`
+- `wiki/projects/automation-roadmap.md`
+
+Created:
+- None
+
+Updated:
+- `README.md`
+- `wiki/projects/automation-roadmap.md`
+- `wiki/log.md`
+
+Notes:
+- Documented Obsidian as an optional reading and browsing layer for the markdown wiki.
+- Clarified that Rider/VS Code remain the editing, agent workflow, validation and commit environment.
+- Added reading UX and future automation candidates to the automation roadmap.

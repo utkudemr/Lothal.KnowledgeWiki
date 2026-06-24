@@ -112,6 +112,17 @@ Validation su an dogru yerde duruyor: lokal script ve GitHub Actions gate'i. Son
 
 Bu fazin amaci yeni kurallar eklemek kadar validation sonucunu daha kullanilabilir hale getirmektir.
 
+## Phase 4.6 - Reading UX
+
+Okuma deneyimi automation ve usability iyilestirmelerinin parcasi olarak ele alinmali. Bu repo markdown tabanli kaldigi icin kok dizin Obsidian vault olarak acilabilir; boylece `wiki/` sayfalari linkler, backlinks, graph ve canvas uzerinden okunabilir.
+
+Bu rol ayrimi korunmali:
+
+- Rider / VS Code: scriptler, promptlar, agent calismasi, validation, diff review ve commit.
+- Obsidian: okuma, linkler arasinda gezinme, backlinks, graph/canvas kesfi ve tekrar calisma.
+
+Obsidian opsiyoneldir. Git, `scripts/validate-wiki.ps1`, agent ingest/review akisi veya commit disiplininin yerine gecmemelidir. `.obsidian/` klasoru varsayilan olarak Git disinda kalmali; ayarlarin versiyonlanmasi daha sonra bilincli bir karar olarak degerlendirilmelidir.
+
 ## Phase 5 - Commit Assistant
 
 Commit assistant, validation sonucunu okuyup commit oncesi karar destegi verebilir. Bu arac otomatik commit atmamalidir; sadece kullaniciya hazirlik raporu sunmalidir.
@@ -137,10 +148,12 @@ Bu asamada final karar yine insanda kalmali. Knowledge base kalitesini korumak i
 ## Recommended Order
 
 1. `scripts/start-ingest.ps1` ile source creation ve ingest prompt hazirlamayi tek komuta yaklastir.
-2. `scripts/review-prompt.ps1` icin opsiyonel ingest summary dosyasi destegi ekle.
-3. `.agent/runs/` icin minimal run artifact formatini dene.
-4. Validation output'unu daha structured hale getir.
-5. Commit assistant'i sadece karar destegi verecek sekilde tasarla.
+2. `scripts/import-clipboard-source.ps1` ile clipboard'daki kaynak icerigini raw source template'ine daha hizli aktarmayi dene.
+3. `scripts/review-prompt.ps1` icin opsiyonel ingest summary dosyasi destegi ekle.
+4. `.agent/runs/` icin minimal run artifact formatini dene.
+5. Opsiyonel `scripts/open-reading.ps1` ile repo kokunu veya `wiki/index.md` dosyasini okuma ortaminda acmayi degerlendir.
+6. Validation output'unu daha structured hale getir.
+7. Commit assistant'i sadece karar destegi verecek sekilde tasarla.
 
 ## .NET / Backend Relevance
 
@@ -174,3 +187,4 @@ Lothal.KnowledgeWiki icin `raw/` event log gibi, `wiki/` read model gibi, valida
 - Helper scriptler clipboard kullanmali mi, yoksa sadece stdout'a mi yazmali?
 - Commit assistant ne kadar otomatik olmali?
 - LLM API entegrasyonu hangi kalite kapilarindan sonra dusunulmeli?
+- Obsidian ayarlari uzun vadede Git'e alinmali mi, yoksa tamamen lokal mi kalmali?
