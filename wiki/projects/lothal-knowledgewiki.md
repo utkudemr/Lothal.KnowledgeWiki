@@ -15,6 +15,7 @@ Repo, LLM Wiki desenini uygulayan basit ama genisleyebilir bir yapiya sahip:
 - `AGENTS.md`, ajanin nasil davranacagini ve hangi formatlari kullanacagini belirler.
 - `wiki/index.md`, insan ve ajan icin navigasyon saglar.
 - `wiki/log.md`, ingest ve buyuk guncellemeleri kronolojik olarak kaydeder.
+- Ingest, review ve validation adimlari iki-track agentic workflow'a benzer sekilde ayrik dikkat turleri olarak ele alinir.
 
 ## Important Concepts
 
@@ -23,11 +24,13 @@ Repo, LLM Wiki desenini uygulayan basit ama genisleyebilir bir yapiya sahip:
 - [Agent Workflow](../concepts/agent-workflow.md)
 - [Agent Instructions](../concepts/agent-instructions.md)
 - [AI Caginda Judgment](../concepts/ai-caginda-judgment.md)
+- [Two-Track Agentic Development](../concepts/two-track-agentic-development.md)
 - [Local-first Software](../concepts/local-first-software.md)
 - [CRDT](../concepts/crdt.md)
 - [RAG vs LLM Wiki](../syntheses/rag-vs-llm-wiki.md)
 - [Coding Agent vs Knowledge Wiki Agent](../syntheses/coding-agent-vs-knowledge-wiki-agent.md)
 - [Prompt Playbook vs Kalibre Judgment](../syntheses/prompt-playbook-vs-kalibre-judgment.md)
+- [Parallel Agent vs Flow Efficiency](../syntheses/parallel-agent-vs-flow-efficiency.md)
 - [Cloud-first vs Offline-first vs Local-first](../syntheses/cloud-first-vs-offline-first-vs-local-first.md)
 
 ## Architecture Notes
@@ -55,6 +58,8 @@ Aspire `AGENTS.md` ornegi, bu repoda talimatlarin daha da operasyonel hale getir
 
 AI judgment kaynagi bu workflow'un neden sadece prompt template'lerinden ibaret olmamasi gerektigini netlestirir. Ingest prompt'u baslatma aracidir; asil kalite, agent ciktisinin kaynakla, mevcut wiki graph'iyle, insan review'uyla ve `validate-wiki.ps1` gibi deterministik kontrollerle kalibre edilmesinden gelir.
 
+Two-track agentic development kaynagi bu projeye ek bir workflow prensibi getirir: daha cok agent calistirmak yerine bottleneck'i netlestirmek gerekir. Lothal.KnowledgeWiki'de source context ve raw content spec input gibi davranir; ingest bilgi uretimi, review ve validation ise verification hattidir.
+
 ## Next Ideas
 
 - Periyodik lint akisi tanimlamak: orphan sayfalar, eksik source reference, stale index entry ve eksik related page kontrolleri.
@@ -63,6 +68,7 @@ AI judgment kaynagi bu workflow'un neden sadece prompt template'lerinden ibaret 
 - Interview hazirligi icin konsept sayfalarindan cevap odakli interview sayfalari uretmek.
 - `AGENTS.md` icinde review prompt'unun hangi durumlarda calistirilacagini ve hangi kalite kontrollerinin zorunlu oldugunu daha net yazmak.
 - AI judgment icin kisa bir review checklist'i denemek: varsayimlar, source reference, duplicate riski, uygulanabilirlik ve validation sonucu.
+- Ingest workflow icin spec/implementation/verification ayrimini daha gorunur hale getirmek: raw context, ingest output, review result ve validation output'u ayrik artefaktlar olarak dusunmek.
 - Aspire'daki pattern-based instruction fikrini bu repo icin sade bir sekilde uyarlamak: `raw/`, `wiki/concepts/`, `wiki/syntheses/`, `wiki/interview/` ve `wiki/projects/` icin ayrik beklentiler.
 - Local-first bakisiyla wiki'nin tamamen offline okunabilir, export edilebilir ve baska araclarla islenebilir kalmasini kalite hedefi yapmak.
 - Ileride cok kullanicili wiki duzenleme ihtiyaci dogarsa CRDT veya Git tabanli merge stratejilerini ayri bir sentezde degerlendirmek.
@@ -73,11 +79,13 @@ AI judgment kaynagi bu workflow'un neden sadece prompt template'lerinden ibaret 
 - [Agent Workflow](../concepts/agent-workflow.md)
 - [Agent Instructions](../concepts/agent-instructions.md)
 - [AI Caginda Judgment](../concepts/ai-caginda-judgment.md)
+- [Two-Track Agentic Development](../concepts/two-track-agentic-development.md)
 - [Local-first Software](../concepts/local-first-software.md)
 - [CRDT](../concepts/crdt.md)
 - [RAG vs LLM Wiki](../syntheses/rag-vs-llm-wiki.md)
 - [Coding Agent vs Knowledge Wiki Agent](../syntheses/coding-agent-vs-knowledge-wiki-agent.md)
 - [Prompt Playbook vs Kalibre Judgment](../syntheses/prompt-playbook-vs-kalibre-judgment.md)
+- [Parallel Agent vs Flow Efficiency](../syntheses/parallel-agent-vs-flow-efficiency.md)
 - [Cloud-first vs Offline-first vs Local-first](../syntheses/cloud-first-vs-offline-first-vs-local-first.md)
 
 ## Source References
@@ -86,3 +94,4 @@ AI judgment kaynagi bu workflow'un neden sadece prompt template'lerinden ibaret 
 - `raw/repos/aspire-agents-md.md`
 - `raw/articles/2026-06-20-local-first-software.md`
 - `raw/articles/2026-06-23-the-most-important-skill-in-the-age-of-ai-judgment.md`
+- `raw/articles/2026-06-24-two-agent-workflow-for-agentic-development.md`

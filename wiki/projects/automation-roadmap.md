@@ -6,6 +6,8 @@ Mevcut Lothal.KnowledgeWiki sistemi calisiyor: raw source eklenebiliyor, ingest 
 
 Bu roadmap'in amaci, ingest/review/validation akisini kademeli olarak daha az manuel hale getirmek. Hedef tam otomatik ve kontrolsuz bir sistem kurmak degil; kullanicinin niyetini, source context'ini ve commit kararini koruyarak tekrar eden mekanik adimlari azaltmak.
 
+Two-track agentic development kaynagi bu roadmap'e onemli bir sinir cizer: automation, sadece daha cok agent veya daha cok paralel is anlamina gelmemelidir. Once spec, implementation ve verification bottleneck'leri ayrilmali; sonra mekanik adimlar guvenli sekilde azaltılmalidir.
+
 ## Current Manual Workflow
 
 1. Kaynak bulunur.
@@ -166,6 +168,7 @@ Lothal.KnowledgeWiki icin `raw/` event log gibi, `wiki/` read model gibi, valida
 - [Lothal KnowledgeWiki](lothal-knowledgewiki.md)
 - [Phase 2 Status Report](phase-2-status-report.md)
 - [Phase 1 Status Report](phase-1-status-report.md)
+- [Two-Track Agentic Development](../concepts/two-track-agentic-development.md)
 - [Agent Workflow](../concepts/agent-workflow.md)
 - [Agent Instructions](../concepts/agent-instructions.md)
 
@@ -179,6 +182,7 @@ Lothal.KnowledgeWiki icin `raw/` event log gibi, `wiki/` read model gibi, valida
 - `scripts/validate-wiki.ps1`
 - `.github/workflows/validate-wiki.yml`
 - `README.md`
+- `raw/articles/2026-06-24-two-agent-workflow-for-agentic-development.md`
 
 ## Open Questions
 

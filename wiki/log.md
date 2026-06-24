@@ -287,3 +287,25 @@ Updated:
 Notes:
 - Added a PowerShell helper for importing clipboard text into an existing raw source file's Raw Content placeholder.
 - Documented that the helper does not fetch URLs, call LLMs or append content when the placeholder is missing.
+
+## 2026-06-24 - ingest - Two-Agent Workflow for Agentic Development
+
+Source:
+- `raw/articles/2026-06-24-two-agent-workflow-for-agentic-development.md`
+
+Created:
+- `wiki/concepts/two-track-agentic-development.md`
+- `wiki/syntheses/parallel-agent-vs-flow-efficiency.md`
+- `wiki/interview/agentic-developmentta-neden-cok-agent-her-zaman-verimli-degildir.md`
+
+Updated:
+- `wiki/concepts/agent-workflow.md`
+- `wiki/projects/lothal-knowledgewiki.md`
+- `wiki/projects/automation-roadmap.md`
+- `wiki/index.md`
+- `wiki/log.md`
+
+Notes:
+- Added two-track agentic development as a reusable concept for separating spec, implementation and verification work.
+- Compared parallel agent count with flow efficiency and bottleneck-aware workflow design.
+- Extracted an interview-ready answer about why many parallel agents do not automatically mean higher productivity.

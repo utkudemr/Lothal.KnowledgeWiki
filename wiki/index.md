@@ -16,6 +16,7 @@ This is the main navigation page for the knowledge wiki.
 - [CRDT](concepts/crdt.md) - Es zamanli dagitik degisiklikleri deterministik merge edebilen veri yapisi ailesi.
 - [Cache Karar Kriterleri](concepts/cache-karar-kriterleri.md) - Cache kullanma kararini frekans, maliyet, stabilite, guvenlik ve olceklenebilirlik acisindan degerlendirme yaklasimi.
 - [AI Caginda Judgment](concepts/ai-caginda-judgment.md) - LLM ve agent ciktilarini varsayim, risk, baglam ve dogruluk acisindan degerlendirme becerisi.
+- [Two-Track Agentic Development](concepts/two-track-agentic-development.md) - Spec ve implementation hatlarini ayirarak agent workflow'unda bottleneck ve insan dikkatini yonetme yaklasimi.
 
 ## Syntheses
 
@@ -24,12 +25,14 @@ This is the main navigation page for the knowledge wiki.
 - [Cloud-first vs Offline-first vs Local-first](syntheses/cloud-first-vs-offline-first-vs-local-first.md) - Server-authoritative, offline-capable ve local-authoritative mimari yaklasimlarin pratik farklari.
 - [Cache vs Source of Truth](syntheses/cache-vs-source-of-truth.md) - Cache'in gecici performans kopyasi, source of truth'un ise yetkili domain kaydi olmasi arasindaki fark.
 - [Prompt Playbook vs Kalibre Judgment](syntheses/prompt-playbook-vs-kalibre-judgment.md) - Hazir prompt kaliplari ile AI ciktisini kalibre ederek degerlendirme arasindaki fark.
+- [Parallel Agent vs Flow Efficiency](syntheses/parallel-agent-vs-flow-efficiency.md) - Cok agent calistirma fikri ile bottleneck ve flow verimliligi odakli agent workflow'u arasindaki fark.
 
 ## Interview Notes
 
 - [Offline-first ile local-first arasindaki fark nedir?](interview/offline-first-ile-local-first-arasindaki-fark-nedir.md) - Offline mimari, local data ownership ve sync tradeoff'larini anlatan mulakat cevabi.
 - [Cache ne zaman kullanilmali?](interview/cache-ne-zaman-kullanilmali.md) - Cache kararini system design mulakatinda TTL, invalidation, guvenlik ve stale data tradeoff'lariyla savunma cevabi.
 - [AI ciktilarini nasil degerlendirirsin?](interview/ai-ciktilarini-nasil-degerlendirirsin.md) - LLM ciktisini varsayim, domain bilgisi, test, review ve validation ile kontrol etmeyi anlatan mulakat cevabi.
+- [Agentic development'ta neden cok agent her zaman verimli degildir?](interview/agentic-developmentta-neden-cok-agent-her-zaman-verimli-degildir.md) - Agent sayisi, spec bottleneck'i, review ve verification kapasitesi hakkinda mulakat cevabi.
 
 ## Projects
 
