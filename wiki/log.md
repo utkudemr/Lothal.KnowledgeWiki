@@ -350,3 +350,27 @@ Notes:
 - Added agent orchestration as a canonical concept covering delegation, context boundaries, partial result aggregation and next-step decisions.
 - Compared single-agent execution with orchestration using task independence, token cost and verification capacity as decision criteria.
 - Connected orchestration to .NET coordinator/worker patterns and defined a cautious application model for KnowledgeWiki ingest work.
+
+## 2026-06-27 - update - Reader-Friendly Home and Reading Paths
+
+Source:
+- `wiki/index.md`
+- Existing pages under `wiki/concepts/`, `wiki/syntheses/` and `wiki/interview/`
+
+Created:
+- `wiki/home.md`
+- `wiki/reading-paths/agentic-development.md`
+- `wiki/reading-paths/backend-system-design.md`
+- `wiki/reading-paths/caching-and-consistency.md`
+- `wiki/reading-paths/local-first-and-offline.md`
+- `wiki/reading-paths/interview-prep.md`
+
+Updated:
+- `README.md`
+- `wiki/index.md`
+- `wiki/log.md`
+
+Notes:
+- Added a reader-oriented dashboard and five ordered topic paths for Obsidian and other markdown readers.
+- Preferred synthesis pages before concepts and interview notes, and linked only to files that currently exist.
+- Marked thin backend and interview topic areas as "To be expanded" without creating fake links.

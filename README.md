@@ -132,14 +132,14 @@ A clean result should show:
 
 ## Reading With Obsidian
 
-Repository root'u opsiyonel olarak Obsidian vault olarak acilabilir. Bu, `wiki/` altindaki markdown sayfalarini okumak, linkler arasinda gezinmek, backlinks'i gormek ve graph/canvas ile konu iliskilerini kesfetmek icindir.
+Repository root'u opsiyonel olarak Obsidian vault olarak acilabilir. Okumaya [`wiki/home.md`](wiki/home.md) sayfasindan baslayin; buradaki konu bazli rotalar, `wiki/` altindaki sayfalari onerilen sirayla gezdirir.
 
 Obsidian Git'in, validation scriptlerinin veya agent workflow'unun yerine gecmez. Duzenleme, prompt hazirlama, agent calistirma, validation ve commit akisi icin Rider veya VS Code ana ortam olarak kalir.
 
 Onerilen kullanim ayrimi:
 
-- Rider / VS Code: scriptler, promptlar, agent calismasi, validation, diff review ve commit.
-- Obsidian: okuma, browse, backlinks, graph/canvas kesfi ve tekrar calisma.
+- Rider / VS Code: duzenleme, scriptler, promptlar, agent workflow'u, validation, diff review ve commit.
+- Obsidian: wiki'nin okuma katmani; reading path'ler, backlinks, graph/canvas kesfi ve tekrar calisma.
 
 Obsidian kullanilirsa `.obsidian/` klasoru varsayilan olarak Git'e alinmamalidir. Obsidian ayarlari daha sonra bilincli sekilde versiyonlanmak istenirse bu karar ayrica verilebilir.
 

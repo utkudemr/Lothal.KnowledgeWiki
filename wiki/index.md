@@ -4,7 +4,16 @@ This is the main navigation page for the knowledge wiki.
 
 ## Getting Started
 
+- [Knowledge Wiki Ana Sayfa](home.md) - Konuya ve okuma amacına göre rota seçmek için ana okuma paneli.
 - [Reading Guide](reading-guide.md) - Learn how to effectively read and use generated wiki outputs.
+
+## Reading Paths
+
+- [Agentic Development](reading-paths/agentic-development.md) - Agent workflow, judgment, orchestration ve flow efficiency rotası.
+- [Backend System Design](reading-paths/backend-system-design.md) - Veri otoritesi, cache ve dağıtık veri kararları üzerinden system design rotası.
+- [Caching and Consistency](reading-paths/caching-and-consistency.md) - Cache, source of truth, invalidation ve tutarlılık rotası.
+- [Local-first and Offline](reading-paths/local-first-and-offline.md) - Offline-first, local-first, sync ve CRDT rotası.
+- [Interview Prep](reading-paths/interview-prep.md) - Mülakat notlarını konu kümeleri ve destekleyici sentezlerle çalışma rotası.
 
 ## Core Concepts
 
