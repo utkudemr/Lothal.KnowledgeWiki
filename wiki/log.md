@@ -329,3 +329,24 @@ Notes:
 - Added a single-command wrapper that creates a raw source, imports clipboard content, fills default Context Notes, prepares the ingest prompt and runs validation.
 - Made browser-captured markdown/text the preferred Phase 3.5 workflow for most article, tweet and thread sources.
 - Kept URL fetching, LLM calls and commit creation outside the helper's responsibilities.
+
+## 2026-06-27 - ingest - Agent Orchestration Explained
+
+Source:
+- `raw/tweets/2026-06-27-agent-orchestration-explained.md`
+
+Created:
+- `wiki/concepts/agent-orchestration.md`
+- `wiki/syntheses/single-agent-vs-agent-orchestration.md`
+- `wiki/interview/agent-orchestration-nedir-ve-ne-zaman-kullanilmalidir.md`
+
+Updated:
+- `wiki/concepts/agent-workflow.md`
+- `wiki/projects/lothal-knowledgewiki.md`
+- `wiki/index.md`
+- `wiki/log.md`
+
+Notes:
+- Added agent orchestration as a canonical concept covering delegation, context boundaries, partial result aggregation and next-step decisions.
+- Compared single-agent execution with orchestration using task independence, token cost and verification capacity as decision criteria.
+- Connected orchestration to .NET coordinator/worker patterns and defined a cautious application model for KnowledgeWiki ingest work.

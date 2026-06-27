@@ -22,6 +22,7 @@ Repo, LLM Wiki desenini uygulayan basit ama genisleyebilir bir yapiya sahip:
 - [LLM Wiki](../concepts/llm-wiki.md)
 - [RAG](../concepts/rag.md)
 - [Agent Workflow](../concepts/agent-workflow.md)
+- [Agent Orchestration](../concepts/agent-orchestration.md)
 - [Agent Instructions](../concepts/agent-instructions.md)
 - [AI Caginda Judgment](../concepts/ai-caginda-judgment.md)
 - [Two-Track Agentic Development](../concepts/two-track-agentic-development.md)
@@ -31,6 +32,7 @@ Repo, LLM Wiki desenini uygulayan basit ama genisleyebilir bir yapiya sahip:
 - [Coding Agent vs Knowledge Wiki Agent](../syntheses/coding-agent-vs-knowledge-wiki-agent.md)
 - [Prompt Playbook vs Kalibre Judgment](../syntheses/prompt-playbook-vs-kalibre-judgment.md)
 - [Parallel Agent vs Flow Efficiency](../syntheses/parallel-agent-vs-flow-efficiency.md)
+- [Single Agent vs Agent Orchestration](../syntheses/single-agent-vs-agent-orchestration.md)
 - [Cloud-first vs Offline-first vs Local-first](../syntheses/cloud-first-vs-offline-first-vs-local-first.md)
 
 ## Architecture Notes
@@ -60,6 +62,8 @@ AI judgment kaynagi bu workflow'un neden sadece prompt template'lerinden ibaret 
 
 Two-track agentic development kaynagi bu projeye ek bir workflow prensibi getirir: daha cok agent calistirmak yerine bottleneck'i netlestirmek gerekir. Lothal.KnowledgeWiki'de source context ve raw content spec input gibi davranir; ingest bilgi uretimi, review ve validation ise verification hattidir.
 
+Agent orchestration bu projede varsayılan değil, görev yapısı gerektirdiğinde kullanılan kontrollü bir optimizasyon olmalıdır. Büyük bir ingest sırasında duplicate taraması, teknik iddia analizi ve interview extraction gibi bağımsız okuma görevleri subagent'lara verilebilir. Ana agent sayfa planını, ortak terminolojiyi, source reference'ları ve final dosya değişikliklerini sahiplenmelidir. Aynı wiki dosyasını birden fazla agent'ın paralel düzenlemesi yerine kısmi sonuçlar ana agent'ta birleştirilmelidir; `validate-wiki.ps1` ise agent görüşünden bağımsız deterministik kalite kapısı olarak kalmalıdır.
+
 ## Next Ideas
 
 - Periyodik lint akisi tanimlamak: orphan sayfalar, eksik source reference, stale index entry ve eksik related page kontrolleri.
@@ -69,6 +73,7 @@ Two-track agentic development kaynagi bu projeye ek bir workflow prensibi getiri
 - `AGENTS.md` icinde review prompt'unun hangi durumlarda calistirilacagini ve hangi kalite kontrollerinin zorunlu oldugunu daha net yazmak.
 - AI judgment icin kisa bir review checklist'i denemek: varsayimlar, source reference, duplicate riski, uygulanabilirlik ve validation sonucu.
 - Ingest workflow icin spec/implementation/verification ayrimini daha gorunur hale getirmek: raw context, ingest output, review result ve validation output'u ayrik artefaktlar olarak dusunmek.
+- Büyük ingest'ler için subagent sonuç sözleşmesini denemek: kapsam, bulgu, kanıt, belirsizlik, önerilen sayfa ve açık sorular.
 - Aspire'daki pattern-based instruction fikrini bu repo icin sade bir sekilde uyarlamak: `raw/`, `wiki/concepts/`, `wiki/syntheses/`, `wiki/interview/` ve `wiki/projects/` icin ayrik beklentiler.
 - Local-first bakisiyla wiki'nin tamamen offline okunabilir, export edilebilir ve baska araclarla islenebilir kalmasini kalite hedefi yapmak.
 - Ileride cok kullanicili wiki duzenleme ihtiyaci dogarsa CRDT veya Git tabanli merge stratejilerini ayri bir sentezde degerlendirmek.
@@ -77,6 +82,7 @@ Two-track agentic development kaynagi bu projeye ek bir workflow prensibi getiri
 
 - [LLM Wiki](../concepts/llm-wiki.md)
 - [Agent Workflow](../concepts/agent-workflow.md)
+- [Agent Orchestration](../concepts/agent-orchestration.md)
 - [Agent Instructions](../concepts/agent-instructions.md)
 - [AI Caginda Judgment](../concepts/ai-caginda-judgment.md)
 - [Two-Track Agentic Development](../concepts/two-track-agentic-development.md)
@@ -86,6 +92,7 @@ Two-track agentic development kaynagi bu projeye ek bir workflow prensibi getiri
 - [Coding Agent vs Knowledge Wiki Agent](../syntheses/coding-agent-vs-knowledge-wiki-agent.md)
 - [Prompt Playbook vs Kalibre Judgment](../syntheses/prompt-playbook-vs-kalibre-judgment.md)
 - [Parallel Agent vs Flow Efficiency](../syntheses/parallel-agent-vs-flow-efficiency.md)
+- [Single Agent vs Agent Orchestration](../syntheses/single-agent-vs-agent-orchestration.md)
 - [Cloud-first vs Offline-first vs Local-first](../syntheses/cloud-first-vs-offline-first-vs-local-first.md)
 
 ## Source References
@@ -95,3 +102,4 @@ Two-track agentic development kaynagi bu projeye ek bir workflow prensibi getiri
 - `raw/articles/2026-06-20-local-first-software.md`
 - `raw/articles/2026-06-23-the-most-important-skill-in-the-age-of-ai-judgment.md`
 - `raw/articles/2026-06-24-two-agent-workflow-for-agentic-development.md`
+- `raw/tweets/2026-06-27-agent-orchestration-explained.md`

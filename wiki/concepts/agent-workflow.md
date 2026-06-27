@@ -20,6 +20,7 @@ Bu, bilgi yonetimini yazilim gelistirme is akisi gibi ele alir. Kurallar repo ic
 - Buyuk repository'lerde agent workflow, genel talimatlarin yaninda dosya sahipligi, generated dosya sinirlari, test komutlari ve kalite kapilariyla desteklenmelidir.
 - AI ciktisi final karar degil, review ve validation'dan gecmesi gereken aday ciktidir.
 - Agentic development'ta spec, implementation ve verification ayni dikkat turunu istemez; workflow bu farki dikkate alarak tasarlanmalidir.
+- Karmaşık ve bölünebilir görevlerde ana agent delegasyon, context paylaşımı, partial result aggregation ve next-step kararlarını yöneten orchestration katmanı kurabilir.
 
 ## Example
 
@@ -28,6 +29,8 @@ Bu repoda yeni bir makale eklendiginde ajan once `AGENTS.md` dosyasini okur, son
 AI judgment kaynagi bu ornege ek bir kalite lensi ekler: ajan ciktisinin akici olmasi yeterli degildir. Cikti hangi varsayimlara dayaniyor, kaynakla izlenebilir mi, mevcut bilgiyle celisiyor mu, review ve deterministik validation'dan geciyor mu diye kontrol edilmelidir.
 
 Two-track agentic development kaynagi, workflow tasarimina bottleneck lensi ekler. Ajanlar implementation tarafinda daha otonom calisabilir; fakat spec uretimi ve verification halen insan dikkatine baglidir. Bu nedenle Lothal.KnowledgeWiki'deki raw source context'i, ingest prompt'u, review prompt'u ve validation adimlari tek bir "agent calistir" komutu degil, ayrik kalite hatlari olarak dusunulmelidir.
+
+Agent orchestration kaynağı workflow ile orchestration arasındaki sınırı netleştirir. Workflow bütün operasyonun adımlarını ve kalite kapılarını tanımlar; orchestration ise belirli bir karmaşık adım içindeki işi subagent'lara bölme, gerekli context'i dağıtma, kısmi sonuçları birleştirme ve devam kararını verme mekanizmasıdır. Her workflow multi-agent olmak zorunda değildir.
 
 ## .NET / Backend Relevance
 
@@ -51,12 +54,14 @@ Agent workflow konusu, "LLM'i production sureclerine nasil kontrollu eklersin?" 
 - [Agent Instructions](agent-instructions.md)
 - [AI Caginda Judgment](ai-caginda-judgment.md)
 - [Two-Track Agentic Development](two-track-agentic-development.md)
+- [Agent Orchestration](agent-orchestration.md)
 - [LLM Wiki](llm-wiki.md)
 - [RAG](rag.md)
 - [RAG vs LLM Wiki](../syntheses/rag-vs-llm-wiki.md)
 - [Coding Agent vs Knowledge Wiki Agent](../syntheses/coding-agent-vs-knowledge-wiki-agent.md)
 - [Prompt Playbook vs Kalibre Judgment](../syntheses/prompt-playbook-vs-kalibre-judgment.md)
 - [Parallel Agent vs Flow Efficiency](../syntheses/parallel-agent-vs-flow-efficiency.md)
+- [Single Agent vs Agent Orchestration](../syntheses/single-agent-vs-agent-orchestration.md)
 - [Lothal KnowledgeWiki](../projects/lothal-knowledgewiki.md)
 
 ## Source References
@@ -65,6 +70,7 @@ Agent workflow konusu, "LLM'i production sureclerine nasil kontrollu eklersin?" 
 - `raw/repos/aspire-agents-md.md`
 - `raw/articles/2026-06-23-the-most-important-skill-in-the-age-of-ai-judgment.md`
 - `raw/articles/2026-06-24-two-agent-workflow-for-agentic-development.md`
+- `raw/tweets/2026-06-27-agent-orchestration-explained.md`
 
 ## Open Questions
 

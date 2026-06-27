@@ -11,6 +11,7 @@ This is the main navigation page for the knowledge wiki.
 - [LLM Wiki](concepts/llm-wiki.md) - LLM tarafindan bakimi yapilan kalici markdown bilgi katmani.
 - [RAG](concepts/rag.md) - Sorgu aninda ilgili dokuman parcalarini getirerek cevap uretme yaklasimi.
 - [Agent Workflow](concepts/agent-workflow.md) - Ajanin kaynak ingest, query, lint ve wiki bakimini kuralli sekilde yapmasi.
+- [Agent Orchestration](concepts/agent-orchestration.md) - Ana agent'ın delegasyon, context paylaşımı, kısmi sonuçları birleştirme ve sonraki adım kararlarını yönetmesi.
 - [Agent Instructions](concepts/agent-instructions.md) - Repository icinde ajanlara proje kurallarini, kalite kapilarini ve maintainer beklentilerini anlatan talimat katmani.
 - [Local-first Software](concepts/local-first-software.md) - Yerel cihazdaki veriyi birincil kabul eden, cloud'u destekleyici sync/backup katmani olarak kullanan mimari yaklasim.
 - [CRDT](concepts/crdt.md) - Es zamanli dagitik degisiklikleri deterministik merge edebilen veri yapisi ailesi.
@@ -26,6 +27,7 @@ This is the main navigation page for the knowledge wiki.
 - [Cache vs Source of Truth](syntheses/cache-vs-source-of-truth.md) - Cache'in gecici performans kopyasi, source of truth'un ise yetkili domain kaydi olmasi arasindaki fark.
 - [Prompt Playbook vs Kalibre Judgment](syntheses/prompt-playbook-vs-kalibre-judgment.md) - Hazir prompt kaliplari ile AI ciktisini kalibre ederek degerlendirme arasindaki fark.
 - [Parallel Agent vs Flow Efficiency](syntheses/parallel-agent-vs-flow-efficiency.md) - Cok agent calistirma fikri ile bottleneck ve flow verimliligi odakli agent workflow'u arasindaki fark.
+- [Single Agent vs Agent Orchestration](syntheses/single-agent-vs-agent-orchestration.md) - Tek agent sadeliği ile subagent paralelliği ve koordinasyon maliyeti arasındaki seçim.
 
 ## Interview Notes
 
@@ -33,6 +35,7 @@ This is the main navigation page for the knowledge wiki.
 - [Cache ne zaman kullanilmali?](interview/cache-ne-zaman-kullanilmali.md) - Cache kararini system design mulakatinda TTL, invalidation, guvenlik ve stale data tradeoff'lariyla savunma cevabi.
 - [AI ciktilarini nasil degerlendirirsin?](interview/ai-ciktilarini-nasil-degerlendirirsin.md) - LLM ciktisini varsayim, domain bilgisi, test, review ve validation ile kontrol etmeyi anlatan mulakat cevabi.
 - [Agentic development'ta neden cok agent her zaman verimli degildir?](interview/agentic-developmentta-neden-cok-agent-her-zaman-verimli-degildir.md) - Agent sayisi, spec bottleneck'i, review ve verification kapasitesi hakkinda mulakat cevabi.
+- [Agent orchestration nedir ve ne zaman kullanılmalıdır?](interview/agent-orchestration-nedir-ve-ne-zaman-kullanilmalidir.md) - Delegasyon, context, aggregation ve orchestration maliyetlerini açıklayan mülakat cevabı.
 
 ## Projects
 
