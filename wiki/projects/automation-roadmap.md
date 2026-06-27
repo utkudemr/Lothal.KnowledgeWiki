@@ -63,7 +63,19 @@ Beklenen cikti:
 
 MVP bilincli olarak URL icerigini fetch etmez, LLM cagirmasi yapmaz, wiki dosyalarini degistirmez ve commit atmaz. Bu nedenle workflow hala insanin source context'ini ve raw content'i bilincli sekilde doldurmasini zorunlu tutar.
 
-## Phase 3.5 - Review Summary Automation
+## Phase 3.5 - Preferred Source Capture Workflow
+
+`scripts/capture-and-prepare-ingest.ps1`, browser'dan kopyalanan markdown veya metni tek komutla yeni raw source dosyasina aktarir. Varsayilan Context Notes alanini doldurur, ingest prompt'unu clipboard'a kopyalar ve wiki validation'i calistirir.
+
+Bu akış, çoğu article/tweet/thread capture işlemi için daha manuel olan `start-ingest.ps1` + `import-clipboard-source.ps1` akışının yerini alan tercih edilen yöntemdir:
+
+```powershell
+.\scripts\capture-and-prepare-ingest.ps1 article "Article Title" "https://example.com/article"
+```
+
+URL fetching bilinçli olarak ertelenmiştir. Sitelerin HTML yapısı, erişim kuralları ve client-side rendering davranışları farklıdır; şimdilik browser reader mode veya MarkDownload üzerinden alınan, kullanıcının görebildiği markdown/metin daha güvenilir bir capture sınırı sağlar. Script LLM çağırmaz, commit atmaz ve yeni oluşturduğu raw source dışında `raw/` içeriğini değiştirmez.
+
+## Phase 3.6 - Review Summary Automation
 
 `scripts/review-prompt.ps1`, opsiyonel olarak ingest summary dosyasi kabul edecek sekilde gelistirilebilir. Bu, review prompt hazirlarken agent ciktisini elle prompt icine tasima ihtiyacini azaltir.
 
@@ -149,13 +161,12 @@ Bu asamada final karar yine insanda kalmali. Knowledge base kalitesini korumak i
 
 ## Recommended Order
 
-1. `scripts/start-ingest.ps1` ile source creation ve ingest prompt hazirlamayi tek komuta yaklastir.
-2. `scripts/import-clipboard-source.ps1` ile clipboard'daki kaynak icerigini raw source template'ine daha hizli aktarmayi dene.
-3. `scripts/review-prompt.ps1` icin opsiyonel ingest summary dosyasi destegi ekle.
-4. `.agent/runs/` icin minimal run artifact formatini dene.
-5. Opsiyonel `scripts/open-reading.ps1` ile repo kokunu veya `wiki/index.md` dosyasini okuma ortaminda acmayi degerlendir.
-6. Validation output'unu daha structured hale getir.
-7. Commit assistant'i sadece karar destegi verecek sekilde tasarla.
+1. Article/tweet/thread capture icin `scripts/capture-and-prepare-ingest.ps1` kullan.
+2. `scripts/review-prompt.ps1` icin opsiyonel ingest summary dosyasi destegi ekle.
+3. `.agent/runs/` icin minimal run artifact formatini dene.
+4. Opsiyonel `scripts/open-reading.ps1` ile repo kokunu veya `wiki/index.md` dosyasini okuma ortaminda acmayi degerlendir.
+5. Validation output'unu daha structured hale getir.
+6. Commit assistant'i sadece karar destegi verecek sekilde tasarla.
 
 ## .NET / Backend Relevance
 
@@ -177,6 +188,7 @@ Lothal.KnowledgeWiki icin `raw/` event log gibi, `wiki/` read model gibi, valida
 - `wiki/projects/phase-2-status-report.md`
 - `wiki/projects/phase-1-status-report.md`
 - `scripts/new-source.ps1`
+- `scripts/capture-and-prepare-ingest.ps1`
 - `scripts/ingest-prompt.ps1`
 - `scripts/review-prompt.ps1`
 - `scripts/validate-wiki.ps1`
@@ -187,7 +199,6 @@ Lothal.KnowledgeWiki icin `raw/` event log gibi, `wiki/` read model gibi, valida
 ## Open Questions
 
 - `.agent/runs/` dizini Git'e alinmali mi, yoksa lokal audit artefact'i olarak mi kalmali?
-- Web sayfalarindan markdown capture icin hangi arac veya format guvenilir olur?
 - Helper scriptler clipboard kullanmali mi, yoksa sadece stdout'a mi yazmali?
 - Commit assistant ne kadar otomatik olmali?
 - LLM API entegrasyonu hangi kalite kapilarindan sonra dusunulmeli?

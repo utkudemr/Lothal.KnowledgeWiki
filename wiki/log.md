@@ -309,3 +309,23 @@ Notes:
 - Added two-track agentic development as a reusable concept for separating spec, implementation and verification work.
 - Compared parallel agent count with flow efficiency and bottleneck-aware workflow design.
 - Extracted an interview-ready answer about why many parallel agents do not automatically mean higher productivity.
+
+## 2026-06-27 - update - Capture and Prepare Ingest Workflow
+
+Source:
+- `scripts/capture-and-prepare-ingest.ps1`
+- `README.md`
+- `wiki/projects/automation-roadmap.md`
+
+Created:
+- `scripts/capture-and-prepare-ingest.ps1`
+
+Updated:
+- `README.md`
+- `wiki/projects/automation-roadmap.md`
+- `wiki/log.md`
+
+Notes:
+- Added a single-command wrapper that creates a raw source, imports clipboard content, fills default Context Notes, prepares the ingest prompt and runs validation.
+- Made browser-captured markdown/text the preferred Phase 3.5 workflow for most article, tweet and thread sources.
+- Kept URL fetching, LLM calls and commit creation outside the helper's responsibilities.

@@ -90,6 +90,23 @@ Notes:
 - `.agent/prompts/` contains reusable prompt templates.
 - `scripts/` only generate files or prompts; they do not run agents or call external APIs.
 
+## Capture and Prepare Ingest
+
+For most article, tweet and thread captures, the preferred workflow is:
+
+1. Copy the source markdown/text from the browser, reader mode, or MarkDownload.
+2. Run the wrapper:
+
+   ```powershell
+   .\scripts\capture-and-prepare-ingest.ps1 article "Article Title" "https://example.com/article"
+   ```
+
+3. Review the created raw source file and optionally improve its Context Notes.
+4. Commit the raw source.
+5. Paste the ingest prompt, which the helper copied to the clipboard, into the IDE agent/chat.
+
+The helper creates the raw file, imports clipboard content, adds default Context Notes, prepares the ingest prompt and runs validation. It does not fetch URLs, call an LLM or create commits.
+
 ## Phase 2 Validation Workflow
 
 After ingest and review, run:
