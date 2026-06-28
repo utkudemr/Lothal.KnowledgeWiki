@@ -81,7 +81,7 @@ Bugünkü repo-local akış:
 4. Agent updates `wiki/index.md`.
 5. Agent appends an entry to `wiki/log.md`.
 
-Hedef akışta `capture-and-prepare-ingest.ps1` bir `-MemoryPath` parametresi kabul edecek; raw kaynakları `KnowledgeMemory/raw/`, üretilmiş notları `KnowledgeMemory/notes/`, run artefact'larını `KnowledgeMemory/runs/` altına yazacaktır. Public repository'ye yalnızca script, prompt, validation ve dokümantasyon iyileştirmeleri gelecektir. Bu script değişiklikleri henüz uygulanmamıştır.
+`capture-and-prepare-ingest.ps1`, opsiyonel `-MemoryPath` parametresiyle raw kaynakları private `KnowledgeMemory/raw/` altında saklamayı destekler. Parametre verilmediğinde mevcut repo-local davranış korunur. Generated note ve run artefact'larını doğrudan KnowledgeMemory altında üretme desteği henüz uygulanmamıştır.
 
 ## Phase 1.5 Usage Workflow
 
@@ -176,6 +176,16 @@ For most article, tweet and thread captures, the preferred workflow is:
 
 The helper creates the raw file, imports clipboard content, adds default Context Notes, prepares the ingest prompt and runs validation. It does not fetch URLs, call an LLM or create commits.
 
+### Private KnowledgeMemory Capture
+
+Raw capture'ı public repository dışında private veya synced bir KnowledgeMemory klasörüne yazmak için mevcut bir klasörü `-MemoryPath` ile verin:
+
+```powershell
+.\scripts\capture-and-prepare-ingest.ps1 tweet "Agent Harness vs Classic Agent" "https://x.com/..." -MemoryPath "C:\Users\utkudemir\OneDrive\KnowledgeMemory"
+```
+
+Bu mod source dosyasını `<MemoryPath>/raw/<type-folder>/` altında oluşturur ve prompt içine `vault://raw/<type-folder>/<filename>.md` logical reference'ını ekler. Private raw source Git'e alınmaz; ingest çıktısı şimdilik public KnowledgeWiki repository içindeki `wiki/` katmanına yazılır. `MemoryPath` klasörü önceden var olmalıdır.
+
 ## Phase 2 Validation Workflow
 
 After ingest and review, run:
@@ -235,6 +245,6 @@ Phase 2: Deterministic wiki validation MVP added with `scripts/validate-wiki.ps1
 
 Phase 3 MVP: Start ingest helper added with `scripts/start-ingest.ps1`.
 
-Architecture direction: public KnowledgeWiki Engine + private KnowledgeMemory boundary documented. Existing public content remains unchanged.
+Architecture direction: public KnowledgeWiki Engine + private KnowledgeMemory boundary documented. Optional external raw capture support has started with `-MemoryPath`; existing repo-local behavior remains available.
 
-Next: design and implement `capture-and-prepare-ingest.ps1 -MemoryPath <path>` together with compatible prompt, validation and run-path handling, then test the external-memory workflow end-to-end.
+Next: add generated-note support under `KnowledgeMemory/notes/`, validate `vault://` references and provide a KnowledgeMemory bootstrap workflow.

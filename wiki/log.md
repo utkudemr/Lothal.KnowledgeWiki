@@ -438,3 +438,24 @@ Notes:
 - Defined Lothal.KnowledgeWiki as the public engine/framework for scripts, prompts, validation, reading structures, documentation and public-safe examples.
 - Moved the long-term personal memory boundary to a separate private and optionally synced `KnowledgeMemory` folder for raw captures, notes, reading outputs and run artifacts.
 - Documented the future `-MemoryPath` workflow without modifying scripts or removing existing public `raw/` and `wiki/` content.
+
+## 2026-06-28 - update - Optional KnowledgeMemory Source Capture
+
+Source:
+- `scripts/capture-and-prepare-ingest.ps1`
+- Public KnowledgeWiki Engine and private KnowledgeMemory architecture decision
+
+Created:
+- None
+
+Updated:
+- `scripts/capture-and-prepare-ingest.ps1`
+- `README.md`
+- `wiki/projects/automation-roadmap.md`
+- `wiki/log.md`
+
+Notes:
+- Added optional `-MemoryPath` support while preserving the existing repo-local capture workflow.
+- External captures now use `KnowledgeMemory/raw/<type-folder>/` and receive a `vault://raw/...` logical source reference.
+- Added an external-source ingest prompt that keeps raw memory immutable and sends generated wiki output to the public repository.
+- Left generated private notes, `vault://` validation and KnowledgeMemory bootstrap support for later phases.

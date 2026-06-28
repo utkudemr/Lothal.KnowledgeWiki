@@ -140,18 +140,27 @@ Bu arsiv, wiki iceriginden farkli bir operasyonel iz olur. `wiki/` kalici bilgi 
 
 Onemli karar: Bu dizinin Git'e alinip alinmayacagi ayrica belirlenmelidir. Kisa vadede yerel audit icin faydali olabilir; uzun vadede gürültü uretirse ignore edilebilir veya sadece secili raporlar commit edilebilir.
 
-## Phase 4.1 - External KnowledgeMemory Path
+## Phase 4.1 - External KnowledgeMemory Path (Started)
 
-`scripts/capture-and-prepare-ingest.ps1` ileride bir `-MemoryPath` parametresi desteklemelidir. Bu fazın beklenen davranışı:
+`scripts/capture-and-prepare-ingest.ps1`, opsiyonel `-MemoryPath` parametresiyle private veya synced bir KnowledgeMemory altında raw source capture oluşturmayı destekler. Parametre verilmediğinde repo-local akış değişmeden çalışır. External mode, source reference olarak URL ile birlikte `vault://raw/<source-type>/<filename>.md` logical reference'ını ingest prompt'una ekler.
 
-- Raw source capture'larını `<MemoryPath>/raw/<source-type>/` altına yazmak.
+Başlatılan kapsam:
+
+- Raw source capture'larını `<MemoryPath>/raw/<source-type>/` altına yazmak. (tamamlandı)
+- External raw source için özel ingest prompt'u üretmek ve clipboard'a kopyalamak. (tamamlandı)
+- Mevcut repo-local davranışı geriye uyumlu tutmak. (tamamlandı)
+- Var olmayan `MemoryPath` değerini açık hata ve non-zero exit code ile reddetmek. (tamamlandı)
+
+Kalan kapsam:
+
 - Generated note hedeflerini `<MemoryPath>/notes/` altında çözmek.
 - Ingest/review/validation run artefact'larını `<MemoryPath>/runs/` altında tutmak.
 - Gerekirse `<MemoryPath>/inbox/` içinden capture alma akışını desteklemek.
-- Relative link ve source reference validation'ını external memory root'una göre çalıştırmak.
+- `vault://` source reference'larını ve external memory dosya hedeflerini doğrulamak.
+- `KnowledgeMemory` klasör yapısını oluşturan bootstrap workflow'u eklemek.
 - Public repository'ye yalnızca script, prompt, validation ve dokümantasyon iyileştirmeleri bırakmak.
 
-Bu fazda path normalization, klasör bootstrap'i, eksik memory path hataları ve mevcut repo-local kullanımla geriye dönük uyumluluk açıkça tasarlanmalıdır. Mevcut `.agent/runs/` davranışı repo-local MVP olarak kalır; hedef standart run archive konumu `KnowledgeMemory/runs/` olur. Script değişiklikleri bu dokümantasyon güncellemesinin kapsamında değildir.
+Mevcut `.agent/runs/` davranışı repo-local MVP olarak kalır; hedef standart run archive konumu `KnowledgeMemory/runs/` olur. Bu ilk entegrasyon yalnızca capture sınırını dışarı taşır; generated wiki output hâlâ public repository içindeki `wiki/` katmanına yazılır.
 
 ## Phase 4.5 - Validation Ergonomics
 
@@ -204,11 +213,11 @@ Bu asamada final karar yine insanda kalmali. Knowledge base kalitesini korumak i
 
 ## Recommended Order
 
-1. `-MemoryPath` sözleşmesini, varsayılan davranışı ve path validation kurallarını tasarla.
-2. `capture-and-prepare-ingest.ps1` ile bağlı helper'ları external `raw/`, `notes/` ve `runs/` köklerini kullanacak şekilde güncelle.
-3. External memory için validator ve source-reference çözümlemesini uyumlu hale getir.
+1. `capture-and-prepare-ingest.ps1 -MemoryPath` raw capture akışını gerçek private memory üzerinde uçtan uca dene.
+2. Generated note hedeflerini `KnowledgeMemory/notes/` altında destekle.
+3. External memory ve `vault://` source-reference çözümlemesini validator ile uyumlu hale getir.
 4. Private `home.md` ve reading path üretim/açma akışını Obsidian ile test et.
-5. Public-safe örnek export/redaction sınırını tanımla.
+5. KnowledgeMemory klasör yapısı için bootstrap ve public-safe export/redaction sınırını tanımla.
 6. Validation output'unu daha structured hale getir ve commit assistant'i yalnızca public engine değişiklikleri için karar desteği verecek şekilde tasarla.
 
 ## .NET / Backend Relevance
