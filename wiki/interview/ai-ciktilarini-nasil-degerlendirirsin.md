@@ -42,4 +42,4 @@ Benzer sekilde bir .NET backend tasariminda LLM "Redis cache ekleyelim" diyebili
 
 ## Source References
 
-- `raw/articles/2026-06-23-the-most-important-skill-in-the-age-of-ai-judgment.md`
+- `vault://raw/articles/2026-06-23-the-most-important-skill-in-the-age-of-ai-judgment.md`

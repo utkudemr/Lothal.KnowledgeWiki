@@ -51,8 +51,8 @@ This is the main navigation page for the knowledge wiki.
 
 ## Projects
 
-- [Lothal KnowledgeWiki](projects/lothal-knowledgewiki.md) - Bu repository'nin LLM Wiki deseniyle nasil kullanilacagina dair proje notu.
-- [Automation Roadmap](projects/automation-roadmap.md) - Ingest, review ve validation workflow'undaki manuel adimlari azaltma yol haritasi.
+- [Lothal KnowledgeWiki](projects/lothal-knowledgewiki.md) - Public engine ile external private KnowledgeMemory sınırını açıklayan proje notu.
+- [Automation Roadmap](projects/automation-roadmap.md) - External raw capture, ingest, review ve validation workflow'u yol haritası.
 - [Phase 2 Status Report](projects/phase-2-status-report.md) - Deterministik wiki validation, prompt gate'leri ve GitHub Actions durum raporu.
 - [Phase 1 Status Report](projects/phase-1-status-report.md) - Faz 1 sonunda mimari, workflow, tamamlanan isler ve sonraki adimlar.
 

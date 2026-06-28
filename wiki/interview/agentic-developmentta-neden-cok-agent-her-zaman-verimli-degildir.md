@@ -34,4 +34,4 @@ Agent kod yazarken ben bir sonraki feature'in spec'ini hazirlayabilirim. Ama imp
 
 ## Source References
 
-- `raw/articles/2026-06-24-two-agent-workflow-for-agentic-development.md`
+- `vault://raw/articles/2026-06-24-two-agent-workflow-for-agentic-development.md`

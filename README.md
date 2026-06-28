@@ -15,7 +15,7 @@ Public repository şunları içerir:
 - validation workflow'u
 - reading path yapısı
 - dokümantasyon
-- public-safe örnek kaynaklar ve notlar
+- public-safe örnekler ve generated wiki notları
 
 Özel `KnowledgeMemory` ise tam raw capture'ları, kişisel özetleri, üretilmiş notları, private reading çıktılarını, inbox capture'larını, run artefact'larını ve Obsidian-readable notları içerir.
 
@@ -58,7 +58,7 @@ KnowledgeMemory/
   home.md
 ```
 
-Mevcut public `raw/` ve `wiki/` dosyaları bu değişiklikte kaldırılmıyor. Bunlar çalışan akışın geçmişini, public-safe örneklerini ve engine geliştirme bağlamını koruyor; karar ileriye dönük storage sınırını tanımlıyor.
+2026-06-28 migration'ında mevcut full raw capture'lar `KnowledgeMemory/raw/` altına kopyalanıp doğrulandıktan sonra public çalışma ağacından kaldırıldı. Generated `wiki/` notları yerinde kaldı. Git geçmişi yeniden yazılmadığı için eski raw dosyalar önceki commit'lerde bulunabilir.
 
 ## Source Types
 
@@ -73,17 +73,19 @@ Mevcut public `raw/` ve `wiki/` dosyaları bu değişiklikte kaldırılmıyor. B
 
 ## Workflow
 
-Bugünkü repo-local akış:
+Bugünkü external-memory akışı:
 
-1. Put the original source under `raw/`.
+1. Put the original source under `KnowledgeMemory/raw/`.
 2. Ask the agent to ingest it according to `AGENTS.md`.
 3. Agent creates or updates pages under `wiki/`.
 4. Agent updates `wiki/index.md`.
 5. Agent appends an entry to `wiki/log.md`.
 
-`capture-and-prepare-ingest.ps1`, opsiyonel `-MemoryPath` parametresiyle raw kaynakları private `KnowledgeMemory/raw/` altında saklamayı destekler. Parametre verilmediğinde mevcut repo-local davranış korunur. Generated note ve run artefact'larını doğrudan KnowledgeMemory altında üretme desteği henüz uygulanmamıştır.
+Public wiki sayfaları private capture'ları `vault://raw/<type>/<file>.md` ile referanslar. Bu logical URI repository içinde çözülmez. `capture-and-prepare-ingest.ps1` bu akış için `-MemoryPath` parametresini destekler. Generated private note ve run artefact'larını taşıma bu migration'ın kapsamında değildir.
 
-## Phase 1.5 Usage Workflow
+## Legacy Repo-Local Helper Workflow
+
+Bu bölümdeki repo-relative komutlar mevcut helper scriptlerin geriye dönük kullanımını belgeler; aktif public çalışma ağacında raw capture tutulması önerilmez. Yeni capture'lar için aşağıdaki `-MemoryPath` akışını kullanın.
 
 1. Create a raw source file:
 
@@ -154,7 +156,7 @@ Notes:
 After the ingest agent finishes, copy its summary and run:
 
 ```powershell
-.\scripts\save-ingest-summary.ps1 raw/tweets/2026-06-28-agent-harness-vs-classic-agent.md
+.\scripts\save-ingest-summary.ps1 <legacy-repo-local-source-path>
 ```
 
 The helper archives the clipboard text under `.agent/runs/<source-slug>/ingest-summary.md`, records the source path and prints the next `review-prompt.ps1` command. Run that command to copy a review prompt with the ingest summary already inserted. Neither helper calls an LLM or creates a commit.
@@ -167,21 +169,20 @@ For most article, tweet and thread captures, the preferred workflow is:
 2. Run the wrapper:
 
    ```powershell
-   .\scripts\capture-and-prepare-ingest.ps1 article "Article Title" "https://example.com/article"
+   .\scripts\capture-and-prepare-ingest.ps1 article "Article Title" "https://example.com/article" -MemoryPath "G:\My Drive\KnowledgeMemory"
    ```
 
-3. Review the created raw source file and optionally improve its Context Notes.
-4. Commit the raw source.
-5. Paste the ingest prompt, which the helper copied to the clipboard, into the IDE agent/chat.
+3. Review the created private raw source file and optionally improve its Context Notes.
+4. Paste the ingest prompt, which the helper copied to the clipboard, into the IDE agent/chat.
 
-The helper creates the raw file, imports clipboard content, adds default Context Notes, prepares the ingest prompt and runs validation. It does not fetch URLs, call an LLM or create commits.
+The helper creates the raw file under external `KnowledgeMemory`, imports clipboard content, adds default Context Notes, prepares a prompt containing a `vault://raw/...` reference and runs validation. It does not fetch URLs, call an LLM or create commits.
 
 ### Private KnowledgeMemory Capture
 
 Raw capture'ı public repository dışında private veya synced bir KnowledgeMemory klasörüne yazmak için mevcut bir klasörü `-MemoryPath` ile verin:
 
 ```powershell
-.\scripts\capture-and-prepare-ingest.ps1 tweet "Agent Harness vs Classic Agent" "https://x.com/..." -MemoryPath "C:\Users\utkudemir\OneDrive\KnowledgeMemory"
+.\scripts\capture-and-prepare-ingest.ps1 tweet "Agent Harness vs Classic Agent" "https://x.com/..." -MemoryPath "G:\My Drive\KnowledgeMemory"
 ```
 
 Bu mod source dosyasını `<MemoryPath>/raw/<type-folder>/` altında oluşturur ve prompt içine `vault://raw/<type-folder>/<filename>.md` logical reference'ını ekler. Private raw source Git'e alınmaz; ingest çıktısı şimdilik public KnowledgeWiki repository içindeki `wiki/` katmanına yazılır. `MemoryPath` klasörü önceden var olmalıdır.
@@ -199,7 +200,8 @@ The validator checks:
 - required files exist
 - relative markdown links inside `wiki/**/*.md` resolve
 - wiki pages have Source References
-- `raw/...` references point to existing `raw/` files
+- repo-relative `raw/.../*.md` references point to existing public files
+- `vault://raw/...` logical references are accepted without requiring private files to exist in the public repository
 - placeholder/template leftovers are reported
 
 If validation returns errors, fix them before committing. If validation returns warnings, review them before committing.
@@ -245,6 +247,6 @@ Phase 2: Deterministic wiki validation MVP added with `scripts/validate-wiki.ps1
 
 Phase 3 MVP: Start ingest helper added with `scripts/start-ingest.ps1`.
 
-Architecture direction: public KnowledgeWiki Engine + private KnowledgeMemory boundary documented. Optional external raw capture support has started with `-MemoryPath`; existing repo-local behavior remains available.
+Architecture direction: public KnowledgeWiki Engine + private KnowledgeMemory boundary is active. Existing raw captures were migrated out of the public working tree; `-MemoryPath` is the preferred capture mode.
 
-Next: add generated-note support under `KnowledgeMemory/notes/`, validate `vault://` references and provide a KnowledgeMemory bootstrap workflow.
+Next: add generated-note support under `KnowledgeMemory/notes/` and provide a KnowledgeMemory bootstrap workflow.

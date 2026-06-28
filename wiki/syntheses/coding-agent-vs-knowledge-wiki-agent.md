@@ -11,13 +11,13 @@ Microsoft Aspire `AGENTS.md` dosyasi, buyuk bir .NET repository'de coding agent'
 - [Agent Instructions](../concepts/agent-instructions.md): Ajanlara repository davranis kurallarini anlatan talimat katmani.
 - [Agent Workflow](../concepts/agent-workflow.md): Talimatlar, dosya yapisi ve kalite kurallariyla tekrar edilebilir ajan operasyonu.
 - Coding agent: Kod degisikligi, test, build, review ve maintainer convention'lariyla calisan ajan.
-- Knowledge/wiki agent: `raw/` kaynaklardan `wiki/` sayfalari ureten, index/log ve kaynak referansi disipliniyle calisan ajan.
+- Knowledge/wiki agent: external `KnowledgeMemory/raw/` kaynaklardan `wiki/` sayfalari ureten, index/log ve `vault://raw/...` kaynak referansi disipliniyle calisan ajan.
 
 ## Key Differences
 
 Coding agent icin ana risk, repository'yi calismaz hale getirmek veya takim convention'larini bozmak olabilir. Bu nedenle Aspire talimatlari generated API dosyalarina dokunmama, `global.json` ve NuGet config gibi kritik dosyalari koruma, restore/build sirasi, test filtreleri, flaky/outerloop ayrimi ve localization gibi pratik sinirlari ayrintili yazar.
 
-Knowledge/wiki agent icin ana risk, bilginin kaynaktan kopmasi, duplicate sayfalar uretilmesi, hatali sentezlerin kalici hale gelmesi veya index/log disiplininin bozulmasidir. Bu nedenle Lothal.KnowledgeWiki'de `raw/` immutable tutulur, `wiki/` turetilmis read model olarak guncellenir, her sayfada source reference korunur ve her ingest loglanir.
+Knowledge/wiki agent icin ana risk, bilginin kaynaktan kopmasi, duplicate sayfalar uretilmesi, hatali sentezlerin kalici hale gelmesi veya index/log disiplininin bozulmasidir. Bu nedenle external `KnowledgeMemory/raw/` immutable tutulur, `wiki/` turetilmis read model olarak guncellenir, her sayfada source reference korunur ve her ingest loglanir.
 
 Coding agent'in kalite kapilari daha cok derleme, test, API uyumlulugu ve CI davranisidir. Knowledge/wiki agent'in kalite kapilari ise kaynak izlenebilirligi, linkleme, acik sorular, interview/project baglantisi ve insan tarafindan okunabilirliktir.
 
@@ -47,7 +47,7 @@ Knowledge/wiki agent talimatlarini guclendir:
 - Interview hazirligi, proje notlari ve teknik sentezler ayni repo icinde buyuyorsa.
 - Insan review'u commit oncesi kalite kapisi olarak kullaniliyorsa.
 
-Bu repoda bilgi agent'i icin en iyi sinir sudur: `raw/` kaynak arsividir, `wiki/` ise turetilmis read modeldir. Ajan kaynak dosyayi yeniden yazmaz; kaynakla izlenebilir, Turkce, linkli ve review edilebilir bir bilgi katmani uretir.
+Bu sistemde bilgi agent'i icin en iyi sinir sudur: external `KnowledgeMemory/raw/` kaynak arsividir, public `wiki/` ise turetilmis read modeldir. Ajan kaynak dosyayi yeniden yazmaz; kaynakla izlenebilir, Turkce, linkli ve review edilebilir bir bilgi katmani uretir.
 
 ## .NET / Backend Relevance
 
@@ -64,7 +64,7 @@ Aspire ornegi, buyuk .NET repository'lerinde agent'a verilen talimatin restore, 
 
 ## Source References
 
-- `raw/repos/aspire-agents-md.md`
+- `vault://raw/repos/aspire-agents-md.md`
 
 ## Open Questions
 

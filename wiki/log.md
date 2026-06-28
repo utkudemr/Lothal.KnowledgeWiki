@@ -5,7 +5,7 @@ This file tracks ingest operations and major wiki updates.
 ## 2026-06-18 - ingest - Karpathy LLM Wiki
 
 Source:
-- `raw/articles/karpathy-llm-wiki.md`
+- `vault://raw/articles/karpathy-llm-wiki.md`
 
 Created:
 - `wiki/concepts/llm-wiki.md`
@@ -26,7 +26,7 @@ Notes:
 ## 2026-06-19 - ingest - Microsoft Aspire AGENTS.md
 
 Source:
-- `raw/repos/aspire-agents-md.md`
+- `vault://raw/repos/aspire-agents-md.md`
 
 Created:
 - `wiki/concepts/agent-instructions.md`
@@ -46,7 +46,7 @@ Notes:
 ## 2026-06-19 - review - Microsoft Aspire AGENTS.md ingest
 
 Source:
-- `raw/repos/aspire-agents-md.md`
+- `vault://raw/repos/aspire-agents-md.md`
 
 Created:
 - None
@@ -63,8 +63,8 @@ Notes:
 ## 2026-06-19 - update - Phase 1 Status Report
 
 Source:
-- `raw/articles/karpathy-llm-wiki.md`
-- `raw/repos/aspire-agents-md.md`
+- `vault://raw/articles/karpathy-llm-wiki.md`
+- `vault://raw/repos/aspire-agents-md.md`
 
 Created:
 - `wiki/projects/phase-1-status-report.md`
@@ -80,8 +80,8 @@ Notes:
 ## 2026-06-19 - update - Phase 1 Open Questions Decisions
 
 Source:
-- `raw/articles/karpathy-llm-wiki.md`
-- `raw/repos/aspire-agents-md.md`
+- `vault://raw/articles/karpathy-llm-wiki.md`
+- `vault://raw/repos/aspire-agents-md.md`
 
 Created:
 - None
@@ -97,8 +97,8 @@ Notes:
 ## 2026-06-19 - update - Phase 1 Decisions Detail
 
 Source:
-- `raw/articles/karpathy-llm-wiki.md`
-- `raw/repos/aspire-agents-md.md`
+- `vault://raw/articles/karpathy-llm-wiki.md`
+- `vault://raw/repos/aspire-agents-md.md`
 
 Created:
 - None
@@ -114,7 +114,7 @@ Notes:
 ## 2026-06-20 - ingest - Local-first Software
 
 Source:
-- `raw/articles/2026-06-20-local-first-software.md`
+- `vault://raw/articles/2026-06-20-local-first-software.md`
 
 Created:
 - `wiki/concepts/local-first-software.md`
@@ -179,7 +179,7 @@ Notes:
 ## 2026-06-21 - ingest - To Cache or Not to Cache
 
 Source:
-- `raw/articles/2026-06-21-to-cache-or-not-to-cache.md`
+- `vault://raw/articles/2026-06-21-to-cache-or-not-to-cache.md`
 
 Created:
 - `wiki/concepts/cache-karar-kriterleri.md`
@@ -218,7 +218,7 @@ Notes:
 ## 2026-06-23 - ingest - The Most Important Skill in the Age of AI Judgment
 
 Source:
-- `raw/articles/2026-06-23-the-most-important-skill-in-the-age-of-ai-judgment.md`
+- `vault://raw/articles/2026-06-23-the-most-important-skill-in-the-age-of-ai-judgment.md`
 
 Created:
 - `wiki/concepts/ai-caginda-judgment.md`
@@ -239,7 +239,7 @@ Notes:
 ## 2026-06-23 - review - The Most Important Skill in the Age of AI Judgment ingest
 
 Source:
-- `raw/articles/2026-06-23-the-most-important-skill-in-the-age-of-ai-judgment.md`
+- `vault://raw/articles/2026-06-23-the-most-important-skill-in-the-age-of-ai-judgment.md`
 
 Created:
 - None
@@ -291,7 +291,7 @@ Notes:
 ## 2026-06-24 - ingest - Two-Agent Workflow for Agentic Development
 
 Source:
-- `raw/articles/2026-06-24-two-agent-workflow-for-agentic-development.md`
+- `vault://raw/articles/2026-06-24-two-agent-workflow-for-agentic-development.md`
 
 Created:
 - `wiki/concepts/two-track-agentic-development.md`
@@ -333,7 +333,7 @@ Notes:
 ## 2026-06-27 - ingest - Agent Orchestration Explained
 
 Source:
-- `raw/tweets/2026-06-27-agent-orchestration-explained.md`
+- `vault://raw/tweets/2026-06-27-agent-orchestration-explained.md`
 
 Created:
 - `wiki/concepts/agent-orchestration.md`
@@ -378,7 +378,7 @@ Notes:
 ## 2026-06-28 - ingest - Agent Harness vs Classic Agent
 
 Source:
-- `raw/tweets/2026-06-28-agent-harness-vs-classic-agent.md`
+- `vault://raw/tweets/2026-06-28-agent-harness-vs-classic-agent.md`
 
 Created:
 - `wiki/concepts/agent-harness.md`
@@ -459,3 +459,33 @@ Notes:
 - External captures now use `KnowledgeMemory/raw/<type-folder>/` and receive a `vault://raw/...` logical source reference.
 - Added an external-source ingest prompt that keeps raw memory immutable and sends generated wiki output to the public repository.
 - Left generated private notes, `vault://` validation and KnowledgeMemory bootstrap support for later phases.
+
+## 2026-06-28 - cleanup - Raw Source Migration to KnowledgeMemory
+
+Source:
+- Public repository `raw/` working tree
+- `G:\My Drive\KnowledgeMemory\raw`
+
+Created:
+- None
+
+Updated:
+- `AGENTS.md`
+- `README.md`
+- `.agent/prompts/ingest-source.md`
+- `scripts/validate-wiki.ps1`
+- `wiki/reading-guide.md`
+- Source References across existing wiki pages
+- `wiki/projects/lothal-knowledgewiki.md`
+- `wiki/projects/automation-roadmap.md`
+- `wiki/index.md`
+- `wiki/log.md`
+
+Removed:
+- Eight migrated source captures from the public `raw/` working tree
+
+Notes:
+- Copied all eight raw captures to `G:\My Drive\KnowledgeMemory\raw` with their folder structure preserved.
+- Verified file counts, relative paths and SHA-256 hashes before removing public working-tree copies.
+- Replaced private source paths with `vault://raw/...` logical references; these do not need to resolve inside the public repository.
+- Kept generated wiki notes in place and did not rewrite Git history.

@@ -58,7 +58,7 @@ Daha iyi yaklasim, once technical design ve implementation plan uretmektir. Orne
 
 ## Source References
 
-- `raw/articles/2026-06-24-two-agent-workflow-for-agentic-development.md`
+- `vault://raw/articles/2026-06-24-two-agent-workflow-for-agentic-development.md`
 
 ## Open Questions
 

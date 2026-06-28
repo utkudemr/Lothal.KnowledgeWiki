@@ -25,7 +25,7 @@ Aspire kaynaginda test calistirma talimatlari sadece "`dotnet test` calistir" se
 
 Bu tur bir talimat, ajan davranisini dogrudan iyilestirir. Ajan hem dogru komutu secmeyi hem de hangi dogrulamanin guvenilir oldugunu ogrenir.
 
-Lothal.KnowledgeWiki'de ayni desen su sekilde uygulanir: ajan once `AGENTS.md` dosyasini okur, sonra `raw/` altindaki kaynagi sadece okur, `wiki/` altinda ilgili sayfalari olusturur veya gunceller, source reference'i korur, `wiki/index.md` ve `wiki/log.md` dosyalarini gunceller. Buradaki kalite kapisi build/test degil; izlenebilirlik, link dogrulugu, duplicate onleme ve ogrenme degeridir.
+Lothal.KnowledgeWiki'de ayni desen su sekilde uygulanir: ajan once `AGENTS.md` dosyasini okur, sonra external `KnowledgeMemory/raw/` altindaki kaynagi sadece okur, `wiki/` altinda ilgili sayfalari olusturur veya gunceller, `vault://raw/...` source reference'ini korur, `wiki/index.md` ve `wiki/log.md` dosyalarini gunceller. Buradaki kalite kapisi build/test degil; izlenebilirlik, link dogrulugu, duplicate onleme ve ogrenme degeridir.
 
 ## .NET / Backend Relevance
 
@@ -52,7 +52,7 @@ Bu konu "AI coding agent'lari buyuk bir codebase'e nasil guvenli entegre edersin
 
 ## Source References
 
-- `raw/repos/aspire-agents-md.md`
+- `vault://raw/repos/aspire-agents-md.md`
 
 ## Open Questions
 

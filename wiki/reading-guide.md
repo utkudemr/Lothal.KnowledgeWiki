@@ -156,7 +156,7 @@ Wiki öğrenmesini uzun vadeli kalıcı yapmak için:
 
 Wiki çıktılarında şu işaretleri görebilirsin:
 
-- **`raw/<type>/<source-file>.md`** — Bilginin kaynağı. Asıl kaynağı incelemeyi düşün.
+- **`vault://raw/<type>/<source-file>.md`** — External KnowledgeMemory içindeki private kaynağın logical referansı. Asıl kaynağı incelemeyi düşün.
 - **`Related Page -> wiki/concepts/<concept-name>.md`** — Derinlemesine gitmek için kullanılan örnek dosya referansı formatı.
 - **Open Questions** — Belirsiz noktalar. Gelecekteki kaynaklar bu alanları doldurabilirim.
 

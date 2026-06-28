@@ -74,7 +74,7 @@ POS veya retail orneginde pratik ayrim sudur:
 
 ## Source References
 
-- `raw/articles/2026-06-20-local-first-software.md`
+- `vault://raw/articles/2026-06-20-local-first-software.md`
 
 ## Open Questions
 

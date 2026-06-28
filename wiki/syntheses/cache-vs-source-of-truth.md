@@ -72,8 +72,8 @@ Bu ayrim observability icin de onemlidir. Log ve metric'lerde response'un cache 
 
 ## Source References
 
-- `raw/articles/2026-06-21-to-cache-or-not-to-cache.md`
-- `raw/articles/2026-06-20-local-first-software.md`
+- `vault://raw/articles/2026-06-21-to-cache-or-not-to-cache.md`
+- `vault://raw/articles/2026-06-20-local-first-software.md`
 
 ## Open Questions
 

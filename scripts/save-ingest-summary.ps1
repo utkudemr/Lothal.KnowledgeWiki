@@ -1,5 +1,5 @@
 # Usage:
-#   .\scripts\save-ingest-summary.ps1 raw/tweets/2026-06-28-agent-harness-vs-classic-agent.md
+#   .\scripts\save-ingest-summary.ps1 raw/tweets/example-source.md
 
 param(
     [Parameter(Mandatory = $false, Position = 0)]

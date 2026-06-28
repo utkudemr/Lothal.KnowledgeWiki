@@ -1,5 +1,5 @@
 # Usage examples:
-#   .\scripts\ingest-prompt.ps1 raw/repos/aspire-agents-md.md
+#   .\scripts\ingest-prompt.ps1 raw/repos/example-source.md
 #   .\scripts\ingest-prompt.ps1 raw/articles/2026-06-20-example-source.md
 
 param(

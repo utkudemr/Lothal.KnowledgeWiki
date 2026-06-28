@@ -29,7 +29,7 @@ Keep this boundary explicit:
 * Do not copy private material into the public repository merely to fit the current repo-local workflow.
 * Only public-safe examples and intentional documentation artifacts should be committed here.
 
-This is a forward-looking architecture decision. Existing files under this repository's `raw/` and `wiki/` directories remain in place and continue to document and exercise the current workflow. Do not delete or migrate them unless the user explicitly requests a separate migration.
+The repository's historical raw captures were migrated to external `KnowledgeMemory/raw/` storage on 2026-06-28. They were removed only from the active working tree; Git history was not rewritten. Existing generated files under `wiki/` remain in place.
 
 The proposed private structure is:
 
@@ -53,7 +53,7 @@ KnowledgeMemory/
 
 ## Core Purpose
 
-When a source is added to `raw/`, your job is to process it into the `wiki/` directory.
+When a source is added to `KnowledgeMemory/raw/`, your job is to process it into the repository's `wiki/` directory unless a task explicitly chooses another generated-note target.
 
 You should help transform sources such as articles, tweets, GitHub repositories, job postings, interview questions, videos and chat summaries into:
 
@@ -89,15 +89,6 @@ Lothal.KnowledgeWiki/
   README.md
   AGENTS.md
 
-  raw/
-    articles/
-    tweets/
-    repos/
-    videos/
-    job-postings/
-    interview-questions/
-    chat-summaries/
-
   wiki/
     index.md
     log.md
@@ -110,27 +101,27 @@ Lothal.KnowledgeWiki/
     people/
 ```
 
-This structure describes the current public repository and its public-safe examples. It must not be treated as the long-term storage location for the user's complete private source and note corpus.
+The active public working tree does not contain full raw captures. Logical private source references use `vault://raw/...` and are not repository-relative links.
 
 ## Directory Rules
 
-### `raw/`
+### `KnowledgeMemory/raw/`
 
-The `raw/` directory contains original or manually captured sources.
+The external `KnowledgeMemory/raw/` directory contains original or manually captured sources.
 
-Do not modify files under `raw/` unless the user explicitly asks.
+Do not modify files under `KnowledgeMemory/raw/` unless the user explicitly asks.
 
 Raw sources are the source of truth.
 
 Source categories:
 
-* `raw/articles/` for articles, blog posts and essays
-* `raw/tweets/` for tweets, X posts, LinkedIn posts and short social content
-* `raw/repos/` for GitHub repository notes, README files and codebase observations
-* `raw/videos/` for video transcripts, summaries or notes
-* `raw/job-postings/` for job descriptions and role requirements
-* `raw/interview-questions/` for interview questions and prepared answers
-* `raw/chat-summaries/` for summaries exported from conversations
+* `KnowledgeMemory/raw/articles/` for articles, blog posts and essays
+* `KnowledgeMemory/raw/tweets/` for tweets, X posts, LinkedIn posts and short social content
+* `KnowledgeMemory/raw/repos/` for GitHub repository notes, README files and codebase observations
+* `KnowledgeMemory/raw/videos/` for video transcripts, summaries or notes
+* `KnowledgeMemory/raw/job-postings/` for job descriptions and role requirements
+* `KnowledgeMemory/raw/interview-questions/` for interview questions and prepared answers
+* `KnowledgeMemory/raw/chat-summaries/` for summaries exported from conversations
 
 ## Raw Source Template Rule
 
@@ -145,7 +136,7 @@ Raw source files should include:
 * context notes
 * raw content
 
-Files under `raw/` are still immutable after being added unless the user explicitly asks for a change.
+Files under `KnowledgeMemory/raw/` are immutable after being added unless the user explicitly asks for a change.
 
 `Context Notes` should explain why the source was added, not only what it contains.
 
@@ -168,7 +159,7 @@ The `wiki/` directory contains processed knowledge pages.
 
 When ingesting a new source:
 
-For the current repo-local workflow, `raw/` and `wiki/` paths below refer to this repository. In the target architecture, the same workflow operates against `KnowledgeMemory/raw/` and `KnowledgeMemory/notes/`, while the public repository receives only reusable script, prompt, validation and documentation improvements.
+Raw inputs live under external `KnowledgeMemory/raw/`; generated public-safe wiki output remains under this repository's `wiki/` for the current workflow. Private source references written into public pages must use `vault://raw/...`.
 
 1. Read the source carefully.
 2. Identify:
@@ -192,13 +183,13 @@ For the current repo-local workflow, `raw/` and `wiki/` paths below refer to thi
    * create a company/job note
 4. Avoid duplicate pages.
 5. Add links between related pages.
-6. Add source references using the raw file path.
+6. Add source references using the `vault://raw/...` logical path.
 7. Update `wiki/index.md`.
 8. Append an entry to `wiki/log.md`.
 
-## Target External Memory Workflow
+## External Memory Workflow
 
-Future tooling should make the storage root explicit rather than assume the repository root:
+Tooling should make the storage root explicit rather than assume the repository root:
 
 * `capture-and-prepare-ingest.ps1` should support a `-MemoryPath` parameter.
 * Captured sources should be written to `<MemoryPath>/raw/`.
@@ -207,7 +198,7 @@ Future tooling should make the storage root explicit rather than assume the repo
 * Inbox-style captures should enter through `<MemoryPath>/inbox/` when that workflow is implemented.
 * The public repository should receive only public-safe engine/framework improvements, not routine private memory content.
 
-Do not implement or assume these script changes until the relevant task explicitly authorizes modifying scripts. Until then, preserve the existing repo-local behavior and describe the external-memory workflow as the intended direction.
+`capture-and-prepare-ingest.ps1` supports `-MemoryPath` for external raw capture. Other storage-root changes remain separate tasks and must not move private generated notes implicitly.
 
 ## Writing Style
 
@@ -319,7 +310,7 @@ Explain how this topic may appear in interviews and how to answer it.
 
 ## Source References
 
-- `raw/path/to/source.md`
+- `vault://raw/path/to/source.md`
 
 ## Open Questions
 
@@ -363,7 +354,7 @@ Explain how this synthesis relates to .NET backend development, microservices, d
 
 ## Source References
 
-- `raw/path/to/source.md`
+- `vault://raw/path/to/source.md`
 
 ## Open Questions
 
@@ -401,7 +392,7 @@ List common weak answers, misunderstandings or traps.
 
 ## Source References
 
-- `raw/path/to/source.md`
+- `vault://raw/path/to/source.md`
 ```
 
 ## Project Page Template
@@ -441,7 +432,7 @@ List possible next steps.
 
 ## Source References
 
-- `raw/path/to/source.md`
+- `vault://raw/path/to/source.md`
 ```
 
 ## Company / Job Posting Page Template
@@ -481,21 +472,21 @@ List possible interview topics based on the job posting.
 
 ## Source References
 
-- `raw/path/to/source.md`
+- `vault://raw/path/to/source.md`
 ```
 
 ## Source Reference Rule
 
 Every wiki page created or updated from a source must include a `Source References` section.
 
-Use raw file paths.
+Use `vault://raw/...` logical paths for private raw captures. These references are intentionally not resolved inside the public repository.
 
 Example:
 
 ```md
 ## Source References
 
-- `raw/articles/karpathy-llm-wiki.md`
+- `vault://raw/articles/karpathy-llm-wiki.md`
 ```
 
 If a page is updated based on multiple sources, keep all relevant source references.
@@ -505,9 +496,9 @@ Example:
 ```md
 ## Source References
 
-- `raw/articles/karpathy-llm-wiki.md`
-- `raw/repos/aspire-agents-md.md`
-- `raw/tweets/agent-harness-example.md`
+- `vault://raw/articles/karpathy-llm-wiki.md`
+- `vault://raw/repos/aspire-agents-md.md`
+- `vault://raw/tweets/agent-harness-example.md`
 ```
 
 ## Index Update Rules
@@ -560,7 +551,7 @@ Use this format:
 ## YYYY-MM-DD - ingest - Source Title
 
 Source:
-- `raw/articles/example.md`
+- `vault://raw/articles/example.md`
 
 Created:
 - `wiki/concepts/example.md`
@@ -587,7 +578,7 @@ Examples:
 ## 2026-06-18 - ingest - Karpathy LLM Wiki
 
 Source:
-- `raw/articles/karpathy-llm-wiki.md`
+- `vault://raw/articles/karpathy-llm-wiki.md`
 
 Created:
 - `wiki/concepts/llm-wiki.md`
@@ -608,7 +599,7 @@ Notes:
 Before finishing, check:
 
 * Did you read `AGENTS.md`?
-* Did you avoid modifying `raw/`?
+* Did you avoid modifying private `KnowledgeMemory/raw/` captures?
 * Is the source path preserved?
 * Is `wiki/index.md` updated?
 * Is `wiki/log.md` updated?

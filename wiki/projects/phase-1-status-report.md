@@ -113,8 +113,8 @@ Faz 1 kapanmadan once kucuk temizlik olarak README icinde daha kisa bir usage bo
 
 ## Source References
 
-- `raw/articles/karpathy-llm-wiki.md`
-- `raw/repos/aspire-agents-md.md`
+- `vault://raw/articles/karpathy-llm-wiki.md`
+- `vault://raw/repos/aspire-agents-md.md`
 
 ## Open Questions - Decisions
 

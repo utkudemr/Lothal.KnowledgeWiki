@@ -53,14 +53,14 @@ Validate the following:
 - [ ] Links are relative markdown format
 - [ ] No duplicates of existing pages
 - [ ] Turkish is used for user-facing content (unless source is English)
-- [ ] No modifications to raw/ sources
+- [ ] No modifications to external `KnowledgeMemory/raw/` sources
 - [ ] wiki/index.md is updated if new pages created
 - [ ] wiki/log.md entry follows the format:
   ```
   ## YYYY-MM-DD - action - Title
   
   Source:
-  - `raw/path/to/source.md`
+  - `vault://raw/path/to/source.md`
   
   Created:
   - `wiki/path/to/file.md`
@@ -128,7 +128,7 @@ If interview page created:
 - [ ] No placeholder text or incomplete sections
 - [ ] No external URLs without context
 - [ ] No unsupported technical claims
-- [ ] No modifications to raw/ files
+- [ ] No modifications to external `KnowledgeMemory/raw/` files
 - [ ] File paths are correct and exist
 - [ ] Links point to real wiki pages
 - [ ] Turkish grammar and terminology correct

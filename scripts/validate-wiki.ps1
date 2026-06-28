@@ -4,8 +4,9 @@
 
 DESCRIPTION
   Checks repository for required root files, validates relative markdown links
-  inside `wiki/**/*.md`, ensures wiki pages have Source References and that
-  referenced raw paths exist. Reports placeholder tokens as warnings.
+  inside `wiki/**/*.md`, ensures wiki pages have Source References, accepts
+  external `vault://raw/...` references and checks repo-relative raw paths.
+  Reports placeholder tokens as warnings.
 
 USAGE
   Run from repository root or from any location. The script resolves the repo
@@ -53,7 +54,7 @@ function Add-Warning($msg) { $Warnings.Add($msg) }
 $placeholders = @(
     'INGEST_OUTPUT',
     '{{SOURCE_PATH}}',
-    'raw/path/to/source.md',
+    'vault://raw/path/to/source.md',
     'wiki/concepts/example.md',
     '../concepts/example.md'
 )
@@ -88,9 +89,9 @@ if (-not (Test-Path $wikiDir)) {
             # Ignore empty links
             if ([string]::IsNullOrWhiteSpace($rawLink)) { continue }
 
-            # Ignore external links and mailto and anchor-only links
-            if ($rawLink -match '^(https?:)//') { continue }
-            if ($rawLink -match '^mailto:') { continue }
+            # Ignore URI schemes (including vault://), mailto and anchor-only links.
+            # Logical vault references intentionally do not resolve in this repository.
+            if ($rawLink -match '^[a-zA-Z][a-zA-Z0-9+.-]*:') { continue }
             if ($rawLink -match '^#') { continue }
 
             # Strip any anchor fragment
@@ -123,8 +124,9 @@ if (-not (Test-Path $wikiDir)) {
             }
         }
 
-        # 4) Check raw path references exist
-        $rawPattern = 'raw/[\w\-./]+'
+        # 4) Check repo-relative raw source references exist.
+        # vault://raw/... is external and must not be resolved against RepoRoot.
+        $rawPattern = '(?<!vault://)(?<![\w/])raw/[\w./-]+\.md'
         $rawMatches = [regex]::Matches($content, $rawPattern)
         foreach ($rm in $rawMatches) {
             $rawPath = $rm.Value.Trim()

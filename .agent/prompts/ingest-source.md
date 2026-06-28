@@ -5,11 +5,11 @@ Use this prompt template as a guide when ingesting a new source into the wiki.
 ## Instructions
 
 1. Copy this template into a new message.
-2. The helper script replaces the braced source-path placeholder with the raw source file path.
-3. Use a path under raw/, for example:
-   - `raw/articles/karpathy-llm-wiki.md`
-   - `raw/repos/aspire-agents-md.md`
-   - `raw/interview-questions/why-isnt-everything-async.md`
+2. The helper script replaces the braced source-path placeholder with the external raw source file path.
+3. Preserve a separate logical reference under Source References, for example:
+   - `vault://raw/articles/example.md`
+   - `vault://raw/repos/example.md`
+   - `vault://raw/interview-questions/example.md`
 4. Follow AGENTS.md workflow rules carefully.
 
 ## Template
@@ -25,10 +25,10 @@ You are ingesting a new source into Lothal.KnowledgeWiki.
 **Repository Rules:**
 - Read AGENTS.md first.
 - Read the raw source file from {{SOURCE_PATH}}.
-- Do not modify anything under raw/.
+- Do not modify the external raw source.
 - Create or update relevant pages under wiki/.
 - Write generated wiki content in Turkish unless the source requires English.
-- Preserve source references using the raw file path.
+- Preserve private source references using a `vault://raw/...` logical path, not the physical drive path.
 - Avoid duplicate pages; update existing pages when the topic already exists.
 - Use relative markdown links.
 - Use lowercase kebab-case file names.
@@ -78,7 +78,7 @@ You are ingesting a new source into Lothal.KnowledgeWiki.
 
 5. **Follow these rules:**
    - Keep raw sources immutable
-   - Add source references using {{SOURCE_PATH}}
+   - Add source references using the corresponding `vault://raw/...` logical path
    - Link to related wiki pages
    - Update wiki/index.md if you create new pages
    - Append to wiki/log.md with the format:
@@ -169,4 +169,3 @@ Run:
 .\scripts\validate-wiki.ps1
 ```
 ```
-

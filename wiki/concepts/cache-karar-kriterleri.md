@@ -57,7 +57,7 @@ Iyi bir cevapta su cumle net olmalidir: "Cache'i sadece hiz icin degil, belirli 
 
 ## Source References
 
-- `raw/articles/2026-06-21-to-cache-or-not-to-cache.md`
+- `vault://raw/articles/2026-06-21-to-cache-or-not-to-cache.md`
 
 ## Open Questions
 

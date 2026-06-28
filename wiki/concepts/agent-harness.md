@@ -65,7 +65,7 @@ Mülakatta agent harness yalnızca "LLM'e tool eklemek" diye açıklanmamalıdı
 
 ## Source References
 
-- `raw/tweets/2026-06-28-agent-harness-vs-classic-agent.md`
+- `vault://raw/tweets/2026-06-28-agent-harness-vs-classic-agent.md`
 
 ## Open Questions
 

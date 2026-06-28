@@ -37,7 +37,7 @@ Agent orchestration kaynağı workflow ile orchestration arasındaki sınırı n
 
 Agent workflow, backend muhendisligindeki pipeline ve background job mantigina benzer. Bir ingest operasyonu, kabaca su adimlara ayrilabilir:
 
-- Input: `raw/` altindaki kaynak.
+- Input: external `KnowledgeMemory/raw/` altindaki kaynak.
 - Processing: ozetleme, kavram cikarma, celiski tespiti, linkleme.
 - Output: `wiki/` altinda markdown sayfalari.
 - Audit: index ve log guncellemesi.
@@ -68,12 +68,12 @@ Agent workflow konusu, "LLM'i production sureclerine nasil kontrollu eklersin?" 
 
 ## Source References
 
-- `raw/articles/karpathy-llm-wiki.md`
-- `raw/repos/aspire-agents-md.md`
-- `raw/articles/2026-06-23-the-most-important-skill-in-the-age-of-ai-judgment.md`
-- `raw/articles/2026-06-24-two-agent-workflow-for-agentic-development.md`
-- `raw/tweets/2026-06-27-agent-orchestration-explained.md`
-- `raw/tweets/2026-06-28-agent-harness-vs-classic-agent.md`
+- `vault://raw/articles/karpathy-llm-wiki.md`
+- `vault://raw/repos/aspire-agents-md.md`
+- `vault://raw/articles/2026-06-23-the-most-important-skill-in-the-age-of-ai-judgment.md`
+- `vault://raw/articles/2026-06-24-two-agent-workflow-for-agentic-development.md`
+- `vault://raw/tweets/2026-06-27-agent-orchestration-explained.md`
+- `vault://raw/tweets/2026-06-28-agent-harness-vs-classic-agent.md`
 
 ## Open Questions
 

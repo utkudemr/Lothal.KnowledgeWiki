@@ -58,7 +58,7 @@ Kisa mulakat cevabi: Agent'lari paralel calistiririm ama her isi ayni anda basla
 
 ## Source References
 
-- `raw/articles/2026-06-24-two-agent-workflow-for-agentic-development.md`
+- `vault://raw/articles/2026-06-24-two-agent-workflow-for-agentic-development.md`
 
 ## Open Questions
 

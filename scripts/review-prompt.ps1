@@ -1,5 +1,5 @@
 # Usage examples:
-#   .\scripts\review-prompt.ps1 raw/repos/aspire-agents-md.md
+#   .\scripts\review-prompt.ps1 raw/repos/example-source.md
 #   .\scripts\review-prompt.ps1 raw/articles/2026-06-20-example-source.md
 #   .\scripts\review-prompt.ps1 raw/articles/2026-06-20-example-source.md .agent/runs/2026-06-20-example-source/ingest-summary.md
 

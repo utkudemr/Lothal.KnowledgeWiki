@@ -62,8 +62,8 @@ Mülakatta güçlü bir cevap orchestration'ı yalnızca "birden fazla agent ça
 
 ## Source References
 
-- `raw/tweets/2026-06-27-agent-orchestration-explained.md`
-- `raw/tweets/2026-06-28-agent-harness-vs-classic-agent.md`
+- `vault://raw/tweets/2026-06-27-agent-orchestration-explained.md`
+- `vault://raw/tweets/2026-06-28-agent-harness-vs-classic-agent.md`
 
 ## Open Questions
 

@@ -32,7 +32,7 @@ KnowledgeMemory/
   home.md
 ```
 
-Bu klasör Git repository olmak zorunda değildir; OneDrive, Google Drive, Obsidian Sync, Syncthing veya başka bir private sync mekanizmasıyla senkronize edilebilir. Mevcut public `raw/` ve `wiki/` dosyaları bu roadmap değişikliğinde kaldırılmaz. Mimari karar yeni capture ve generation akışlarının yönünü belirler.
+Bu klasör Git repository olmak zorunda değildir; OneDrive, Google Drive, Obsidian Sync, Syncthing veya başka bir private sync mekanizmasıyla senkronize edilebilir. 2026-06-28 migration'ında public raw capture'lar bu yapıya taşındı ve doğrulamadan sonra aktif çalışma ağacından kaldırıldı; `wiki/` notları yerinde kaldı ve Git geçmişi yeniden yazılmadı.
 
 ## Current Manual Workflow
 
@@ -142,7 +142,7 @@ Onemli karar: Bu dizinin Git'e alinip alinmayacagi ayrica belirlenmelidir. Kisa 
 
 ## Phase 4.1 - External KnowledgeMemory Path (Started)
 
-`scripts/capture-and-prepare-ingest.ps1`, opsiyonel `-MemoryPath` parametresiyle private veya synced bir KnowledgeMemory altında raw source capture oluşturmayı destekler. Parametre verilmediğinde repo-local akış değişmeden çalışır. External mode, source reference olarak URL ile birlikte `vault://raw/<source-type>/<filename>.md` logical reference'ını ingest prompt'una ekler.
+`scripts/capture-and-prepare-ingest.ps1`, `-MemoryPath` parametresiyle private veya synced bir KnowledgeMemory altında raw source capture oluşturmayı destekler. External mode, source reference olarak URL ile birlikte `vault://raw/<source-type>/<filename>.md` logical reference'ını ingest prompt'una ekler. Repo-local davranış yalnızca legacy uyumluluk olarak kalır.
 
 Başlatılan kapsam:
 
@@ -156,7 +156,7 @@ Kalan kapsam:
 - Generated note hedeflerini `<MemoryPath>/notes/` altında çözmek.
 - Ingest/review/validation run artefact'larını `<MemoryPath>/runs/` altında tutmak.
 - Gerekirse `<MemoryPath>/inbox/` içinden capture alma akışını desteklemek.
-- `vault://` source reference'larını ve external memory dosya hedeflerini doğrulamak.
+- External memory dosya hedeflerini isteğe bağlı olarak doğrulamak. Public validator `vault://raw/...` URI'larını kabul eder fakat private dosyanın public repository içinde var olmasını istemez. (logical URI desteği tamamlandı)
 - `KnowledgeMemory` klasör yapısını oluşturan bootstrap workflow'u eklemek.
 - Public repository'ye yalnızca script, prompt, validation ve dokümantasyon iyileştirmeleri bırakmak.
 
@@ -207,7 +207,7 @@ Bu asamada final karar yine insanda kalmali. Knowledge base kalitesini korumak i
 - Review adimini tamamen kaldirmak.
 - Semantic kalite kontrolunu deterministik validation icine zorla sikistirmak.
 - Git commit ve push islemlerini kullanici onayi olmadan otomatik yapmak.
-- Mevcut public `raw/` ve `wiki/` içeriğini hemen silmek veya private memory'ye taşımak.
+- Generated `wiki/` notlarını bu raw-only migration kapsamında private memory'ye taşımak.
 - `KnowledgeMemory` klasörünü zorunlu olarak Git repository yapmak.
 - Private raw source veya generated note'ları rutin olarak public repository'ye commit etmek.
 
@@ -215,7 +215,7 @@ Bu asamada final karar yine insanda kalmali. Knowledge base kalitesini korumak i
 
 1. `capture-and-prepare-ingest.ps1 -MemoryPath` raw capture akışını gerçek private memory üzerinde uçtan uca dene.
 2. Generated note hedeflerini `KnowledgeMemory/notes/` altında destekle.
-3. External memory ve `vault://` source-reference çözümlemesini validator ile uyumlu hale getir.
+3. İsteğe bağlı external-memory doğrulamasını public validator'dan ayrı bir sınır olarak tasarla.
 4. Private `home.md` ve reading path üretim/açma akışını Obsidian ile test et.
 5. KnowledgeMemory klasör yapısı için bootstrap ve public-safe export/redaction sınırını tanımla.
 6. Validation output'unu daha structured hale getir ve commit assistant'i yalnızca public engine değişiklikleri için karar desteği verecek şekilde tasarla.
@@ -247,7 +247,7 @@ Lothal.KnowledgeWiki icin `raw/` event log gibi, `wiki/` read model gibi, valida
 - `scripts/validate-wiki.ps1`
 - `.github/workflows/validate-wiki.yml`
 - `README.md`
-- `raw/articles/2026-06-24-two-agent-workflow-for-agentic-development.md`
+- `vault://raw/articles/2026-06-24-two-agent-workflow-for-agentic-development.md`
 
 ## Open Questions
 

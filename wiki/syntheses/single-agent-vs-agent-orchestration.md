@@ -58,8 +58,8 @@ Bu seçim microservice sınırı seçmeye benzer: yalnızca sistemi parçalara a
 
 ## Source References
 
-- `raw/tweets/2026-06-27-agent-orchestration-explained.md`
-- `raw/articles/2026-06-24-two-agent-workflow-for-agentic-development.md`
+- `vault://raw/tweets/2026-06-27-agent-orchestration-explained.md`
+- `vault://raw/articles/2026-06-24-two-agent-workflow-for-agentic-development.md`
 
 ## Open Questions
 

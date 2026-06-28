@@ -64,8 +64,8 @@ Harness, model hatalarını ortadan kaldırmaz; onları backend mühendisliğini
 
 ## Source References
 
-- `raw/tweets/2026-06-28-agent-harness-vs-classic-agent.md`
-- `raw/tweets/2026-06-27-agent-orchestration-explained.md`
+- `vault://raw/tweets/2026-06-28-agent-harness-vs-classic-agent.md`
+- `vault://raw/tweets/2026-06-27-agent-orchestration-explained.md`
 
 ## Open Questions
 

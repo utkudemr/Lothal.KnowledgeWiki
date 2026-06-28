@@ -60,7 +60,7 @@ Bu konu "AI'i yazilim gelistirme surecinde nasil kullaniyorsun?" veya "LLM cikti
 
 ## Source References
 
-- `raw/articles/2026-06-23-the-most-important-skill-in-the-age-of-ai-judgment.md`
+- `vault://raw/articles/2026-06-23-the-most-important-skill-in-the-age-of-ai-judgment.md`
 
 ## Open Questions
 

@@ -2,7 +2,7 @@
 
 ## Short Definition
 
-LLM Wiki, ham kaynaklardan (`raw/`) LLM tarafından türetilen ve sürekli güncellenen kalıcı bir markdown bilgi katmanıdır. `raw/` immutable kaynaklar olarak kalır; `wiki/` ise bu kaynakların işlenmiş read modeli, proje edilmiş bir rehberidir.
+LLM Wiki, external `KnowledgeMemory/raw/` ham kaynaklarından LLM tarafından türetilen ve sürekli güncellenen kalıcı bir markdown bilgi katmanıdır. Private raw capture'lar immutable kalır; public `wiki/` ise bu kaynakların işlenmiş read modeli, proje edilmiş bir rehberidir.
 
 ## Why It Matters
 
@@ -10,11 +10,11 @@ Klasik dosya yükleme veya RAG deneyiminde model her soruda bilgiyi yeniden bulu
 
 Bir mühendis açısından asıl fayda, bilginin sohbet geçmişinde kaybolmaması ve her ingest sonrası kalıcı bir artefaktın üretilmesidir. Sayfalar git ile izlenebilir, incelenebilir ve zaman içinde iyileştirilebilir.
 
-`raw/` ham kaynak, `wiki/` ise LLM tarafından düzenlenmiş projeksiyon olduğunda, aynı kaynaktan sürekli yeniden çıkarım yapmak gerekmez.
+`KnowledgeMemory/raw/` ham kaynak, `wiki/` ise LLM tarafından düzenlenmiş projeksiyon olduğunda, aynı kaynaktan sürekli yeniden çıkarım yapmak gerekmez.
 
 ## Key Ideas
 
-- Ham kaynaklar değiştirilmeyen `raw/` altında tutulur.
+- Ham kaynaklar değiştirilmeyen external `KnowledgeMemory/raw/` altında tutulur.
 - `wiki/`, bu ham kaynakların LLM tarafından işlenmiş, kalıcı ve bağlamlı bir projeksiyonudur.
 - `AGENTS.md` gibi bir şema dosyası, ajana dizin yapısını, yazım kurallarını ve ingest akışını öğretir.
 - Index, içerik odaklı navigasyon sağlar; log, kronolojik işlem geçmişini kaydeder.
@@ -23,7 +23,7 @@ Bir mühendis açısından asıl fayda, bilginin sohbet geçmişinde kaybolmamas
 
 ## Example
 
-Bir .NET backend geliştirici, `raw/articles/` altına rate limiting ve distributed cache ile ilgili bir makale ekler. LLM bu kaynağı okur, `wiki/concepts/sliding-window-rate-limit.md` sayfasını oluşturur veya günceller, ilgili interview notunu bağlar, `wiki/index.md` dosyasına navigasyon ekler ve `wiki/log.md` dosyasına ingest kaydı yazar.
+Bir .NET backend geliştirici, `KnowledgeMemory/raw/articles/` altına rate limiting ve distributed cache ile ilgili bir makale ekler. LLM bu kaynağı okur, `wiki/concepts/sliding-window-rate-limit.md` sayfasını oluşturur veya günceller, ilgili interview notunu bağlar, `wiki/index.md` dosyasına navigasyon ekler ve `wiki/log.md` dosyasına ingest kaydı yazar.
 
 Sonraki hafta Redis tabanlı dağıtık rate limiting hakkında başka bir kaynak eklendiğinde, LLM mevcut sayfayı tamamen yeniden üretmez; bunun yerine mevcut senteze yeni dağıtık sistem notları ekler ve önceki iddialarla çelişkiyi `Open Questions` altında belirtir.
 
@@ -53,7 +53,7 @@ Guclu cevapta su ayrim vurgulanmali: RAG query-time retrieval yapar; LLM Wiki is
 
 ## Source References
 
-- `raw/articles/karpathy-llm-wiki.md`
+- `vault://raw/articles/karpathy-llm-wiki.md`
 
 ## Open Questions
 

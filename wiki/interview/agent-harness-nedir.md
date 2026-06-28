@@ -42,4 +42,4 @@ Bir .NET coding agent'ın issue çözdüğünü düşünürüm. Agent repository
 
 ## Source References
 
-- `raw/tweets/2026-06-28-agent-harness-vs-classic-agent.md`
+- `vault://raw/tweets/2026-06-28-agent-harness-vs-classic-agent.md`

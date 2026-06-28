@@ -4,7 +4,7 @@
 
 RAG ve LLM Wiki, LLM'leri harici bilgiyle çalıştırmanın iki farklı yoludur. RAG genellikle soru anında ilgili doküman parçalarını bulup cevap üretir. LLM Wiki ise yeni kaynakları ingest anında işleyerek kalıcı, bağlantılı ve sürümlenebilir bir markdown bilgi tabanı oluşturur.
 
-Bu repo bağlamında `raw/` ham kaynağın, `wiki/` ise LLM tarafından üretilmiş read modelin karşılığıdır.
+Bu sistem bağlamında external `KnowledgeMemory/raw/` ham kaynağın, public `wiki/` ise LLM tarafından üretilmiş read modelin karşılığıdır.
 
 ## Compared Ideas
 
@@ -18,7 +18,7 @@ RAG'de bilgi genellikle ham doküman chunk'larından her soruda yeniden derlenir
 
 RAG daha çok arama ve cevaplama altyapısıdır. LLM Wiki ise daha çok bilgi yönetimi, editoryal bakım ve öğrenme artefaktı üretme yaklaşımıdır.
 
-- Raw kaynak: `raw/` üzerinde immutable kaynaklar.
+- Raw kaynak: external `KnowledgeMemory/raw/` üzerinde immutable kaynaklar.
 - LLM Wiki: `wiki/` üzerinde işlenmiş markdown projeksiyonu.
 - RAG: runtime'da retrieval yapan destekleyici arama katmanı.
 
@@ -29,7 +29,7 @@ RAG'de en kritik kalite faktoru retrieval kalitesidir. LLM Wiki'de ise kaynak re
 - Hızlı soru cevap ve büyük doküman koleksiyonunda kaynak bulma gerekiyorsa RAG güçlüdür.
 - Uzun vadeli teknik öğrenme, interview hazırlığı ve proje bilgisi biriktirme gerekiyorsa LLM Wiki daha kalıcı değer üretir.
 - İki yaklaşım rakip olmak zorunda değildir; büyüyen bir wiki ileride RAG veya markdown arama aracı ile desteklenebilir.
-- Bu repo bağlamında, `raw/` ham kaynak, `wiki/` ise LLM tarafından bakımı yapılan bilgi read modelidir.
+- Bu sistem bağlamında, `KnowledgeMemory/raw/` ham kaynak, public `wiki/` ise LLM tarafından bakımı yapılan bilgi read modelidir.
 - LLM Wiki, yalnızca cevap üretmek yerine sürekli bakımı yapılan, gözden geçirilebilen bilgi tabanı üretmeye odaklanır.
 
 ## When To Use Which
@@ -53,7 +53,7 @@ LLM Wiki kullan:
 
 Bu repository icin pratik model sudur:
 
-- `raw/` source of truth.
+- External `KnowledgeMemory/raw/` source of truth.
 - `wiki/` LLM tarafindan bakimi yapilan bilgi read model.
 - `AGENTS.md` workflow ve sema.
 - `wiki/index.md` navigasyon.
@@ -68,7 +68,7 @@ Bu repository icin pratik model sudur:
 
 ## Source References
 
-- `raw/articles/karpathy-llm-wiki.md`
+- `vault://raw/articles/karpathy-llm-wiki.md`
 
 ## Open Questions
 

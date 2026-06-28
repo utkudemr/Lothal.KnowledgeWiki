@@ -35,4 +35,4 @@ Buna karsin flash sale stok miktari, kullanici bakiyesi veya odeme provizyon son
 
 ## Source References
 
-- `raw/articles/2026-06-21-to-cache-or-not-to-cache.md`
+- `vault://raw/articles/2026-06-21-to-cache-or-not-to-cache.md`
