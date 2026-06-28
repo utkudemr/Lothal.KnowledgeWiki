@@ -19,6 +19,7 @@ Bu, bilgi yonetimini yazilim gelistirme is akisi gibi ele alir. Kurallar repo ic
 - Insan kaynak secer, oncelik verir ve kaliteyi denetler; ajan operasyonel bakimi yapar.
 - Buyuk repository'lerde agent workflow, genel talimatlarin yaninda dosya sahipligi, generated dosya sinirlari, test komutlari ve kalite kapilariyla desteklenmelidir.
 - AI ciktisi final karar degil, review ve validation'dan gecmesi gereken aday ciktidir.
+- Agent harness; workflow'un state, tool access, checkpoint, recovery, validation ve approval gibi execution sorumluluklarini model cagrisinin disinda yoneten teknik katmanidir.
 - Agentic development'ta spec, implementation ve verification ayni dikkat turunu istemez; workflow bu farki dikkate alarak tasarlanmalidir.
 - Karmaşık ve bölünebilir görevlerde ana agent delegasyon, context paylaşımı, partial result aggregation ve next-step kararlarını yöneten orchestration katmanı kurabilir.
 
@@ -55,6 +56,7 @@ Agent workflow konusu, "LLM'i production sureclerine nasil kontrollu eklersin?" 
 - [AI Caginda Judgment](ai-caginda-judgment.md)
 - [Two-Track Agentic Development](two-track-agentic-development.md)
 - [Agent Orchestration](agent-orchestration.md)
+- [Agent Harness](agent-harness.md)
 - [LLM Wiki](llm-wiki.md)
 - [RAG](rag.md)
 - [RAG vs LLM Wiki](../syntheses/rag-vs-llm-wiki.md)
@@ -71,6 +73,7 @@ Agent workflow konusu, "LLM'i production sureclerine nasil kontrollu eklersin?" 
 - `raw/articles/2026-06-23-the-most-important-skill-in-the-age-of-ai-judgment.md`
 - `raw/articles/2026-06-24-two-agent-workflow-for-agentic-development.md`
 - `raw/tweets/2026-06-27-agent-orchestration-explained.md`
+- `raw/tweets/2026-06-28-agent-harness-vs-classic-agent.md`
 
 ## Open Questions
 

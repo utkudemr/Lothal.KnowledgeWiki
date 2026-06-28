@@ -22,6 +22,7 @@ Repo, LLM Wiki desenini uygulayan basit ama genisleyebilir bir yapiya sahip:
 - [LLM Wiki](../concepts/llm-wiki.md)
 - [RAG](../concepts/rag.md)
 - [Agent Workflow](../concepts/agent-workflow.md)
+- [Agent Harness](../concepts/agent-harness.md)
 - [Agent Orchestration](../concepts/agent-orchestration.md)
 - [Agent Instructions](../concepts/agent-instructions.md)
 - [AI Caginda Judgment](../concepts/ai-caginda-judgment.md)
@@ -33,6 +34,7 @@ Repo, LLM Wiki desenini uygulayan basit ama genisleyebilir bir yapiya sahip:
 - [Prompt Playbook vs Kalibre Judgment](../syntheses/prompt-playbook-vs-kalibre-judgment.md)
 - [Parallel Agent vs Flow Efficiency](../syntheses/parallel-agent-vs-flow-efficiency.md)
 - [Single Agent vs Agent Orchestration](../syntheses/single-agent-vs-agent-orchestration.md)
+- [Classic Agent vs Agent Harness](../syntheses/classic-agent-vs-agent-harness.md)
 - [Cloud-first vs Offline-first vs Local-first](../syntheses/cloud-first-vs-offline-first-vs-local-first.md)
 
 ## Architecture Notes
@@ -64,9 +66,12 @@ Two-track agentic development kaynagi bu projeye ek bir workflow prensibi getiri
 
 Agent orchestration bu projede varsayılan değil, görev yapısı gerektirdiğinde kullanılan kontrollü bir optimizasyon olmalıdır. Büyük bir ingest sırasında duplicate taraması, teknik iddia analizi ve interview extraction gibi bağımsız okuma görevleri subagent'lara verilebilir. Ana agent sayfa planını, ortak terminolojiyi, source reference'ları ve final dosya değişikliklerini sahiplenmelidir. Aynı wiki dosyasını birden fazla agent'ın paralel düzenlemesi yerine kısmi sonuçlar ana agent'ta birleştirilmelidir; `validate-wiki.ps1` ise agent görüşünden bağımsız deterministik kalite kapısı olarak kalmalıdır.
 
+Agent harness bakışı bu repository'deki parçaların rolünü netleştirir: `AGENTS.md` policy ve çalışma sözleşmesi, helper scriptler kontrollü tool yüzeyi, Git kalıcı çalışma alanı ve audit izi, `validate-wiki.ps1` ise deterministik kabul kapısıdır. Repo henüz durable run state, otomatik recovery veya risk-temelli approval sunan tam bir harness değildir; bu ayrım gelecekteki otomasyonu gereğinden fazla otonomlaştırmadan tasarlamak için korunmalıdır.
+
 ## Next Ideas
 
 - Periyodik lint akisi tanimlamak: orphan sayfalar, eksik source reference, stale index entry ve eksik related page kontrolleri.
+- Minimal harness sinirini belgelemek: run state, izin verilen araclar, validation sonucu, approval gerektiren eylemler ve audit artefact'lari.
 - Query sonucunda uretilen degerli cevaplarin hangi kosullarda wiki sayfasina donusecegini netlestirmek.
 - Belirli sayfa sayisindan sonra markdown aramasi, BM25 veya qmd benzeri lokal arama araclarini degerlendirmek.
 - Interview hazirligi icin konsept sayfalarindan cevap odakli interview sayfalari uretmek.
@@ -82,6 +87,7 @@ Agent orchestration bu projede varsayılan değil, görev yapısı gerektirdiği
 
 - [LLM Wiki](../concepts/llm-wiki.md)
 - [Agent Workflow](../concepts/agent-workflow.md)
+- [Agent Harness](../concepts/agent-harness.md)
 - [Agent Orchestration](../concepts/agent-orchestration.md)
 - [Agent Instructions](../concepts/agent-instructions.md)
 - [AI Caginda Judgment](../concepts/ai-caginda-judgment.md)
@@ -93,6 +99,7 @@ Agent orchestration bu projede varsayılan değil, görev yapısı gerektirdiği
 - [Prompt Playbook vs Kalibre Judgment](../syntheses/prompt-playbook-vs-kalibre-judgment.md)
 - [Parallel Agent vs Flow Efficiency](../syntheses/parallel-agent-vs-flow-efficiency.md)
 - [Single Agent vs Agent Orchestration](../syntheses/single-agent-vs-agent-orchestration.md)
+- [Classic Agent vs Agent Harness](../syntheses/classic-agent-vs-agent-harness.md)
 - [Cloud-first vs Offline-first vs Local-first](../syntheses/cloud-first-vs-offline-first-vs-local-first.md)
 
 ## Source References
@@ -103,3 +110,4 @@ Agent orchestration bu projede varsayılan değil, görev yapısı gerektirdiği
 - `raw/articles/2026-06-23-the-most-important-skill-in-the-age-of-ai-judgment.md`
 - `raw/articles/2026-06-24-two-agent-workflow-for-agentic-development.md`
 - `raw/tweets/2026-06-27-agent-orchestration-explained.md`
+- `raw/tweets/2026-06-28-agent-harness-vs-classic-agent.md`

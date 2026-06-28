@@ -374,3 +374,25 @@ Notes:
 - Added a reader-oriented dashboard and five ordered topic paths for Obsidian and other markdown readers.
 - Preferred synthesis pages before concepts and interview notes, and linked only to files that currently exist.
 - Marked thin backend and interview topic areas as "To be expanded" without creating fake links.
+
+## 2026-06-28 - ingest - Agent Harness vs Classic Agent
+
+Source:
+- `raw/tweets/2026-06-28-agent-harness-vs-classic-agent.md`
+
+Created:
+- `wiki/concepts/agent-harness.md`
+- `wiki/syntheses/classic-agent-vs-agent-harness.md`
+- `wiki/interview/agent-harness-nedir.md`
+
+Updated:
+- `wiki/concepts/agent-workflow.md`
+- `wiki/concepts/agent-orchestration.md`
+- `wiki/projects/lothal-knowledgewiki.md`
+- `wiki/index.md`
+- `wiki/log.md`
+
+Notes:
+- Defined agent harness as the execution and control layer around a model, distinct from optional multi-agent orchestration.
+- Reframed the source's classic-agent comparison as a spectrum and preserved the terminology ambiguity as an open question.
+- Connected harness design to .NET workflow state, idempotency, observability, sandboxing and human approval.

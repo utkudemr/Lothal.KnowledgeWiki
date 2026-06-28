@@ -20,6 +20,7 @@ This is the main navigation page for the knowledge wiki.
 - [LLM Wiki](concepts/llm-wiki.md) - LLM tarafindan bakimi yapilan kalici markdown bilgi katmani.
 - [RAG](concepts/rag.md) - Sorgu aninda ilgili dokuman parcalarini getirerek cevap uretme yaklasimi.
 - [Agent Workflow](concepts/agent-workflow.md) - Ajanin kaynak ingest, query, lint ve wiki bakimini kuralli sekilde yapmasi.
+- [Agent Harness](concepts/agent-harness.md) - Modelin cevresinde state, arac, recovery, validation, permission ve approval yoneten execution katmani.
 - [Agent Orchestration](concepts/agent-orchestration.md) - Ana agent'ın delegasyon, context paylaşımı, kısmi sonuçları birleştirme ve sonraki adım kararlarını yönetmesi.
 - [Agent Instructions](concepts/agent-instructions.md) - Repository icinde ajanlara proje kurallarini, kalite kapilarini ve maintainer beklentilerini anlatan talimat katmani.
 - [Local-first Software](concepts/local-first-software.md) - Yerel cihazdaki veriyi birincil kabul eden, cloud'u destekleyici sync/backup katmani olarak kullanan mimari yaklasim.
@@ -30,6 +31,7 @@ This is the main navigation page for the knowledge wiki.
 
 ## Syntheses
 
+- [Classic Agent vs Agent Harness](syntheses/classic-agent-vs-agent-harness.md) - Kisa model etkilesimi ile stateful, arac kullanan ve denetlenebilir execution sistemi arasindaki secim.
 - [RAG vs LLM Wiki](syntheses/rag-vs-llm-wiki.md) - Query-time retrieval ile ingest-time kalici sentez arasindaki farklar.
 - [Coding Agent vs Knowledge Wiki Agent](syntheses/coding-agent-vs-knowledge-wiki-agent.md) - Kod degistiren ajanlarla bilgi wiki'si ureten ajanlarin farkli riskleri ve kalite kapilari.
 - [Cloud-first vs Offline-first vs Local-first](syntheses/cloud-first-vs-offline-first-vs-local-first.md) - Server-authoritative, offline-capable ve local-authoritative mimari yaklasimlarin pratik farklari.
@@ -40,6 +42,7 @@ This is the main navigation page for the knowledge wiki.
 
 ## Interview Notes
 
+- [Agent harness nedir?](interview/agent-harness-nedir.md) - Production agent sisteminde state, tool policy, recovery, validation ve insan onayini aciklayan mulakat cevabi.
 - [Offline-first ile local-first arasindaki fark nedir?](interview/offline-first-ile-local-first-arasindaki-fark-nedir.md) - Offline mimari, local data ownership ve sync tradeoff'larini anlatan mulakat cevabi.
 - [Cache ne zaman kullanilmali?](interview/cache-ne-zaman-kullanilmali.md) - Cache kararini system design mulakatinda TTL, invalidation, guvenlik ve stale data tradeoff'lariyla savunma cevabi.
 - [AI ciktilarini nasil degerlendirirsin?](interview/ai-ciktilarini-nasil-degerlendirirsin.md) - LLM ciktisini varsayim, domain bilgisi, test, review ve validation ile kontrol etmeyi anlatan mulakat cevabi.
