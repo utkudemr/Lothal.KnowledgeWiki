@@ -17,8 +17,8 @@ Two-track agentic development kaynagi bu roadmap'e onemli bir sinir cizer: autom
 5. Raw source commit edilir.
 6. `scripts/ingest-prompt.ps1` calistirilir.
 7. Prompt IDE agent/chat icine yapistirilir.
-8. `scripts/review-prompt.ps1` calistirilir.
-9. Review prompt icindeki ingest output placeholder'i ingest summary ile elle degistirilir.
+8. Ingest summary clipboard'a kopyalanir ve `scripts/save-ingest-summary.ps1` ile run dizinine kaydedilir.
+9. `scripts/review-prompt.ps1`, kaydedilen summary path'i ile calistirilir.
 10. `scripts/validate-wiki.ps1` calistirilir.
 11. Commit/push yapilir.
 12. GitHub Actions ayni validation adimini tekrar calistirir.
@@ -28,7 +28,7 @@ Two-track agentic development kaynagi bu roadmap'e onemli bir sinir cizer: autom
 - Raw Content capture hala manuel.
 - Web sayfalarini markdown'a donusturmek manuel.
 - Prompt copy/paste akisi manuel.
-- Review prompt, ingest summary'nin elle yerlestirilmesini gerektiriyor.
+- Ingest summary'nin agent ciktisindan clipboard'a kopyalanmasi hala manuel.
 - Validation CI tarafinda calissa da lokal olarak elle calistiriliyor.
 - Agent run output'lari structured bir sekilde arsivlenmiyor.
 - Commit mesajlari ve final commit kararlari hala manuel.
@@ -75,25 +75,26 @@ Bu akış, çoğu article/tweet/thread capture işlemi için daha manuel olan `s
 
 URL fetching bilinçli olarak ertelenmiştir. Sitelerin HTML yapısı, erişim kuralları ve client-side rendering davranışları farklıdır; şimdilik browser reader mode veya MarkDownload üzerinden alınan, kullanıcının görebildiği markdown/metin daha güvenilir bir capture sınırı sağlar. Script LLM çağırmaz, commit atmaz ve yeni oluşturduğu raw source dışında `raw/` içeriğini değiştirmez.
 
-## Phase 3.6 - Review Summary Automation
+## Phase 3.6 - Run Archive and Review Automation
 
-`scripts/review-prompt.ps1`, opsiyonel olarak ingest summary dosyasi kabul edecek sekilde gelistirilebilir. Bu, review prompt hazirlarken agent ciktisini elle prompt icine tasima ihtiyacini azaltir.
+`scripts/save-ingest-summary.ps1`, clipboard'daki ingest summary'yi source slug'ına ait `.agent/runs/...` dizinine kaydeder ve `source-path.txt` ile kaynak izini korur. `scripts/review-prompt.ps1` opsiyonel ikinci argüman olarak bu summary dosyasını kabul eder ve review prompt'undaki ingest-output placeholder'ını otomatik doldurur. Böylece ingest ile review arasındaki manuel kopyala-yapıştır ve placeholder değiştirme adımı azalır.
 
-Olası kullanim:
+Kullanım:
 
 ```powershell
+.\scripts\save-ingest-summary.ps1 <raw-source-path>
 .\scripts\review-prompt.ps1 <raw-source-path> .agent/runs/example/ingest-summary.md
 ```
 
-Bu yaklasimda ingest summary, once `.agent/runs/...` altinda saklanir; review helper ise source path ve summary dosyasini okuyup final review prompt'unu hazirlar.
+Tek argümanlı `review-prompt.ps1` kullanımı geriye dönük uyumluluk için korunur; bu durumda prompt ingest-output placeholder'ı ile üretilir ve manuel akışa devam edilebilir.
 
 Hedefler:
 
-- Review prompt icindeki manuel summary yerlestirme adimini azaltmak.
-- Agent run ciktisini daha sonra incelenebilir hale getirmek.
-- Review ve validation kararlarini daha iyi audit edebilmek.
+- Review prompt içindeki manuel summary yerleştirme adımını azaltmak. (tamamlandı)
+- Agent run çıktısını daha sonra incelenebilir hale getirmek. (ingest summary için tamamlandı)
+- Source ile run artefact'ı arasındaki izi korumak. (tamamlandı)
 
-Bu fazda da LLM cagrisi yapilmamali. Script sadece prompt hazirlamali ve gerekirse clipboard'a kopyalamali.
+Bu fazda LLM çağrısı veya commit oluşturma yoktur. Gelecekte aynı run dizinine review sonucunu kaydetmek, validation çıktısını yakalamak ve kullanıcının inceleyebileceği bir commit komutu hazırlamak mümkündür.
 
 ## Phase 4 - Run Artifact Archive
 
@@ -162,8 +163,8 @@ Bu asamada final karar yine insanda kalmali. Knowledge base kalitesini korumak i
 ## Recommended Order
 
 1. Article/tweet/thread capture icin `scripts/capture-and-prepare-ingest.ps1` kullan.
-2. `scripts/review-prompt.ps1` icin opsiyonel ingest summary dosyasi destegi ekle.
-3. `.agent/runs/` icin minimal run artifact formatini dene.
+2. Ingest summary'yi `scripts/save-ingest-summary.ps1` ile kaydet ve summary path'ini review helper'a ver.
+3. `.agent/runs/` formatini review sonucu ve validation ciktisi ile genisletmeyi dene.
 4. Opsiyonel `scripts/open-reading.ps1` ile repo kokunu veya `wiki/index.md` dosyasini okuma ortaminda acmayi degerlendir.
 5. Validation output'unu daha structured hale getir.
 6. Commit assistant'i sadece karar destegi verecek sekilde tasarla.
@@ -190,6 +191,7 @@ Lothal.KnowledgeWiki icin `raw/` event log gibi, `wiki/` read model gibi, valida
 - `scripts/new-source.ps1`
 - `scripts/capture-and-prepare-ingest.ps1`
 - `scripts/ingest-prompt.ps1`
+- `scripts/save-ingest-summary.ps1`
 - `scripts/review-prompt.ps1`
 - `scripts/validate-wiki.ps1`
 - `.github/workflows/validate-wiki.yml`

@@ -65,13 +65,19 @@ This repository experiments with a persistent wiki layer maintained by agents.
 
    Paste the copied prompt into the IDE agent/chat.
 
-5. After ingest completes, generate a review prompt:
+5. After ingest completes, copy its summary and save it:
 
    ```powershell
-   .\scripts\review-prompt.ps1 raw/articles/<generated-file>.md
+   .\scripts\save-ingest-summary.ps1 raw/articles/<generated-file>.md
    ```
 
-   Paste the copied prompt into the IDE agent/chat and replace `INGEST_OUTPUT` with the ingest summary.
+   Then generate a review prompt with the saved summary already inserted:
+
+   ```powershell
+   .\scripts\review-prompt.ps1 raw/articles/<generated-file>.md .agent/runs/<source-slug>/ingest-summary.md
+   ```
+
+   Paste the copied, fully filled prompt into the IDE agent/chat. Calling `review-prompt.ps1` with only the source path remains supported and leaves the `INGEST_OUTPUT` placeholder for manual replacement.
 
 6. Review git diff.
 
@@ -89,6 +95,16 @@ Notes:
 - `.agent/templates/source.md` defines the raw source format.
 - `.agent/prompts/` contains reusable prompt templates.
 - `scripts/` only generate files or prompts; they do not run agents or call external APIs.
+
+## Save Ingest Summary and Prepare Review
+
+After the ingest agent finishes, copy its summary and run:
+
+```powershell
+.\scripts\save-ingest-summary.ps1 raw/tweets/2026-06-28-agent-harness-vs-classic-agent.md
+```
+
+The helper archives the clipboard text under `.agent/runs/<source-slug>/ingest-summary.md`, records the source path and prints the next `review-prompt.ps1` command. Run that command to copy a review prompt with the ingest summary already inserted. Neither helper calls an LLM or creates a commit.
 
 ## Capture and Prepare Ingest
 

@@ -396,3 +396,25 @@ Notes:
 - Defined agent harness as the execution and control layer around a model, distinct from optional multi-agent orchestration.
 - Reframed the source's classic-agent comparison as a spectrum and preserved the terminology ambiguity as an open question.
 - Connected harness design to .NET workflow state, idempotency, observability, sandboxing and human approval.
+
+## 2026-06-28 - update - Run Archive and Review Automation
+
+Source:
+- `scripts/save-ingest-summary.ps1`
+- `scripts/review-prompt.ps1`
+- `README.md`
+- `wiki/projects/automation-roadmap.md`
+
+Created:
+- `scripts/save-ingest-summary.ps1`
+
+Updated:
+- `scripts/review-prompt.ps1`
+- `README.md`
+- `wiki/projects/automation-roadmap.md`
+- `wiki/log.md`
+
+Notes:
+- Added a clipboard-based helper that archives ingest summaries and their source paths under `.agent/runs/<source-slug>/`.
+- Extended the review prompt helper with an optional summary path while preserving its single-argument workflow.
+- Removed the manual ingest-output placeholder replacement step from the preferred review workflow without calling an LLM or creating commits.
