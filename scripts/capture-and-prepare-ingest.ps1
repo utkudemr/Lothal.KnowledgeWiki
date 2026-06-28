@@ -82,10 +82,13 @@ function ConvertTo-RepositoryRelativePath {
     return $resolvedPath.Substring($rootWithSeparator.Length).Replace([System.IO.Path]::DirectorySeparatorChar, '/')
 }
 
-function Replace-FirstOccurrence {
+function Replace-SectionPlaceholderBlock {
     param(
         [Parameter(Mandatory = $true)]
         [string]$Content,
+
+        [Parameter(Mandatory = $true)]
+        [string]$SectionHeading,
 
         [Parameter(Mandatory = $true)]
         [string]$Placeholder,
@@ -95,16 +98,22 @@ function Replace-FirstOccurrence {
         [string]$Replacement
     )
 
-    $placeholderIndex = $Content.IndexOf($Placeholder, [System.StringComparison]::Ordinal)
+    $pattern = '(?ms)(^' + [regex]::Escape($SectionHeading) + '[ \t]*\r?\n).*?' + [regex]::Escape($Placeholder)
+    $match = [regex]::Match($Content, $pattern)
 
-    if ($placeholderIndex -lt 0) {
-        Write-Error "Placeholder not found in the created raw source: $Placeholder"
+    if (-not $match.Success) {
+        Write-Error "Section placeholder block not found in the created raw source: $SectionHeading / $Placeholder"
         exit 1
     }
 
-    return $Content.Substring(0, $placeholderIndex) +
+    $headingWithLineEnding = $match.Groups[1].Value
+    $lineEnding = if ($headingWithLineEnding.EndsWith("`r`n")) { "`r`n" } else { "`n" }
+
+    return $Content.Substring(0, $match.Index) +
+        $headingWithLineEnding +
+        $lineEnding +
         $Replacement +
-        $Content.Substring($placeholderIndex + $Placeholder.Length)
+        $Content.Substring($match.Index + $match.Length)
 }
 
 if ([string]::IsNullOrWhiteSpace($Type) -or [string]::IsNullOrWhiteSpace($Title) -or [string]::IsNullOrWhiteSpace($Url)) {
@@ -170,8 +179,8 @@ if ([string]::IsNullOrWhiteSpace($createdPath) -or -not (Test-Path -LiteralPath 
 
 $relativeSourcePath = ConvertTo-RepositoryRelativePath -Path $createdPath
 $sourceContent = Get-Content -LiteralPath $createdPath -Raw -Encoding UTF8
-$sourceContent = Replace-FirstOccurrence -Content $sourceContent -Placeholder '{{RAW_CONTENT}}' -Replacement $clipboardText
-$sourceContent = Replace-FirstOccurrence -Content $sourceContent -Placeholder '{{CONTEXT_NOTES}}' -Replacement $defaultContextNotes
+$sourceContent = Replace-SectionPlaceholderBlock -Content $sourceContent -SectionHeading '## Context Notes' -Placeholder '{{CONTEXT_NOTES}}' -Replacement $defaultContextNotes
+$sourceContent = Replace-SectionPlaceholderBlock -Content $sourceContent -SectionHeading '## Raw Content' -Placeholder '{{RAW_CONTENT}}' -Replacement $clipboardText
 Set-Content -LiteralPath $createdPath -Value $sourceContent -Encoding UTF8 -NoNewline
 
 try {
