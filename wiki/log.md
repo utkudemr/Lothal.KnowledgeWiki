@@ -418,3 +418,23 @@ Notes:
 - Added a clipboard-based helper that archives ingest summaries and their source paths under `.agent/runs/<source-slug>/`.
 - Extended the review prompt helper with an optional summary path while preserving its single-argument workflow.
 - Removed the manual ingest-output placeholder replacement step from the preferred review workflow without calling an LLM or creating commits.
+
+## 2026-06-28 - update - Public KnowledgeWiki Engine and Private KnowledgeMemory Architecture
+
+Source:
+- Architecture decision provided for the Lothal.KnowledgeWiki project
+
+Created:
+- None
+
+Updated:
+- `AGENTS.md`
+- `README.md`
+- `wiki/projects/lothal-knowledgewiki.md`
+- `wiki/projects/automation-roadmap.md`
+- `wiki/log.md`
+
+Notes:
+- Defined Lothal.KnowledgeWiki as the public engine/framework for scripts, prompts, validation, reading structures, documentation and public-safe examples.
+- Moved the long-term personal memory boundary to a separate private and optionally synced `KnowledgeMemory` folder for raw captures, notes, reading outputs and run artifacts.
+- Documented the future `-MemoryPath` workflow without modifying scripts or removing existing public `raw/` and `wiki/` content.

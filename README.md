@@ -1,15 +1,64 @@
 # Lothal.KnowledgeWiki
 
-A markdown-based technical knowledge base maintained with LLM agents.
+LLM agent'larıyla çalışan kişisel teknik asistan akışı için public engine/framework.
 
-The goal is to turn scattered technical sources such as articles, tweets,
-GitHub repositories, job postings, interview questions and personal notes into
-durable, linked and reviewable learning artifacts.
+Projenin amacı; dağınık teknik kaynakları kalıcı, bağlantılı ve gözden geçirilebilir öğrenme çıktılarına dönüştüren scriptleri, promptları, validation kurallarını, okuma yapısını ve public-safe örnekleri geliştirmektir. Kullanıcının gerçek özel bilgi belleği bu public repository içinde değil, ayrı bir `KnowledgeMemory` klasöründe yaşayacaktır.
 
 ## Purpose
 
-Traditional chat-based learning loses useful synthesis over time.
-This repository experiments with a persistent wiki layer maintained by agents.
+Geleneksel chat tabanlı öğrenmede değerli sentezler zaman içinde kaybolur. Lothal.KnowledgeWiki bu sorunu çözen sistemin public ve tekrar kullanılabilir motorudur; kullanıcının sınırsız büyüyebilecek özel kaynak arşivi değildir.
+
+Public repository şunları içerir:
+
+- scriptler ve engine/framework mantığı
+- promptlar ve agent talimatları
+- validation workflow'u
+- reading path yapısı
+- dokümantasyon
+- public-safe örnek kaynaklar ve notlar
+
+Özel `KnowledgeMemory` ise tam raw capture'ları, kişisel özetleri, üretilmiş notları, private reading çıktılarını, inbox capture'larını, run artefact'larını ve Obsidian-readable notları içerir.
+
+## Architecture: Public Engine + Private KnowledgeMemory
+
+```text
+Lothal.KnowledgeWiki (public)       KnowledgeMemory (private)
+scripts, prompts, validation       inbox, raw captures
+reading-path structure             generated/personal notes
+documentation, safe examples       run artifacts, reading outputs
+engine/framework improvements      Obsidian-readable memory
+```
+
+Bu ayrımın nedenleri:
+
+- Public repo kullanıcının tüm kişisel belleğine dönüşmemelidir.
+- Raw source capture'ları ve üretilmiş özel notlar sürekli ve sınırsız büyüyebilir.
+- Kişisel asistan belleği private kalmalı ve kullanıcının seçtiği yöntemle senkronize edilmelidir.
+- Public repo her özel kaynağı saklamak yerine sistemi açıklamalı, doğrulamalı ve iyileştirmelidir.
+
+`KnowledgeMemory` bir Git repository olmak zorunda değildir. OneDrive, Google Drive, Obsidian Sync, Syncthing veya başka bir private sync mekanizmasıyla tutulabilir.
+
+Önerilen yapı:
+
+```text
+KnowledgeMemory/
+  inbox/
+  raw/
+    articles/
+    tweets/
+    repos/
+    videos/
+  notes/
+    concepts/
+    syntheses/
+    interview/
+    projects/
+    reading-paths/
+  runs/
+  home.md
+```
+
+Mevcut public `raw/` ve `wiki/` dosyaları bu değişiklikte kaldırılmıyor. Bunlar çalışan akışın geçmişini, public-safe örneklerini ve engine geliştirme bağlamını koruyor; karar ileriye dönük storage sınırını tanımlıyor.
 
 ## Source Types
 
@@ -24,11 +73,15 @@ This repository experiments with a persistent wiki layer maintained by agents.
 
 ## Workflow
 
+Bugünkü repo-local akış:
+
 1. Put the original source under `raw/`.
 2. Ask the agent to ingest it according to `AGENTS.md`.
 3. Agent creates or updates pages under `wiki/`.
 4. Agent updates `wiki/index.md`.
 5. Agent appends an entry to `wiki/log.md`.
+
+Hedef akışta `capture-and-prepare-ingest.ps1` bir `-MemoryPath` parametresi kabul edecek; raw kaynakları `KnowledgeMemory/raw/`, üretilmiş notları `KnowledgeMemory/notes/`, run artefact'larını `KnowledgeMemory/runs/` altına yazacaktır. Public repository'ye yalnızca script, prompt, validation ve dokümantasyon iyileştirmeleri gelecektir. Bu script değişiklikleri henüz uygulanmamıştır.
 
 ## Phase 1.5 Usage Workflow
 
@@ -182,4 +235,6 @@ Phase 2: Deterministic wiki validation MVP added with `scripts/validate-wiki.ps1
 
 Phase 3 MVP: Start ingest helper added with `scripts/start-ingest.ps1`.
 
-Next: test the workflow with a new article end-to-end.
+Architecture direction: public KnowledgeWiki Engine + private KnowledgeMemory boundary documented. Existing public content remains unchanged.
+
+Next: design and implement `capture-and-prepare-ingest.ps1 -MemoryPath <path>` together with compatible prompt, validation and run-path handling, then test the external-memory workflow end-to-end.

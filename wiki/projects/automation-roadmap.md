@@ -6,7 +6,33 @@ Mevcut Lothal.KnowledgeWiki sistemi calisiyor: raw source eklenebiliyor, ingest 
 
 Bu roadmap'in amaci, ingest/review/validation akisini kademeli olarak daha az manuel hale getirmek. Hedef tam otomatik ve kontrolsuz bir sistem kurmak degil; kullanicinin niyetini, source context'ini ve commit kararini koruyarak tekrar eden mekanik adimlari azaltmak.
 
+Roadmap'in yeni mimari sınırı şudur: Lothal.KnowledgeWiki public engine/framework olarak kalır; gerçek kişisel içerik ayrı ve private `KnowledgeMemory` altında büyür. Automation yalnızca adım sayısını değil, engine ile memory arasındaki storage sınırını da güvenli biçimde yönetmelidir.
+
 Two-track agentic development kaynagi bu roadmap'e onemli bir sinir cizer: automation, sadece daha cok agent veya daha cok paralel is anlamina gelmemelidir. Once spec, implementation ve verification bottleneck'leri ayrilmali; sonra mekanik adimlar guvenli sekilde azaltılmalidir.
+
+## Target Storage Architecture
+
+Public repository scriptleri, promptları, validation workflow'unu, reading path yapısını, dokümantasyonu ve public-safe örnekleri içerir. Private `KnowledgeMemory` full raw capture'ları, kişisel ve generated note'ları, reading çıktılarını, inbox içeriğini ve run artefact'larını saklar.
+
+```text
+KnowledgeMemory/
+  inbox/
+  raw/
+    articles/
+    tweets/
+    repos/
+    videos/
+  notes/
+    concepts/
+    syntheses/
+    interview/
+    projects/
+    reading-paths/
+  runs/
+  home.md
+```
+
+Bu klasör Git repository olmak zorunda değildir; OneDrive, Google Drive, Obsidian Sync, Syncthing veya başka bir private sync mekanizmasıyla senkronize edilebilir. Mevcut public `raw/` ve `wiki/` dosyaları bu roadmap değişikliğinde kaldırılmaz. Mimari karar yeni capture ve generation akışlarının yönünü belirler.
 
 ## Current Manual Workflow
 
@@ -114,6 +140,19 @@ Bu arsiv, wiki iceriginden farkli bir operasyonel iz olur. `wiki/` kalici bilgi 
 
 Onemli karar: Bu dizinin Git'e alinip alinmayacagi ayrica belirlenmelidir. Kisa vadede yerel audit icin faydali olabilir; uzun vadede gürültü uretirse ignore edilebilir veya sadece secili raporlar commit edilebilir.
 
+## Phase 4.1 - External KnowledgeMemory Path
+
+`scripts/capture-and-prepare-ingest.ps1` ileride bir `-MemoryPath` parametresi desteklemelidir. Bu fazın beklenen davranışı:
+
+- Raw source capture'larını `<MemoryPath>/raw/<source-type>/` altına yazmak.
+- Generated note hedeflerini `<MemoryPath>/notes/` altında çözmek.
+- Ingest/review/validation run artefact'larını `<MemoryPath>/runs/` altında tutmak.
+- Gerekirse `<MemoryPath>/inbox/` içinden capture alma akışını desteklemek.
+- Relative link ve source reference validation'ını external memory root'una göre çalıştırmak.
+- Public repository'ye yalnızca script, prompt, validation ve dokümantasyon iyileştirmeleri bırakmak.
+
+Bu fazda path normalization, klasör bootstrap'i, eksik memory path hataları ve mevcut repo-local kullanımla geriye dönük uyumluluk açıkça tasarlanmalıdır. Mevcut `.agent/runs/` davranışı repo-local MVP olarak kalır; hedef standart run archive konumu `KnowledgeMemory/runs/` olur. Script değişiklikleri bu dokümantasyon güncellemesinin kapsamında değildir.
+
 ## Phase 4.5 - Validation Ergonomics
 
 Validation su an dogru yerde duruyor: lokal script ve GitHub Actions gate'i. Sonraki ergonomi iyilestirmeleri sunlar olabilir:
@@ -159,15 +198,18 @@ Bu asamada final karar yine insanda kalmali. Knowledge base kalitesini korumak i
 - Review adimini tamamen kaldirmak.
 - Semantic kalite kontrolunu deterministik validation icine zorla sikistirmak.
 - Git commit ve push islemlerini kullanici onayi olmadan otomatik yapmak.
+- Mevcut public `raw/` ve `wiki/` içeriğini hemen silmek veya private memory'ye taşımak.
+- `KnowledgeMemory` klasörünü zorunlu olarak Git repository yapmak.
+- Private raw source veya generated note'ları rutin olarak public repository'ye commit etmek.
 
 ## Recommended Order
 
-1. Article/tweet/thread capture icin `scripts/capture-and-prepare-ingest.ps1` kullan.
-2. Ingest summary'yi `scripts/save-ingest-summary.ps1` ile kaydet ve summary path'ini review helper'a ver.
-3. `.agent/runs/` formatini review sonucu ve validation ciktisi ile genisletmeyi dene.
-4. Opsiyonel `scripts/open-reading.ps1` ile repo kokunu veya `wiki/index.md` dosyasini okuma ortaminda acmayi degerlendir.
-5. Validation output'unu daha structured hale getir.
-6. Commit assistant'i sadece karar destegi verecek sekilde tasarla.
+1. `-MemoryPath` sözleşmesini, varsayılan davranışı ve path validation kurallarını tasarla.
+2. `capture-and-prepare-ingest.ps1` ile bağlı helper'ları external `raw/`, `notes/` ve `runs/` köklerini kullanacak şekilde güncelle.
+3. External memory için validator ve source-reference çözümlemesini uyumlu hale getir.
+4. Private `home.md` ve reading path üretim/açma akışını Obsidian ile test et.
+5. Public-safe örnek export/redaction sınırını tanımla.
+6. Validation output'unu daha structured hale getir ve commit assistant'i yalnızca public engine değişiklikleri için karar desteği verecek şekilde tasarla.
 
 ## .NET / Backend Relevance
 
@@ -200,7 +242,11 @@ Lothal.KnowledgeWiki icin `raw/` event log gibi, `wiki/` read model gibi, valida
 
 ## Open Questions
 
-- `.agent/runs/` dizini Git'e alinmali mi, yoksa lokal audit artefact'i olarak mi kalmali?
+- `-MemoryPath` opsiyonel mi olmalı, yoksa yeni private workflow'da zorunlu mu tutulmalı?
+- Mevcut `.agent/runs/` içeriği yerinde mi kalmalı, yoksa ayrı bir migration ile `KnowledgeMemory/runs/` altına mı taşınmalı?
+- Validator aynı script ile hem public repo'yu hem external memory'yi doğrulamalı mı?
+- `KnowledgeMemory` klasör yapısını oluşturacak ayrı bir bootstrap scripti gerekli mi?
+- Public-safe örneklerin private memory'den çıkarılması için redaction/export adımı gerekli mi?
 - Helper scriptler clipboard kullanmali mi, yoksa sadece stdout'a mi yazmali?
 - Commit assistant ne kadar otomatik olmali?
 - LLM API entegrasyonu hangi kalite kapilarindan sonra dusunulmeli?

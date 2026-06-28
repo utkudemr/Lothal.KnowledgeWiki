@@ -2,9 +2,9 @@
 
 ## Purpose
 
-Lothal KnowledgeWiki, .NET backend gelistirici icin teknik kaynaklari kalici, baglantili ve tekrar kullanilabilir markdown bilgi tabanina donusturen bir agent-assisted knowledge management reposudur.
+Lothal KnowledgeWiki, .NET backend geliştirici için kişisel teknik asistan akışının public engine/framework reposudur. Teknik kaynakları kalıcı, bağlantılı ve tekrar kullanılabilir markdown bilgi yapılarına dönüştüren scriptleri, promptları, validation kurallarını, reading path yapısını ve public-safe örnekleri geliştirir.
 
-Amac, makaleleri, tweet'leri, repo notlarini, video ozetlerini, is ilanlarini ve interview sorularini sadece arsivlemek degil; bunlardan pratik konsept sayfalari, sentezler, interview cevaplari ve proje notlari uretmektir.
+Amaç, makaleleri, tweet'leri, repo notlarını, video özetlerini, iş ilanlarını ve interview sorularını yalnızca arşivlemek değil; bunlardan pratik konsept sayfaları, sentezler, interview cevapları ve proje notları üreten sistemi geliştirmektir. Kullanıcının gerçek ve özel bilgi belleği public repo dışında ayrı bir `KnowledgeMemory` klasöründe yaşayacaktır.
 
 ## Current State
 
@@ -39,6 +39,55 @@ Repo, LLM Wiki desenini uygulayan basit ama genisleyebilir bir yapiya sahip:
 
 ## Architecture Notes
 
+### Karar: Public Engine ve Private Memory Ayrımı
+
+Lothal.KnowledgeWiki'nin kalıcı rolü public engine/framework olmaktır. Repo şu varlıkları sürümler:
+
+- kaynak capture ve ingest scriptleri
+- agent promptları ve çalışma talimatları
+- deterministik validation workflow'u
+- reading path yapısı
+- mimari ve kullanım dokümantasyonu
+- public-safe örnekler
+- raw kaynağı structured knowledge'a dönüştüren tekrar kullanılabilir mantık
+
+Kullanıcının asıl belleği olan private `KnowledgeMemory` ise şunları saklar:
+
+- full raw source capture'ları
+- kişisel özetler ve generated notes
+- private reading çıktıları
+- inbox capture'ları
+- prompt, review ve validation gibi run artefact'ları
+- Obsidian tarafından okunabilen notlar
+
+`KnowledgeMemory` bir Git repository olmak zorunda değildir. OneDrive, Google Drive, Obsidian Sync, Syncthing veya başka bir private sync mekanizmasıyla cihazlar arasında taşınabilir. Böylece public engine denetlenebilir ve paylaşılabilir kalırken kişisel asistan belleği private, uzun ömürlü ve kullanıcı kontrolünde olur.
+
+Bu sınır gereklidir; çünkü public repo kullanıcının bütün kişisel hafızasına dönüşmemeli, raw capture ve generated private note hacmi engine tarihçesinden bağımsız biçimde büyüyebilmelidir. Public repo her kaynağı depolamak yerine sistemin nasıl çalıştığını belgelemeli ve sistemi iyileştirmelidir.
+
+Önerilen private yapı:
+
+```text
+KnowledgeMemory/
+  inbox/
+  raw/
+    articles/
+    tweets/
+    repos/
+    videos/
+  notes/
+    concepts/
+    syntheses/
+    interview/
+    projects/
+    reading-paths/
+  runs/
+  home.md
+```
+
+Bu karar ileriye dönüktür. Mevcut public `raw/` ve `wiki/` dosyaları kaldırılmıyor veya taşınmıyor; mevcut akışı, geçmiş kararları ve public-safe örnekleri korumaya devam ediyor.
+
+### Mevcut Repo-Local Model
+
 Bu repo, ham kaynak ile islenmis bilgi arasinda net bir ayrim kurar. `raw/` source of truth olarak kalir; LLM bu katmani degistirmez. `wiki/` ise kaynaklardan turetilen, linklenen ve zaman icinde guncellenen bilgi katmanidir.
 
 Bu ayrim backend mimarisindeki event log ve read model ayrimina benzer. Ham kaynaklar audit edilebilir girdi, wiki sayfalari ise sorgulanabilir ve insan tarafindan tuketilebilir projeksiyondur.
@@ -46,6 +95,10 @@ Bu ayrim backend mimarisindeki event log ve read model ayrimina benzer. Ham kayn
 Local-first software kaynagi bu proje icin ek bir lens sunar: `raw/` ve `wiki/` birlikte, cloud service'e bagli olmayan, git ile tasinabilir ve lokal olarak okunabilir bir bilgi sistemi olusturur. Bu repo tam anlamiyla collaborative CRDT uygulamasi degildir; fakat veri sahipligi, uzun omurluluk, offline okunabilirlik ve export edilebilir markdown formatlari acisindan local-first degerleriyle uyumludur.
 
 ## Agent Workflow Notes
+
+Hedef workflow'da storage root repository olmak zorunda değildir. `capture-and-prepare-ingest.ps1` ileride `-MemoryPath` almalı; capture'ları `<MemoryPath>/raw/`, generated note'ları `<MemoryPath>/notes/`, run artefact'larını `<MemoryPath>/runs/` altına yazmalıdır. Public repo yalnızca bu davranışı geliştiren script, prompt, validation ve dokümantasyon değişikliklerini almalıdır.
+
+Bu parametre ve bağlantılı path değişiklikleri henüz uygulanmadı. Scriptler güncellenene kadar aşağıdaki repo-local akış mevcut davranış olarak geçerlidir:
 
 Ingest akisi su sekilde islemelidir:
 
@@ -70,6 +123,11 @@ Agent harness bakışı bu repository'deki parçaların rolünü netleştirir: `
 
 ## Next Ideas
 
+- `capture-and-prepare-ingest.ps1` için zorunlu olmayan bir `-MemoryPath` parametresi tasarlamak ve geriye dönük repo-local davranışı bilinçli biçimde ele almak.
+- Ingest prompt ve helper scriptlerinde raw, notes ve runs köklerini aynı memory context üzerinden geçirmek.
+- `KnowledgeMemory/notes/` için relative link ve source reference doğrulamasının repository dışı root üzerinde nasıl çalışacağını belirlemek.
+- Private memory içindeki `home.md` ve `notes/reading-paths/` üretimini Obsidian kullanımına göre tanımlamak.
+- Public-safe örnek seçme ve private içeriğin yanlışlıkla public repo'ya alınmasını engelleme kontrolü eklemek.
 - Periyodik lint akisi tanimlamak: orphan sayfalar, eksik source reference, stale index entry ve eksik related page kontrolleri.
 - Minimal harness sinirini belgelemek: run state, izin verilen araclar, validation sonucu, approval gerektiren eylemler ve audit artefact'lari.
 - Query sonucunda uretilen degerli cevaplarin hangi kosullarda wiki sayfasina donusecegini netlestirmek.
@@ -111,3 +169,10 @@ Agent harness bakışı bu repository'deki parçaların rolünü netleştirir: `
 - `raw/articles/2026-06-24-two-agent-workflow-for-agentic-development.md`
 - `raw/tweets/2026-06-27-agent-orchestration-explained.md`
 - `raw/tweets/2026-06-28-agent-harness-vs-classic-agent.md`
+
+## Open Questions
+
+- `-MemoryPath` verilmediğinde repo-local davranış korunmalı mı, yoksa private path açıkça zorunlu mu olmalı?
+- Public engine, external `KnowledgeMemory` için template/bootstrap komutu sağlamalı mı?
+- External memory validation sonuçları yalnızca `KnowledgeMemory/runs/` altında mı tutulmalı?
+- Private ve public-safe örnekler arasında bilinçli export/redaction workflow'u gerekli mi?

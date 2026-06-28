@@ -1,10 +1,55 @@
 # Knowledge Wiki Agent Instructions
 
-You are maintaining a markdown-based technical knowledge base for a .NET backend developer.
+You are maintaining the public engine and framework for a markdown-based personal technical assistant workflow for a .NET backend developer.
 
 The goal of this repository is to turn scattered technical sources into durable, linked, reviewable and reusable learning artifacts.
 
-This repository is not only a note archive. It is an experiment in agent-assisted knowledge management.
+This repository is not the user's complete personal memory. It is the public, reusable KnowledgeWiki Engine: an experiment in agent-assisted knowledge management whose private knowledge layer lives outside this repository.
+
+## Public Engine and Private Memory Boundary
+
+Lothal.KnowledgeWiki is the public engine/framework. It contains:
+
+* scripts
+* prompts and agent instructions
+* validation workflow
+* reading path structure
+* architecture and usage documentation
+* public-safe examples
+* reusable logic for ingesting sources into structured knowledge
+
+The user's real personal knowledge memory belongs in a separate private local or synced folder named `KnowledgeMemory`. It contains full raw captures, personal summaries, generated notes, private reading outputs, inbox captures, run artifacts and Obsidian-readable notes.
+
+`KnowledgeMemory` does not need to be a Git repository. It may be synchronized privately with OneDrive, Google Drive, Obsidian Sync, Syncthing or another private sync mechanism.
+
+Keep this boundary explicit:
+
+* The public repository documents, validates and improves the system.
+* The private memory stores the user's growing source corpus and personal outputs.
+* Do not copy private material into the public repository merely to fit the current repo-local workflow.
+* Only public-safe examples and intentional documentation artifacts should be committed here.
+
+This is a forward-looking architecture decision. Existing files under this repository's `raw/` and `wiki/` directories remain in place and continue to document and exercise the current workflow. Do not delete or migrate them unless the user explicitly requests a separate migration.
+
+The proposed private structure is:
+
+```text
+KnowledgeMemory/
+  inbox/
+  raw/
+    articles/
+    tweets/
+    repos/
+    videos/
+  notes/
+    concepts/
+    syntheses/
+    interview/
+    projects/
+    reading-paths/
+  runs/
+  home.md
+```
 
 ## Core Purpose
 
@@ -65,6 +110,8 @@ Lothal.KnowledgeWiki/
     people/
 ```
 
+This structure describes the current public repository and its public-safe examples. It must not be treated as the long-term storage location for the user's complete private source and note corpus.
+
 ## Directory Rules
 
 ### `raw/`
@@ -121,6 +168,8 @@ The `wiki/` directory contains processed knowledge pages.
 
 When ingesting a new source:
 
+For the current repo-local workflow, `raw/` and `wiki/` paths below refer to this repository. In the target architecture, the same workflow operates against `KnowledgeMemory/raw/` and `KnowledgeMemory/notes/`, while the public repository receives only reusable script, prompt, validation and documentation improvements.
+
 1. Read the source carefully.
 2. Identify:
 
@@ -146,6 +195,19 @@ When ingesting a new source:
 6. Add source references using the raw file path.
 7. Update `wiki/index.md`.
 8. Append an entry to `wiki/log.md`.
+
+## Target External Memory Workflow
+
+Future tooling should make the storage root explicit rather than assume the repository root:
+
+* `capture-and-prepare-ingest.ps1` should support a `-MemoryPath` parameter.
+* Captured sources should be written to `<MemoryPath>/raw/`.
+* Generated knowledge notes should be written to `<MemoryPath>/notes/`.
+* Prompts, summaries, review results and validation outputs for a run should be written to `<MemoryPath>/runs/`.
+* Inbox-style captures should enter through `<MemoryPath>/inbox/` when that workflow is implemented.
+* The public repository should receive only public-safe engine/framework improvements, not routine private memory content.
+
+Do not implement or assume these script changes until the relevant task explicitly authorizes modifying scripts. Until then, preserve the existing repo-local behavior and describe the external-memory workflow as the intended direction.
 
 ## Writing Style
 
