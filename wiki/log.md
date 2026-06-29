@@ -508,3 +508,26 @@ Notes:
 - Replaced social-network-specific placeholder URLs with `https://example.com/source`.
 - Clarified that repo-local `raw/` commands are a backward-compatible local demo mode for public-safe synthetic sources, not the recommended private-memory workflow.
 - Preserved public upstream URLs and all `vault://raw/...` logical references.
+
+## 2026-06-29 - update - External Private Insight Output
+
+Source:
+- Public/private memory workflow requirements
+
+Created:
+- None
+
+Updated:
+- `scripts/capture-and-prepare-ingest.ps1`
+- `README.md`
+- `.agent/prompts/ingest-source.md`
+- `.agent/prompts/review-ingest-output.md`
+- `wiki/projects/automation-roadmap.md`
+- `wiki/log.md`
+
+Notes:
+- Added `<MemoryPath>/insights/<type-folder>/<date-slug>-insights.md` target calculation for external-memory captures.
+- External ingest prompts now separate generic public wiki synthesis from private personal, company, project and career reflections.
+- Added the required Turkish private insight sections and prohibited verbatim raw copying or publishing private insight content.
+- Preserved the existing repo-local behavior when `-MemoryPath` is not supplied.
+- Kept `KnowledgeMemory/runs/` support as a future step for ingest summaries, review results and validation output.

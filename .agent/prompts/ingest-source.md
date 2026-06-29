@@ -11,6 +11,7 @@ Use this prompt template as a guide when ingesting a new source into the wiki.
    - `vault://raw/repos/example.md`
    - `vault://raw/interview-questions/example.md`
 4. Follow AGENTS.md workflow rules carefully.
+5. When `capture-and-prepare-ingest.ps1 -MemoryPath` generates the prompt, it also supplies a private insight note target. Personal reflection belongs only at that external target, never in the public repository.
 
 ## Template
 
@@ -26,9 +27,10 @@ You are ingesting a new source into Lothal.KnowledgeWiki.
 - Read AGENTS.md first.
 - Read the raw source file from {{SOURCE_PATH}}.
 - Do not modify the external raw source.
-- Create or update relevant pages under wiki/.
+- Create or update pages under wiki/ only with generic, reusable, user-independent and public-safe content.
+- Do not put personal, company-specific, project-specific, career-specific or private reading reflections in public wiki pages.
 - Write generated wiki content in Turkish unless the source requires English.
-- Preserve private source references using a `vault://raw/...` logical path, not the physical drive path.
+- In external-memory mode, preserve private source references using a `vault://raw/...` logical path rather than the physical drive path. Keep repo-relative `raw/...` references only for the backward-compatible legacy/demo mode.
 - Avoid duplicate pages; update existing pages when the topic already exists.
 - Use relative markdown links.
 - Use lowercase kebab-case file names.
@@ -49,7 +51,7 @@ You are ingesting a new source into Lothal.KnowledgeWiki.
    - Relevance for distributed systems or microservices
    - Relevance for agent workflows
    - Interview preparation value
-   - Personal project connections
+   - Personal project, company and career connections only when a separate private insight target was supplied; never place these reflections in the public wiki
 
 2. **Check for duplicates** in existing wiki pages:
    - concepts/
@@ -78,6 +80,10 @@ You are ingesting a new source into Lothal.KnowledgeWiki.
 
 5. **Follow these rules:**
    - Keep raw sources immutable
+   - Keep public wiki output generic, reusable, user-independent and public-safe
+   - If an external private insight target is supplied, write personal reflections there in Turkish by default
+   - Do not copy raw source content verbatim into a private insight note
+   - Do not copy a private insight note or its physical path into the public repository
    - Add source references using the corresponding `vault://raw/...` logical path
    - Link to related wiki pages
    - Update wiki/index.md if you create new pages

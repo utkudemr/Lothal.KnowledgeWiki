@@ -24,7 +24,7 @@ Public repository şunları içerir:
 ```text
 Lothal.KnowledgeWiki (public)       KnowledgeMemory (private)
 scripts, prompts, validation       inbox, raw captures
-reading-path structure             generated/personal notes
+reading-path structure             personal insight notes
 documentation, safe examples       run artifacts, reading outputs
 engine/framework improvements      Obsidian-readable memory
 ```
@@ -44,6 +44,11 @@ Bu ayrımın nedenleri:
 KnowledgeMemory/
   inbox/
   raw/
+    articles/
+    tweets/
+    repos/
+    videos/
+  insights/
     articles/
     tweets/
     repos/
@@ -75,13 +80,13 @@ KnowledgeMemory/
 
 Bugünkü external-memory akışı:
 
-1. Put the original source under `KnowledgeMemory/raw/`.
-2. Ask the agent to ingest it according to `AGENTS.md`.
-3. Agent creates or updates pages under `wiki/`.
-4. Agent updates `wiki/index.md`.
-5. Agent appends an entry to `wiki/log.md`.
+1. Capture the original source under `KnowledgeMemory/raw/`.
+2. Ask the agent to ingest it according to `AGENTS.md` and the generated external-memory prompt.
+3. Agent creates or updates generic, reusable and public-safe pages under `wiki/`.
+4. Agent writes personal, company/project/career-specific and private reading reflections to the target under `KnowledgeMemory/insights/`.
+5. Agent updates `wiki/index.md` and appends an entry to `wiki/log.md` for public wiki changes.
 
-Public wiki sayfaları private capture'ları `vault://raw/<type>/<file>.md` ile referanslar. Bu logical URI repository içinde çözülmez. `capture-and-prepare-ingest.ps1` bu akış için `-MemoryPath` parametresini destekler. Generated private note ve run artefact'larını taşıma bu migration'ın kapsamında değildir.
+Public wiki sayfaları private capture'ları `vault://raw/<type>/<file>.md` ile referanslar. Bu logical URI repository içinde çözülmez. `capture-and-prepare-ingest.ps1 -MemoryPath` raw capture ile birlikte bir private insight hedefi üretir. Run summary, review ve validation artefact'larını `KnowledgeMemory/runs/` altına taşıma ayrı bir sonraki adımdır.
 
 ## Legacy Repo-Local Helper Workflow
 
@@ -176,7 +181,7 @@ For most article, tweet and thread captures, the preferred workflow is:
 3. Review the created private raw source file and optionally improve its Context Notes.
 4. Paste the ingest prompt, which the helper copied to the clipboard, into the IDE agent/chat.
 
-The helper creates the raw file under external `KnowledgeMemory`, imports clipboard content, adds default Context Notes, prepares a prompt containing a `vault://raw/...` reference and runs validation. It does not fetch URLs, call an LLM or create commits.
+The helper creates the raw file under external `KnowledgeMemory`, ensures the matching `insights/<type-folder>/` directory exists, imports clipboard content, adds default Context Notes, and prepares a prompt containing both a `vault://raw/...` reference and a private insight note target. It does not create the insight note itself, fetch URLs, call an LLM or create commits; the IDE agent creates or updates the insight note after the prompt is pasted.
 
 ### Private KnowledgeMemory Capture
 
@@ -186,7 +191,17 @@ Raw capture'ı public repository dışında private veya synced bir KnowledgeMem
 .\scripts\capture-and-prepare-ingest.ps1 tweet "Example Source" "https://example.com/source" -MemoryPath "C:\Path\To\KnowledgeMemory"
 ```
 
-Bu mod source dosyasını `<MemoryPath>/raw/<type-folder>/` altında oluşturur ve prompt içine `vault://raw/<type-folder>/<filename>.md` logical reference'ını ekler. Private raw source Git'e alınmaz; ingest çıktısı şimdilik public KnowledgeWiki repository içindeki `wiki/` katmanına yazılır. `MemoryPath` klasörü önceden var olmalıdır.
+Bu mod source dosyasını `<MemoryPath>/raw/<type-folder>/` altında oluşturur ve aşağıdaki private insight hedefini hesaplar:
+
+```text
+<MemoryPath>/insights/<type-folder>/<date-slug>-insights.md
+```
+
+Örnek hedef: `<MemoryPath>/insights/articles/2026-06-28-postgresql-da-transactionlar-insights.md`.
+
+Script insight parent dizinini oluşturur ve hedef path'i ingest prompt'una ekler. IDE agent public repository içinde yalnızca generic, user-independent ve public-safe wiki içeriği üretir; kişisel çıkarımlar, şirket/proje/kariyer bağlantıları, private reading history ve “bu bana nasıl uygulanır” notları private insight dosyasına gider. Insight varsayılan olarak Türkçe yazılır, raw kaynak verbatim kopyalanmaz ve insight içeriği public repository'ye taşınmaz.
+
+Prompt ayrıca `vault://raw/<type-folder>/<filename>.md` logical reference'ını taşır. Private raw source ve insight note Git'e alınmaz. `MemoryPath` klasörü önceden var olmalıdır; `-MemoryPath` verilmediğinde mevcut backward-compatible repo-local legacy/demo davranışı değişmeden kalır.
 
 ## Phase 2 Validation Workflow
 

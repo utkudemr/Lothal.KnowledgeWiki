@@ -22,9 +22,11 @@ You are reviewing an ingest output for Lothal.KnowledgeWiki.
 - All wiki pages must have Source References
 - Links use relative markdown format
 - File names are lowercase kebab-case
-- Source references use raw file paths
+- External-memory source references use `vault://raw/...` logical paths rather than physical private paths; repo-relative `raw/...` paths are limited to legacy/demo mode
 - Duplicate pages should be avoided
 - All pages link to related content
+- Public wiki output is generic, reusable, user-independent and public-safe
+- Personal/company/project/career-specific reflections remain in the external private insight note
 
 **Ingest Output to Review:**
 
@@ -40,7 +42,7 @@ Validate the following:
 
 - [ ] Main insight is clearly explained (1 sentence?)
 - [ ] Connection to existing wiki pages is explicit
-- [ ] Practical implications are specific (mentions .NET, microservices, or projects)
+- [ ] Practical implications are specific (mentions .NET or microservices without exposing private project details)
 - [ ] Related concepts are listed with correct links
 - [ ] Interview relevance is noted (if applicable)
 - [ ] Next steps are actionable
@@ -54,6 +56,11 @@ Validate the following:
 - [ ] No duplicates of existing pages
 - [ ] Turkish is used for user-facing content (unless source is English)
 - [ ] No modifications to external `KnowledgeMemory/raw/` sources
+- [ ] No physical raw or private insight path is exposed in public repository files
+- [ ] Personal, company, project, career and private reading reflections are absent from public wiki pages
+- [ ] If a private insight target was supplied, the insight note is Turkish by default and contains the required learning/reflection sections
+- [ ] If a private insight target was supplied, raw source content was not copied verbatim into it
+- [ ] Private insight content was not copied into the public repository
 - [ ] wiki/index.md is updated if new pages created
 - [ ] wiki/log.md entry follows the format:
   ```
@@ -129,6 +136,7 @@ If interview page created:
 - [ ] No external URLs without context
 - [ ] No unsupported technical claims
 - [ ] No modifications to external `KnowledgeMemory/raw/` files
+- [ ] No private insight content or physical insight path appears in public files
 - [ ] File paths are correct and exist
 - [ ] Links point to real wiki pages
 - [ ] Turkish grammar and terminology correct
