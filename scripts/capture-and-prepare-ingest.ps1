@@ -1,6 +1,6 @@
 # Usage example:
 #   .\scripts\capture-and-prepare-ingest.ps1 article "Article Title" "https://example.com/article"
-#   .\scripts\capture-and-prepare-ingest.ps1 tweet "Agent Harness vs Classic Agent" "https://x.com/..." -MemoryPath "C:\Users\example\OneDrive\KnowledgeMemory"
+#   .\scripts\capture-and-prepare-ingest.ps1 tweet "Example Source" "https://example.com/source" -MemoryPath "C:\Path\To\KnowledgeMemory"
 
 param(
     [Parameter(Position = 0)]
@@ -49,7 +49,7 @@ Focus areas:
 function Show-Usage {
     Write-Output 'Usage:'
     Write-Output '.\scripts\capture-and-prepare-ingest.ps1 article "Article Title" "https://example.com/article"'
-    Write-Output '.\scripts\capture-and-prepare-ingest.ps1 tweet "Agent Harness vs Classic Agent" "https://x.com/..." -MemoryPath "C:\path\to\KnowledgeMemory"'
+    Write-Output '.\scripts\capture-and-prepare-ingest.ps1 tweet "Example Source" "https://example.com/source" -MemoryPath "C:\Path\To\KnowledgeMemory"'
 }
 
 function ConvertTo-KebabSlug {

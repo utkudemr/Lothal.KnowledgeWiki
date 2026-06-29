@@ -464,7 +464,7 @@ Notes:
 
 Source:
 - Public repository `raw/` working tree
-- `G:\My Drive\KnowledgeMemory\raw`
+- `<MemoryPath>/raw`
 
 Created:
 - None
@@ -485,7 +485,26 @@ Removed:
 - Eight migrated source captures from the public `raw/` working tree
 
 Notes:
-- Copied all eight raw captures to `G:\My Drive\KnowledgeMemory\raw` with their folder structure preserved.
+- Copied all eight raw captures to external `<MemoryPath>/raw` storage with their folder structure preserved.
 - Verified file counts, relative paths and SHA-256 hashes before removing public working-tree copies.
 - Replaced private source paths with `vault://raw/...` logical references; these do not need to resolve inside the public repository.
 - Kept generated wiki notes in place and did not rewrite Git history.
+
+## 2026-06-29 - cleanup - Public-Safe Example Sanitization
+
+Source:
+- Previous public-safety audit
+
+Created:
+- None
+
+Updated:
+- `README.md`
+- `scripts/capture-and-prepare-ingest.ps1`
+- `wiki/log.md`
+
+Notes:
+- Replaced hard-coded local storage examples with generic `<MemoryPath>` or `C:\Path\To\KnowledgeMemory` examples.
+- Replaced social-network-specific placeholder URLs with `https://example.com/source`.
+- Clarified that repo-local `raw/` commands are a backward-compatible local demo mode for public-safe synthetic sources, not the recommended private-memory workflow.
+- Preserved public upstream URLs and all `vault://raw/...` logical references.

@@ -85,7 +85,7 @@ Public wiki sayfaları private capture'ları `vault://raw/<type>/<file>.md` ile 
 
 ## Legacy Repo-Local Helper Workflow
 
-Bu bölümdeki repo-relative komutlar mevcut helper scriptlerin geriye dönük kullanımını belgeler; aktif public çalışma ağacında raw capture tutulması önerilmez. Yeni capture'lar için aşağıdaki `-MemoryPath` akışını kullanın.
+Bu bölümdeki repo-relative komutlar mevcut helper scriptlerin geriye dönük kullanımını ve local demo modunu belgeler. Bu modu yalnızca public-safe, sentetik demo kaynaklarıyla kullanın; kişisel veya private raw capture'ları public repository'ye eklemeyin. Yeni ve private capture'lar için aşağıdaki `-MemoryPath` akışını kullanın.
 
 1. Create a raw source file:
 
@@ -105,7 +105,7 @@ Bu bölümdeki repo-relative komutlar mevcut helper scriptlerin geriye dönük k
 
    This helper fills only the `{{RAW_CONTENT}}` placeholder. It does not fetch URL content or call an LLM.
 
-3. Commit the raw source:
+3. Commit the demo raw source only when it is intentionally public-safe:
 
    ```powershell
    git add raw/
@@ -145,7 +145,8 @@ Bu bölümdeki repo-relative komutlar mevcut helper scriptlerin geriye dönük k
 
 Notes:
 
-- `raw/` is the immutable source archive.
+- In this legacy local demo mode, `raw/` is an immutable archive for public-safe synthetic sources only.
+- Private or personal sources belong under external `<MemoryPath>/raw/` and must not be committed to this repository.
 - `wiki/` is the generated learning layer.
 - `.agent/templates/source.md` defines the raw source format.
 - `.agent/prompts/` contains reusable prompt templates.
@@ -169,7 +170,7 @@ For most article, tweet and thread captures, the preferred workflow is:
 2. Run the wrapper:
 
    ```powershell
-   .\scripts\capture-and-prepare-ingest.ps1 article "Article Title" "https://example.com/article" -MemoryPath "G:\My Drive\KnowledgeMemory"
+   .\scripts\capture-and-prepare-ingest.ps1 article "Article Title" "https://example.com/article" -MemoryPath "C:\Path\To\KnowledgeMemory"
    ```
 
 3. Review the created private raw source file and optionally improve its Context Notes.
@@ -182,7 +183,7 @@ The helper creates the raw file under external `KnowledgeMemory`, imports clipbo
 Raw capture'ı public repository dışında private veya synced bir KnowledgeMemory klasörüne yazmak için mevcut bir klasörü `-MemoryPath` ile verin:
 
 ```powershell
-.\scripts\capture-and-prepare-ingest.ps1 tweet "Agent Harness vs Classic Agent" "https://x.com/..." -MemoryPath "G:\My Drive\KnowledgeMemory"
+.\scripts\capture-and-prepare-ingest.ps1 tweet "Example Source" "https://example.com/source" -MemoryPath "C:\Path\To\KnowledgeMemory"
 ```
 
 Bu mod source dosyasını `<MemoryPath>/raw/<type-folder>/` altında oluşturur ve prompt içine `vault://raw/<type-folder>/<filename>.md` logical reference'ını ekler. Private raw source Git'e alınmaz; ingest çıktısı şimdilik public KnowledgeWiki repository içindeki `wiki/` katmanına yazılır. `MemoryPath` klasörü önceden var olmalıdır.
@@ -224,9 +225,9 @@ Onerilen kullanim ayrimi:
 
 Obsidian kullanilirsa `.obsidian/` klasoru varsayilan olarak Git'e alinmamalidir. Obsidian ayarlari daha sonra bilincli sekilde versiyonlanmak istenirse bu karar ayrica verilebilir.
 
-### Start Ingest Helper
+### Legacy Start Ingest Helper (Local Demo Mode)
 
-To create a raw source file and prepare the ingest prompt in one step:
+To create a public-safe synthetic raw source file and prepare the ingest prompt in one step, use this backward-compatible local demo helper. For private sources, use `capture-and-prepare-ingest.ps1 -MemoryPath` instead.
 
 ```powershell
 .\scripts\start-ingest.ps1 article "Article Title" "[https://example.com/article](https://example.com/article)"
