@@ -16,6 +16,10 @@ You are reviewing an external-memory ingest produced with the public Lothal.Know
 
 **Private Insight Target:** `{{PRIVATE_INSIGHT_PATH}}`
 
+**Reading Order Target:** `{{READING_ORDER_PATH}}`
+
+**Memory Home:** `{{HOME_PATH}}`
+
 **Ingest Output to Review:**
 
 INGEST_OUTPUT
@@ -31,6 +35,8 @@ INGEST_OUTPUT
 - [ ] Public `wiki/index.md` and `wiki/log.md` were not changed for this private ingest.
 - [ ] No MemoryPath file is proposed for commit to the public repository.
 - [ ] Any public repository change is source-independent engine/framework work.
+- [ ] The reading-order note is under external `runs/reading-orders/`, not public `wiki/`.
+- [ ] `home.md` contains a concise `Recent Ingests` link to the reading-order note rather than duplicated ingest details.
 
 ### Content and Traceability
 
@@ -42,6 +48,8 @@ INGEST_OUTPUT
 - [ ] Raw source content was summarized rather than copied verbatim.
 - [ ] Main insight, existing-knowledge connection, practical implications, related concepts, interview relevance, next steps and open questions are covered where useful.
 - [ ] Synthesis notes precede concept notes in the recommended reading order when applicable.
+- [ ] The reading-order note includes title, source type, logical `vault://raw/...` reference, created notes, recommended order, rationale and optional follow-up reading/questions.
+- [ ] Generated notes are linked with portable Obsidian wiki links where possible.
 
 ### Private Insight
 
@@ -61,9 +69,10 @@ INGEST_OUTPUT
 3. Optional Improvements
 4. External Files Reviewed
 5. Storage-Boundary Result
-6. Recommended Reading Order
-7. Public Validation Result: PASS / WARNINGS / NOT REQUIRED / FAILED
-8. Final Recommendation: PRIVATE_OUTPUT_READY / NEEDS_REVISION
+6. Reading Order and Home Result
+7. Recommended Reading Order
+8. Public Validation Result: PASS / WARNINGS / NOT REQUIRED / FAILED
+9. Final Recommendation: PRIVATE_OUTPUT_READY / NEEDS_REVISION
 
 Do not recommend committing external MemoryPath files to the public repository.
 

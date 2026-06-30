@@ -553,3 +553,25 @@ Notes:
 - Added runtime creation of required raw, notes, insights, runs and inbox parent folders.
 - Prohibited source-specific MemoryPath ingest output under public `wiki/` and kept repo-local generation as legacy/demo/public-example behavior.
 - Preserved `vault://raw/...` logical source references and separated reusable knowledge notes from personal insights.
+
+## 2026-06-30 - update - External Reading Order Support
+
+Source:
+- MemoryPath reading-order workflow requirements
+
+Created:
+- None
+
+Updated:
+- `scripts/capture-and-prepare-ingest.ps1`
+- `README.md`
+- `.agent/prompts/ingest-source.md`
+- `.agent/prompts/review-ingest-output.md`
+- `wiki/projects/automation-roadmap.md`
+- `wiki/log.md`
+
+Notes:
+- Added runtime creation of `<MemoryPath>/runs/reading-orders` and a source-specific `<date-slug>-reading-order.md` target.
+- External ingest prompts now require a structured reading-order note with portable Obsidian links after notes and insights are generated.
+- Added create/update behavior for a concise `Recent Ingests` entry in external `home.md`.
+- Kept reading-order and home outputs outside the public repository and preserved legacy/demo behavior without `-MemoryPath`.

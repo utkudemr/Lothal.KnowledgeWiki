@@ -36,6 +36,7 @@ KnowledgeMemory/
   runs/
     ingest-summaries/
     review-results/
+    reading-orders/
   home.md
 ```
 
@@ -157,7 +158,7 @@ Başlatılan kapsam:
 - External raw source için özel ingest prompt'u üretmek ve clipboard'a kopyalamak. (tamamlandı)
 - Mevcut repo-local davranışı geriye uyumlu tutmak. (tamamlandı)
 - Var olmayan `MemoryPath` değerini açık hata ve non-zero exit code ile reddetmek. (tamamlandı)
-- `notes/concepts`, `notes/syntheses`, `notes/interview`, `notes/projects`, `notes/reading-paths`, `insights/<source-type>`, `runs/ingest-summaries`, `runs/review-results` ve `inbox` parent klasörlerini hazırlamak. (tamamlandı)
+- `notes/concepts`, `notes/syntheses`, `notes/interview`, `notes/projects`, `notes/reading-paths`, `insights/<source-type>`, `runs/ingest-summaries`, `runs/review-results`, `runs/reading-orders` ve `inbox` parent klasörlerini hazırlamak. (tamamlandı)
 - MemoryPath ingest sırasında public `wiki/`, `wiki/index.md` ve `wiki/log.md` yazımını prompt seviyesinde yasaklamak. (tamamlandı)
 
 ## Phase 4.2 - External Notes and Private Insight Output (Completed)
@@ -188,6 +189,12 @@ Sonraki kapsam:
 - Public repository'ye yalnızca script, prompt, validation ve dokümantasyon iyileştirmeleri bırakmak.
 
 Mevcut `.agent/runs/` davranışı repo-local demo MVP olarak kalır. MemoryPath modunda source-specific generated knowledge `KnowledgeMemory/notes/`, kişisel insight output `KnowledgeMemory/insights/` altında yaşar; public `wiki/` yalnızca legacy/demo/public-example içeriğidir.
+
+## Phase 4.3 - External Reading Order and Home Navigation (Completed)
+
+MemoryPath ingest prompt'u, generated notes ve insight tamamlandıktan sonra `<MemoryPath>/runs/reading-orders/<date-slug>-reading-order.md` dosyasını üretmeyi zorunlu kılar. Reading-order note kaynak türünü, `vault://raw/...` logical reference'ını, created-note listesini, önerilen okuma sırasını, bu sıranın gerekçesini ve opsiyonel takip sorularını içerir. Generated note bağlantılarında mümkün olduğunda Obsidian wiki linkleri kullanılır.
+
+`<MemoryPath>/home.md` private memory'nin hafif navigation girişidir. Dosya yoksa oluşturulur; varsa `Recent Ingests` altındaki source entry eklenir veya güncellenir. Home entry ayrıntıları tekrar etmez, yalnızca ilgili reading-order note'a bağlanır. Reading-order ve home çıktıları source-specific private memory artefact'larıdır; public repository'ye yazılmaz veya commit edilmez.
 
 ## Phase 4.5 - Validation Ergonomics
 
@@ -243,7 +250,7 @@ Bu asamada final karar yine insanda kalmali. Knowledge base kalitesini korumak i
 1. `capture-and-prepare-ingest.ps1 -MemoryPath` raw capture + external notes + private insight akışını PostgreSQL gibi bir kaynakla uçtan uca dene.
 2. Ingest summary, review result ve validation output'u `KnowledgeMemory/runs/` altında arşivlemeyi destekle.
 3. İsteğe bağlı external-memory doğrulamasını public validator'dan ayrı bir sınır olarak tasarla.
-4. Private `home.md` ve reading path üretim/açma akışını Obsidian ile test et.
+4. Private `home.md`, reading-order ve reading-path açma akışını Obsidian ile test et.
 5. KnowledgeMemory klasör yapısı için bootstrap ve public-safe export/redaction sınırını tanımla.
 6. Validation output'unu daha structured hale getir ve commit assistant'i yalnızca public engine değişiklikleri için karar desteği verecek şekilde tasarla.
 

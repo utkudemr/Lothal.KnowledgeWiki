@@ -62,6 +62,7 @@ KnowledgeMemory/
   runs/
     ingest-summaries/
     review-results/
+    reading-orders/
   home.md
 ```
 
@@ -86,7 +87,8 @@ KnowledgeMemory/
 2. Ask the agent to ingest it according to `AGENTS.md` and the generated external-memory prompt.
 3. Agent creates or updates reusable knowledge notes under `KnowledgeMemory/notes/`.
 4. Agent writes personal, company/career-specific and private reading reflections under `KnowledgeMemory/insights/`.
-5. Public repository remains unchanged unless a source-independent script, prompt, validator or documentation improvement is intentionally made.
+5. Agent creates a source-specific reading order under `KnowledgeMemory/runs/reading-orders/` and links it from `KnowledgeMemory/home.md` under `Recent Ingests`.
+6. Public repository remains unchanged unless a source-independent script, prompt, validator or documentation improvement is intentionally made.
 
 External generated notes private capture'ları `vault://raw/<type>/<file>.md` ile referanslar. Bu logical URI fiziksel yolu notlara sızdırmaz. `capture-and-prepare-ingest.ps1 -MemoryPath`, notes alt klasörlerini ve private insight hedefini prompt'a ekler; gerekli raw, notes, insights, runs ve inbox parent klasörlerini hazırlar.
 
@@ -183,7 +185,7 @@ For most article, tweet and thread captures, the preferred workflow is:
 3. Review the created private raw source file and optionally improve its Context Notes.
 4. Paste the ingest prompt, which the helper copied to the clipboard, into the IDE agent/chat.
 
-The helper creates the raw file under external `KnowledgeMemory`, prepares `notes/{concepts,syntheses,interview,projects,reading-paths}`, the matching insight folder, `runs/{ingest-summaries,review-results}` and `inbox`, then imports clipboard content and prepares the ingest prompt. It does not generate notes, fetch URLs, call an LLM or create commits; the IDE agent writes knowledge notes and insights to the supplied external targets.
+The helper creates the raw file under external `KnowledgeMemory`, prepares `notes/{concepts,syntheses,interview,projects,reading-paths}`, the matching insight folder, `runs/{ingest-summaries,review-results,reading-orders}` and `inbox`, then imports clipboard content and prepares the ingest prompt. It computes a source-specific reading-order target and the external `home.md` target. It does not generate notes, fetch URLs, call an LLM or create commits; the IDE agent writes knowledge notes, insights, reading order and home entry to the supplied external targets.
 
 ### Private KnowledgeMemory Capture
 
@@ -199,9 +201,17 @@ Bu mod source dosyasını `<MemoryPath>/raw/<type-folder>/` altında oluşturur,
 <MemoryPath>/insights/<type-folder>/<date-slug>-insights.md
 ```
 
+Ayrıca şu reading-order hedefi hesaplanır:
+
+```text
+<MemoryPath>/runs/reading-orders/<date-slug>-reading-order.md
+```
+
 Örnek hedef: `<MemoryPath>/insights/articles/2026-06-28-postgresql-da-transactionlar-insights.md`.
 
-Script gerekli external parent dizinlerini oluşturur ve tüm hedef path'leri ingest prompt'una ekler. IDE agent concept, synthesis, interview, project ve reading-path notlarını external `notes/` altında üretir; kişisel çıkarımlar, şirket/kariyer bağlantıları, private reading history ve “bu bana nasıl uygulanır” notları `insights/` altına gider. Public `wiki/` bu source-specific ingest sırasında değiştirilmez. Generated notes mümkün olduğunca reusable tutulur fakat private/synced memory output'tur.
+Script gerekli external parent dizinlerini oluşturur ve tüm hedef path'leri ingest prompt'una ekler. IDE agent concept, synthesis, interview, project ve reading-path notlarını external `notes/` altında üretir; kişisel çıkarımlar `insights/` altına gider. Ardından created-note listesi, önerilen sıra, sıra gerekçesi, takip soruları ve mümkün olduğunda Obsidian wiki linkleri içeren reading-order notunu oluşturur. `<MemoryPath>/home.md` yoksa oluşturur; varsa `Recent Ingests` altındaki ilgili kaydı ekler veya günceller. Home kaydı yalnızca reading-order notuna bağlanır, içeriği tekrar etmez.
+
+Public `wiki/` bu source-specific ingest sırasında değiştirilmez. Generated notes, reading orders ve `home.md` private/synced memory output'tur ve public repository'ye commit edilmez.
 
 Prompt ayrıca `vault://raw/<type-folder>/<filename>.md` logical reference'ını taşır. Physical local path generated knowledge notlarına yazılmaz. Raw, notes, insights ve run artefact'ları public repository'ye commit edilmez. `MemoryPath` root klasörü önceden var olmalıdır; alt klasörleri script oluşturur. `-MemoryPath` verilmediğinde backward-compatible repo-local davranış yalnızca legacy/demo/public-example amacıyla kalır.
 

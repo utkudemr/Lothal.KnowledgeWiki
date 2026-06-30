@@ -23,6 +23,8 @@ You are ingesting a private source with the public Lothal.KnowledgeWiki engine.
 - Projects: `{{PROJECTS_PATH}}`
 - Reading paths: `{{READING_PATHS_PATH}}`
 - Private insight: `{{PRIVATE_INSIGHT_PATH}}`
+- Reading order: `{{READING_ORDER_PATH}}`
+- Memory home: `{{HOME_PATH}}`
 
 ## Rules
 
@@ -39,6 +41,12 @@ You are ingesting a private source with the public Lothal.KnowledgeWiki engine.
 - Public repository changes should normally be limited to source-independent scripts, prompts, validators and documentation—not source-specific output.
 - Do not update public `wiki/index.md` or `wiki/log.md` for a MemoryPath ingest.
 - Write in Turkish by default unless the source requires English.
+- After generating notes and insights, create or update `{{READING_ORDER_PATH}}`.
+- The reading-order note must contain the title, source type, `{{VAULT_REFERENCE}}`, created-note list, recommended reading order, why this order, and optional follow-up reading/questions.
+- Link to generated notes with Obsidian wiki links when possible; do not put physical paths in the links.
+- Create `{{HOME_PATH}}` if missing. Otherwise append or update one link under `Recent Ingests`.
+- The `home.md` entry links to the reading-order note and does not duplicate its contents.
+- Reading-order and home outputs are private MemoryPath files and must never be copied or committed to the public repository.
 
 ## Tasks
 
@@ -53,7 +61,8 @@ You are ingesting a private source with the public Lothal.KnowledgeWiki engine.
    - Mülakat açısından nasıl anlatılır
    - Kişisel eksikler / sonraki okuma
    - Kısa hafıza kartı
-5. Finish with created/updated external files, important decisions, reading order and open questions. Mention public repository changes separately (normally none), without reproducing private insight content.
+5. Create the reading-order note, then create/update the concise `Recent Ingests` home entry.
+6. Finish with created/updated external files, reading-order and home results, important decisions and open questions. Mention public repository changes separately (normally none), without reproducing private insight content.
 
 ---
 
