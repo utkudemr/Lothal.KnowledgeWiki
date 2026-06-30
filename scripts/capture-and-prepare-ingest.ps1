@@ -137,7 +137,25 @@ function New-ExternalMemoryIngestPrompt {
         [string]$VaultReference,
 
         [Parameter(Mandatory = $true)]
-        [string]$PrivateInsightPath
+        [string]$PrivateInsightPath,
+
+        [Parameter(Mandatory = $true)]
+        [string]$NotesRoot,
+
+        [Parameter(Mandatory = $true)]
+        [string]$ConceptsPath,
+
+        [Parameter(Mandatory = $true)]
+        [string]$SynthesesPath,
+
+        [Parameter(Mandatory = $true)]
+        [string]$InterviewPath,
+
+        [Parameter(Mandatory = $true)]
+        [string]$ReadingPathsPath,
+
+        [Parameter(Mandatory = $true)]
+        [string]$ProjectsPath
     )
 
     # Build Turkish section names without depending on the script file's BOM/encoding.
@@ -172,6 +190,14 @@ $SourceUrl
 Private raw source logical reference:
 $VaultReference
 
+External generated-note targets:
+- Notes root: $NotesRoot
+- Concepts: $ConceptsPath
+- Syntheses: $SynthesesPath
+- Interview: $InterviewPath
+- Reading paths: $ReadingPathsPath
+- Projects: $ProjectsPath
+
 Private insight note target:
 $PrivateInsightPath
 
@@ -179,28 +205,31 @@ Instructions:
 - Read AGENTS.md from the public KnowledgeWiki repository first: $RepositoryRoot\AGENTS.md
 - Read the raw source file from the external path: $SourcePath
 - Do not modify the external raw source file.
-- Create or update public wiki pages only with generic, reusable, user-independent and public-safe content.
-- Do not include personal, company-specific, project-specific or career-specific reflections in public wiki pages.
-- Do not expose the physical raw source path or private insight path in public repository files.
-- Write public wiki content in Turkish unless the source requires English.
-- Avoid duplicate pages, use relative markdown links and follow the page templates in AGENTS.md.
-- In every created or updated public wiki page, preserve the private raw source only through this logical reference under Source References: $VaultReference
-- Update wiki/index.md when pages are created or meaningfully updated.
-- Append an entry to wiki/log.md.
-- Do not copy private raw content into the public repository beyond the public-safe synthesis needed for wiki output.
+- MemoryPath mode overrides repo-local ingest rules in AGENTS.md: do not create or update generated knowledge pages under the public repository's wiki/ folder.
+- Create or update generated knowledge notes only under the external targets listed above.
+- Keep generated notes reusable where possible, but treat them as private/synced memory outputs rather than public repository outputs.
+- Use relative markdown links between external notes and use lowercase kebab-case file names.
+- Preserve the raw source in generated notes only through this logical Source References value: $VaultReference
+- Do not expose physical local paths inside generated notes. Physical paths are allowed only in private operational notes under the supplied MemoryPath, when necessary.
+- Keep personal reflections, company/career connections, private reading history and "how this applies to me" material in insights/, not notes/.
+- Do not modify wiki/index.md or wiki/log.md for this private source ingest.
+- Do not copy source-specific generated notes or private raw content into the public repository.
+- Do not commit any MemoryPath file to the public repository.
+- Public repository changes should normally be limited to source-independent script, prompt, validator or documentation improvements; this ingest should not require such a change.
+- Write generated notes and the private insight note in Turkish unless the source requires English.
 - Also create or update a private insight note at: $PrivateInsightPath
 - Write the private insight note in Turkish by default.
 - Use these sections in the private insight note:
 $privateInsightSectionList
-- Keep personal insights, company/project/career connections, private reading history and "how this applies to me" reflections in the private insight note only.
+- Keep personal insights, company/career connections, private reading history and "how this applies to me" reflections in the private insight note only. Reusable technical project knowledge may live under notes/projects/ without personal reflection.
 - Do not copy raw source content verbatim into the private insight note; summarize and reflect instead.
 - Do not copy the private insight note or its private details into the public repository.
-- Run .\scripts\validate-wiki.ps1 after creating or updating wiki pages.
-- Do not recommend a final commit until review and validation pass with Errors: 0.
+- Run .\scripts\validate-wiki.ps1 only if the public repository was intentionally changed for an engine/framework improvement.
+- Never recommend committing external MemoryPath outputs to the public repository.
 
-Analyze the source for its main idea, technical claims, practical examples, .NET/backend relevance, distributed systems or microservices relevance, agent workflow relevance and interview value. Check existing wiki pages before deciding what public-safe content to create or update. Analyze personal project, company and career connections only for the private insight note.
+Analyze the source for its main idea, technical claims, practical examples, .NET/backend relevance, distributed systems or microservices relevance, agent workflow relevance and interview value. Check existing external notes before deciding what to create or update. Analyze personal, company and career connections only for the private insight note.
 
-Finish with a summary that separately lists public repository changes and the private insight note, plus important decisions, recommended reading order, validation result or reminder, and open questions. Do not reproduce private insight content in the summary.
+Finish with a summary that lists external notes created or updated, the private insight note target, any public engine/framework changes (normally none), important decisions, recommended reading order and open questions. Do not reproduce private insight content in the summary.
 "@
 }
 
@@ -255,6 +284,15 @@ $fileName = "$capturedAt-$slug.md"
 if ($PSBoundParameters.ContainsKey('MemoryPath')) {
     $targetDirectory = Join-Path (Join-Path $resolvedMemoryPath 'raw') $typeFolder
     $privateInsightDirectory = Join-Path (Join-Path $resolvedMemoryPath 'insights') $typeFolder
+    $notesRoot = Join-Path $resolvedMemoryPath 'notes'
+    $conceptsDirectory = Join-Path $notesRoot 'concepts'
+    $synthesesDirectory = Join-Path $notesRoot 'syntheses'
+    $interviewDirectory = Join-Path $notesRoot 'interview'
+    $projectsDirectory = Join-Path $notesRoot 'projects'
+    $readingPathsDirectory = Join-Path $notesRoot 'reading-paths'
+    $ingestSummariesDirectory = Join-Path (Join-Path $resolvedMemoryPath 'runs') 'ingest-summaries'
+    $reviewResultsDirectory = Join-Path (Join-Path $resolvedMemoryPath 'runs') 'review-results'
+    $inboxDirectory = Join-Path $resolvedMemoryPath 'inbox'
     $privateInsightFileName = "$capturedAt-$slug-insights.md"
     $privateInsightTargetPath = Join-Path $privateInsightDirectory $privateInsightFileName
 }
@@ -282,8 +320,18 @@ if (Test-Path -LiteralPath $expectedPath) {
 }
 
 if ($PSBoundParameters.ContainsKey('MemoryPath')) {
-    New-Item -ItemType Directory -Path $targetDirectory -Force | Out-Null
-    New-Item -ItemType Directory -Path $privateInsightDirectory -Force | Out-Null
+    @(
+        $targetDirectory,
+        $conceptsDirectory,
+        $synthesesDirectory,
+        $interviewDirectory,
+        $projectsDirectory,
+        $readingPathsDirectory,
+        $privateInsightDirectory,
+        $ingestSummariesDirectory,
+        $reviewResultsDirectory,
+        $inboxDirectory
+    ) | ForEach-Object { New-Item -ItemType Directory -Path $_ -Force | Out-Null }
 
     $sourceContent = Get-Content -LiteralPath $sourceTemplatePath -Raw -Encoding UTF8
     $sourceContent = $sourceContent.Replace('{{TITLE}}', $Title)
@@ -322,7 +370,7 @@ if ($PSBoundParameters.ContainsKey('MemoryPath')) {
     $createdPath = (Resolve-Path -LiteralPath $createdPath).Path
     $vaultSourceReference = "vault://raw/$typeFolder/$fileName"
     $privateInsightTargetPath = [System.IO.Path]::GetFullPath($privateInsightTargetPath)
-    $ingestPrompt = New-ExternalMemoryIngestPrompt -RepositoryRoot $root -SourcePath $createdPath -SourceUrl $Url -VaultReference $vaultSourceReference -PrivateInsightPath $privateInsightTargetPath
+    $ingestPrompt = New-ExternalMemoryIngestPrompt -RepositoryRoot $root -SourcePath $createdPath -SourceUrl $Url -VaultReference $vaultSourceReference -PrivateInsightPath $privateInsightTargetPath -NotesRoot $notesRoot -ConceptsPath $conceptsDirectory -SynthesesPath $synthesesDirectory -InterviewPath $interviewDirectory -ReadingPathsPath $readingPathsDirectory -ProjectsPath $projectsDirectory
     Set-Clipboard -Value $ingestPrompt
 }
 else {
@@ -355,6 +403,7 @@ Write-Output 'Capture and prepare ingest completed.'
 if ($PSBoundParameters.ContainsKey('MemoryPath')) {
     Write-Output "Created raw source path: $createdPath"
     Write-Output "Private insight note target path: $privateInsightTargetPath"
+    Write-Output "Generated notes root path: $notesRoot"
     Write-Output "Logical vault reference: $vaultSourceReference"
     Write-Output "Clipboard character count imported: $($clipboardText.Length)"
     Write-Output 'Ingest prompt copied to clipboard: Yes'
@@ -363,10 +412,10 @@ if ($PSBoundParameters.ContainsKey('MemoryPath')) {
     Write-Output 'Next steps:'
     Write-Output '1. Review the memory raw source file.'
     Write-Output '2. Paste the copied ingest prompt into the IDE agent/chat.'
-    Write-Output '3. Review the public-safe wiki output and the private insight note separately.'
-    Write-Output '4. Confirm that private reflections were not copied into the public repository.'
-    Write-Output '5. Validate the public KnowledgeWiki repository.'
-    Write-Output '6. Commit only public-safe wiki/script changes to KnowledgeWiki.'
+    Write-Output '3. Review the generated external notes and private insight note separately.'
+    Write-Output '4. Confirm that no source-specific output was written to the public repository wiki/ folder.'
+    Write-Output '5. Do not commit MemoryPath files to KnowledgeWiki.'
+    Write-Output '6. Validate KnowledgeWiki only if engine/framework files were intentionally changed.'
 }
 else {
     Write-Output "Created raw source path: $relativeSourcePath"

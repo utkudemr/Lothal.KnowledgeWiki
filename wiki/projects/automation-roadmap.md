@@ -28,7 +28,14 @@ KnowledgeMemory/
     interview/
     projects/
     reading-paths/
+  insights/
+    articles/
+    tweets/
+    repos/
+    videos/
   runs/
+    ingest-summaries/
+    review-results/
   home.md
 ```
 
@@ -140,9 +147,9 @@ Bu arsiv, wiki iceriginden farkli bir operasyonel iz olur. `wiki/` kalici bilgi 
 
 Onemli karar: Bu dizinin Git'e alinip alinmayacagi ayrica belirlenmelidir. Kisa vadede yerel audit icin faydali olabilir; uzun vadede gürültü uretirse ignore edilebilir veya sadece secili raporlar commit edilebilir.
 
-## Phase 4.1 - External KnowledgeMemory Path (Started)
+## Phase 4.1 - External KnowledgeMemory Path (Completed)
 
-`scripts/capture-and-prepare-ingest.ps1`, `-MemoryPath` parametresiyle private veya synced bir KnowledgeMemory altında raw source capture oluşturmayı destekler. External mode, `vault://raw/<source-type>/<filename>.md` logical reference'ını ve private insight note hedefini ingest prompt'una ekler. Repo-local davranış yalnızca legacy/demo uyumluluğu olarak kalır.
+`scripts/capture-and-prepare-ingest.ps1`, `-MemoryPath` parametresiyle private veya synced bir KnowledgeMemory altında raw source capture oluşturur ve generated knowledge output'larını external `notes/` katmanına yönlendirir. External mode, tüm note folder hedeflerini, `vault://raw/<source-type>/<filename>.md` logical reference'ını ve private insight hedefini prompt'a ekler. Repo-local davranış yalnızca legacy/demo/public-example uyumluluğu olarak kalır.
 
 Başlatılan kapsam:
 
@@ -150,34 +157,37 @@ Başlatılan kapsam:
 - External raw source için özel ingest prompt'u üretmek ve clipboard'a kopyalamak. (tamamlandı)
 - Mevcut repo-local davranışı geriye uyumlu tutmak. (tamamlandı)
 - Var olmayan `MemoryPath` değerini açık hata ve non-zero exit code ile reddetmek. (tamamlandı)
+- `notes/concepts`, `notes/syntheses`, `notes/interview`, `notes/projects`, `notes/reading-paths`, `insights/<source-type>`, `runs/ingest-summaries`, `runs/review-results` ve `inbox` parent klasörlerini hazırlamak. (tamamlandı)
+- MemoryPath ingest sırasında public `wiki/`, `wiki/index.md` ve `wiki/log.md` yazımını prompt seviyesinde yasaklamak. (tamamlandı)
 
-## Phase 4.2 - Private Insight Output (Active)
+## Phase 4.2 - External Notes and Private Insight Output (Completed)
 
-Sonraki aktif adım, public wiki sentezi ile kişisel öğrenme çıktısını fiziksel olarak ayıran private insight workflow'udur.
+Bu adım, reusable generated knowledge ile kişisel öğrenme çıktısını external memory içinde fiziksel olarak ayırır; ikisini de public repository'den uzak tutar.
 
 Uygulanan kapsam:
 
 - `<MemoryPath>/insights/<source-type>/<date-slug>-insights.md` hedefini hesaplamak.
 - Insight parent dizinini oluşturmak ve hedef path'i external ingest prompt'una eklemek.
-- Public wiki çıktısını generic, reusable, user-independent ve public-safe içerikle sınırlamak.
+- Generated concept, synthesis, interview, project ve reading-path notlarını `<MemoryPath>/notes/` altına yönlendirmek.
+- Generated notes'u mümkün olduğunca reusable tutarken private/synced memory output olarak tanımlamak.
 - Kişisel, şirket/proje/kariyer bağlantılarını ve private reading refleksiyonlarını yalnızca insight note'a yönlendirmek.
 - Insight note için Türkçe öğrenme/refleksiyon bölümlerini tanımlamak ve raw içeriğin verbatim kopyalanmasını yasaklamak.
 
-Aktif kabul adımları:
+Kabul adımları:
 
 - Workflow'u gerçek bir private `KnowledgeMemory` üzerinde uçtan uca denemek.
 - Insight note'un mevcut olması durumunda create/update davranışını doğrulamak.
-- Public diff içinde fiziksel memory path veya private reflection kalmadığını review adımında kontrol etmek.
+- Public diff içinde source-specific generated note, fiziksel memory path veya private reflection kalmadığını review adımında kontrol etmek.
 
 Sonraki kapsam:
 
-- Ingest/review/validation run artefact'larını `<MemoryPath>/runs/` altında tutmak.
+- Ingest/review run helper'larını hazırlanmış `<MemoryPath>/runs/` klasörlerine yazacak şekilde genişletmek.
 - Gerekirse `<MemoryPath>/inbox/` içinden capture alma akışını desteklemek.
 - External memory dosya hedeflerini isteğe bağlı olarak doğrulamak. Public validator `vault://raw/...` URI'larını kabul eder fakat private dosyanın public repository içinde var olmasını istemez. (logical URI desteği tamamlandı)
-- `KnowledgeMemory` klasör yapısını oluşturan bootstrap workflow'u eklemek.
+- MemoryPath root'unu da oluşturabilen ayrı bir bootstrap workflow'u değerlendirmek.
 - Public repository'ye yalnızca script, prompt, validation ve dokümantasyon iyileştirmeleri bırakmak.
 
-Mevcut `.agent/runs/` davranışı repo-local MVP olarak kalır; gelecekte ingest summary, review result ve validation output için standart run archive konumu `KnowledgeMemory/runs/` olacaktır. Public-safe generated wiki output `wiki/` katmanında, kişisel insight output ise `KnowledgeMemory/insights/` katmanında yaşar.
+Mevcut `.agent/runs/` davranışı repo-local demo MVP olarak kalır. MemoryPath modunda source-specific generated knowledge `KnowledgeMemory/notes/`, kişisel insight output `KnowledgeMemory/insights/` altında yaşar; public `wiki/` yalnızca legacy/demo/public-example içeriğidir.
 
 ## Phase 4.5 - Validation Ergonomics
 
@@ -224,13 +234,13 @@ Bu asamada final karar yine insanda kalmali. Knowledge base kalitesini korumak i
 - Review adimini tamamen kaldirmak.
 - Semantic kalite kontrolunu deterministik validation icine zorla sikistirmak.
 - Git commit ve push islemlerini kullanici onayi olmadan otomatik yapmak.
-- Generated `wiki/` notlarını bu raw-only migration kapsamında private memory'ye taşımak.
+- Mevcut historical `wiki/` notlarını otomatik olarak private memory'ye taşımak.
 - `KnowledgeMemory` klasörünü zorunlu olarak Git repository yapmak.
 - Private raw source veya generated note'ları rutin olarak public repository'ye commit etmek.
 
 ## Recommended Order
 
-1. `capture-and-prepare-ingest.ps1 -MemoryPath` raw capture + private insight hedefi akışını gerçek private memory üzerinde uçtan uca dene.
+1. `capture-and-prepare-ingest.ps1 -MemoryPath` raw capture + external notes + private insight akışını PostgreSQL gibi bir kaynakla uçtan uca dene.
 2. Ingest summary, review result ve validation output'u `KnowledgeMemory/runs/` altında arşivlemeyi destekle.
 3. İsteğe bağlı external-memory doğrulamasını public validator'dan ayrı bir sınır olarak tasarla.
 4. Private `home.md` ve reading path üretim/açma akışını Obsidian ile test et.
@@ -268,7 +278,7 @@ Lothal.KnowledgeWiki icin `raw/` event log gibi, `wiki/` read model gibi, valida
 
 ## Open Questions
 
-- `-MemoryPath` opsiyonel mi olmalı, yoksa yeni private workflow'da zorunlu mu tutulmalı?
+- Legacy/demo modu uzun vadede ayrı bir explicit switch gerektirmeli mi?
 - Existing insight note için agent create/update kararını belirleyen ek bir metadata veya merge kuralı gerekli mi?
 - External insight note yapısı ayrı bir validator ile doğrulanmalı mı?
 - Mevcut `.agent/runs/` içeriği yerinde mi kalmalı, yoksa ayrı bir migration ile `KnowledgeMemory/runs/` altına mı taşınmalı?

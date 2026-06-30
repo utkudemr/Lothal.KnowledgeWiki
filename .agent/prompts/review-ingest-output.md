@@ -1,209 +1,74 @@
 # Review Ingest Output Prompt Template
 
-Use this prompt template to review and validate an ingest output before finalizing it.
-
-## Instructions
-
-1. Copy this template into a new message.
-2. Paste the ingest output or summary into INGEST_OUTPUT section.
-3. The helper script replaces the braced source-path placeholder with the raw source file path.
-4. Run the prompt to validate quality and completeness.
+Use this template to review a private MemoryPath ingest. Repo-local review remains a legacy/demo path for intentionally public-safe synthetic sources.
 
 ## Template
 
 ---
 
-You are reviewing an ingest output for Lothal.KnowledgeWiki.
+You are reviewing an external-memory ingest produced with the public Lothal.KnowledgeWiki engine.
 
-**Source:** {{SOURCE_PATH}}
+**External Raw Source:** `{{SOURCE_PATH}}`
 
-**Repository Rules (from AGENTS.md):**
-- Turkish is default for user-facing content
-- All wiki pages must have Source References
-- Links use relative markdown format
-- File names are lowercase kebab-case
-- External-memory source references use `vault://raw/...` logical paths rather than physical private paths; repo-relative `raw/...` paths are limited to legacy/demo mode
-- Duplicate pages should be avoided
-- All pages link to related content
-- Public wiki output is generic, reusable, user-independent and public-safe
-- Personal/company/project/career-specific reflections remain in the external private insight note
+**Logical Source Reference:** `{{VAULT_REFERENCE}}`
+
+**External Notes Root:** `{{NOTES_ROOT}}`
+
+**Private Insight Target:** `{{PRIVATE_INSIGHT_PATH}}`
 
 **Ingest Output to Review:**
 
 INGEST_OUTPUT
 
----
-
 ## Review Checklist
 
-Validate the following:
+### Storage Boundary
 
-### Content Quality
+- [ ] The raw source was not modified.
+- [ ] Concept, synthesis, interview, project and reading-path outputs are under external `notes/`.
+- [ ] Personal reflections are under external `insights/`, not `notes/` or public `wiki/`.
+- [ ] No source-specific generated page was created or updated under public `wiki/`.
+- [ ] Public `wiki/index.md` and `wiki/log.md` were not changed for this private ingest.
+- [ ] No MemoryPath file is proposed for commit to the public repository.
+- [ ] Any public repository change is source-independent engine/framework work.
 
-- [ ] Main insight is clearly explained (1 sentence?)
-- [ ] Connection to existing wiki pages is explicit
-- [ ] Practical implications are specific (mentions .NET or microservices without exposing private project details)
-- [ ] Related concepts are listed with correct links
-- [ ] Interview relevance is noted (if applicable)
-- [ ] Next steps are actionable
-- [ ] Open questions are specific (not vague)
+### Content and Traceability
 
-### Repository Rules Compliance
+- [ ] Generated notes are reusable, practical and Turkish by default.
+- [ ] Existing external notes were checked to avoid duplicates.
+- [ ] File names are lowercase kebab-case and links between notes are relative.
+- [ ] Generated notes use `vault://raw/...` under `Source References`.
+- [ ] Physical local paths do not appear in generated knowledge notes.
+- [ ] Raw source content was summarized rather than copied verbatim.
+- [ ] Main insight, existing-knowledge connection, practical implications, related concepts, interview relevance, next steps and open questions are covered where useful.
+- [ ] Synthesis notes precede concept notes in the recommended reading order when applicable.
 
-- [ ] Source references include raw file path(s)
-- [ ] All files use lowercase kebab-case names
-- [ ] Links are relative markdown format
-- [ ] No duplicates of existing pages
-- [ ] Turkish is used for user-facing content (unless source is English)
-- [ ] No modifications to external `KnowledgeMemory/raw/` sources
-- [ ] No physical raw or private insight path is exposed in public repository files
-- [ ] Personal, company, project, career and private reading reflections are absent from public wiki pages
-- [ ] If a private insight target was supplied, the insight note is Turkish by default and contains the required learning/reflection sections
-- [ ] If a private insight target was supplied, raw source content was not copied verbatim into it
-- [ ] Private insight content was not copied into the public repository
-- [ ] wiki/index.md is updated if new pages created
-- [ ] wiki/log.md entry follows the format:
-  ```
-  ## YYYY-MM-DD - action - Title
-  
-  Source:
-  - `vault://raw/path/to/source.md`
-  
-  Created:
-  - `wiki/path/to/file.md`
-  
-  Updated:
-  - `wiki/index.md`
-  - `wiki/log.md`
-  
-  Notes:
-  - Brief explanation
-  ```
+### Private Insight
 
-### Deterministic Validation
+- [ ] The insight note uses the required Turkish learning/reflection sections.
+- [ ] Personal/company/career/private-reading reflections appear only in the insight note.
+- [ ] Insight content is not reproduced in public files or the final summary.
 
-- [ ] `.\scripts\validate-wiki.ps1` was run after ingest/review changes
-- [ ] Validation result has Errors: 0
-- [ ] Validation warnings were reviewed
-- [ ] Commit is not recommended if validation has errors
+### Public Engine Validation
 
-### Learning Output Rule Compliance
-
-- [ ] Main insight explained clearly
-- [ ] Existing knowledge connections visible
-- [ ] Practical implications stated
-- [ ] Related concepts identified
-- [ ] Interview relevance noted
-- [ ] Next steps suggested
-- [ ] Open questions flagged
-- [ ] Recommended reading order prioritizes synthesis pages before concept pages when a synthesis page exists
-
-### Wiki Template Compliance
-
-If concept page created:
-- [ ] Has Short Definition section
-- [ ] Has Why It Matters section
-- [ ] Has Key Ideas (bullet list)
-- [ ] Has Example section
-- [ ] Has .NET / Backend Relevance section
-- [ ] Has Interview Relevance section
-- [ ] Has Related Pages section
-- [ ] Has Source References section
-- [ ] Has Open Questions section
-
-If synthesis page created:
-- [ ] Has Summary section
-- [ ] Has Compared Ideas list
-- [ ] Has Key Differences section
-- [ ] Has Practical Takeaways section
-- [ ] Has When To Use Which section
-- [ ] Has .NET / Backend Relevance section
-- [ ] Has Related Pages section
-- [ ] Has Source References section
-- [ ] Has Open Questions section
-
-If interview page created:
-- [ ] Has Short Answer
-- [ ] Has Strong Answer
-- [ ] Has Example From Experience
-- [ ] Has Common Mistakes
-- [ ] Has Related Concepts
-- [ ] Has Source References
-
-### Common Issues to Check
-
-- [ ] No placeholder text or incomplete sections
-- [ ] No external URLs without context
-- [ ] No unsupported technical claims
-- [ ] No modifications to external `KnowledgeMemory/raw/` files
-- [ ] No private insight content or physical insight path appears in public files
-- [ ] File paths are correct and exist
-- [ ] Links point to real wiki pages
-- [ ] Turkish grammar and terminology correct
-- [ ] No duplicate content from existing pages
-- [ ] Source references are traceable
-
----
+- [ ] If public engine/framework files changed, `./scripts/validate-wiki.ps1` was run and reports `Errors: 0`.
+- [ ] If the public repository did not change, validation is marked not required for the private output review.
 
 ## Output Format
 
-Please provide:
+1. Overall Assessment: PASS / NEEDS REVISION / MAJOR ISSUES
+2. Required Fixes
+3. Optional Improvements
+4. External Files Reviewed
+5. Storage-Boundary Result
+6. Recommended Reading Order
+7. Public Validation Result: PASS / WARNINGS / NOT REQUIRED / FAILED
+8. Final Recommendation: PRIVATE_OUTPUT_READY / NEEDS_REVISION
 
-1. **Overall Assessment:** PASS / NEEDS REVISION / MAJOR ISSUES
-
-2. **Strengths:** List 2-3 positive aspects of the ingest
-
-3. **Required Fixes:** List any issues that must be corrected before finalization
-
-4. **Suggestions for Improvement:** List optional enhancements
-
-5. **Recommended Reading Order:** List the files the user should read first. Prefer synthesis pages first when they exist.
-
-6. **Checklist Results:** Summary of checklist compliance
-
-7. **Validation Result:** PASS / WARNINGS / NOT RUN / FAILED
-
-8. **Final Recommendation:**
-   - READY_TO_COMMIT
-     - Use only when required fixes are complete and deterministic validation shows `Errors: 0`.
-   - READY_WITH_MINOR_NOTES
-     - May be used when deterministic validation shows `Errors: 0` but there are warnings or optional improvements remaining.
-   - NEEDS_REVISION_BEFORE_COMMIT
-     - Use when deterministic validation reports errors or required fixes still remain.
+Do not recommend committing external MemoryPath files to the public repository.
 
 ---
 
-## Example Review Response
+## Legacy / Demo Review
 
-```
-## Review Result: PASS
-
-### Strengths
-- Clear connection to existing RAG and Agent Workflow concepts
-- Practical .NET microservice example provided
-- Interview relevance section identifies realistic scenarios
-
-### Required Fixes
-- None
-
-### Suggestions for Improvement
-- Consider adding a related synthesis page about "LLM Wiki vs Vector DB" for database comparison
-
-### Checklist Results
-- PASS: All content quality checks pass
-- PASS: Repository rules compliance 100%
-- PASS: Learning Output Rule sections present
-- PASS: Template structure correct
-
-### Validation Result
-PASS (Errors: 0, Warnings: 0)
-
-### Final Recommendation
-READY_TO_COMMIT
-
-Files to commit:
-- wiki/concepts/example.md
-- wiki/index.md (updated)
-- wiki/log.md (updated)
-```
-
+For a repo-local synthetic demo ingest, apply the `AGENTS.md` rules for `wiki/index.md`, `wiki/log.md`, relative wiki links and deterministic validation. Do not apply those repo-local write requirements to MemoryPath output.

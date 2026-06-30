@@ -1,177 +1,62 @@
 # Ingest Source Prompt Template
 
-Use this prompt template as a guide when ingesting a new source into the wiki.
-
-## Instructions
-
-1. Copy this template into a new message.
-2. The helper script replaces the braced source-path placeholder with the external raw source file path.
-3. Preserve a separate logical reference under Source References, for example:
-   - `vault://raw/articles/example.md`
-   - `vault://raw/repos/example.md`
-   - `vault://raw/interview-questions/example.md`
-4. Follow AGENTS.md workflow rules carefully.
-5. When `capture-and-prepare-ingest.ps1 -MemoryPath` generates the prompt, it also supplies a private insight note target. Personal reflection belongs only at that external target, never in the public repository.
+Use this template for private ingestion with `capture-and-prepare-ingest.ps1 -MemoryPath`. The helper-generated prompt fills the external source, note-folder and insight targets. Repo-local ingestion is a legacy/demo workflow for intentionally public-safe synthetic examples only.
 
 ## Template
 
 ---
 
-You are ingesting a new source into Lothal.KnowledgeWiki.
+You are ingesting a private source with the public Lothal.KnowledgeWiki engine.
 
-**Source Path:**
+**Public Repository:** `{{REPOSITORY_ROOT}}`
 
-{{SOURCE_PATH}}
+**External Raw Source:** `{{SOURCE_PATH}}`
 
-**Repository Rules:**
-- Read AGENTS.md first.
-- Read the raw source file from {{SOURCE_PATH}}.
-- Do not modify the external raw source.
-- Create or update pages under wiki/ only with generic, reusable, user-independent and public-safe content.
-- Do not put personal, company-specific, project-specific, career-specific or private reading reflections in public wiki pages.
-- Write generated wiki content in Turkish unless the source requires English.
-- In external-memory mode, preserve private source references using a `vault://raw/...` logical path rather than the physical drive path. Keep repo-relative `raw/...` references only for the backward-compatible legacy/demo mode.
-- Avoid duplicate pages; update existing pages when the topic already exists.
-- Use relative markdown links.
-- Use lowercase kebab-case file names.
-- Update wiki/index.md when pages are created or meaningfully updated.
-- Append an entry to wiki/log.md.
-- After creating or updating wiki pages, run `.\scripts\validate-wiki.ps1` to perform deterministic validation.
-- Do not recommend a final commit until review and deterministic validation pass (Errors: 0).
+**Logical Source Reference:** `{{VAULT_REFERENCE}}`
 
----
+**External Targets:**
 
-**Your Tasks:**
+- Notes root: `{{NOTES_ROOT}}`
+- Concepts: `{{CONCEPTS_PATH}}`
+- Syntheses: `{{SYNTHESES_PATH}}`
+- Interview: `{{INTERVIEW_PATH}}`
+- Projects: `{{PROJECTS_PATH}}`
+- Reading paths: `{{READING_PATHS_PATH}}`
+- Private insight: `{{PRIVATE_INSIGHT_PATH}}`
 
-1. **Analyze the source** carefully and identify:
-   - Main idea or concept
-   - Important technical claims
-   - Practical examples
-   - Relevance for .NET backend engineering
-   - Relevance for distributed systems or microservices
-   - Relevance for agent workflows
-   - Interview preparation value
-   - Personal project, company and career connections only when a separate private insight target was supplied; never place these reflections in the public wiki
+## Rules
 
-2. **Check for duplicates** in existing wiki pages:
-   - concepts/
-   - syntheses/
-   - interview/
-   - projects/
-   - companies/
-   - people/
+- Read `AGENTS.md` from the public repository first.
+- Read but never modify the external raw source.
+- MemoryPath mode overrides repo-local ingest instructions: do not create or update source-specific generated pages under public `wiki/`.
+- Create or update reusable knowledge notes only below the supplied external `notes/` targets.
+- Keep personal reflection, company/career connections, private reading history and “how this applies to me” material in the supplied `insights/` target, not in `notes/`.
+- Use lowercase kebab-case file names and relative links between external notes.
+- Add `{{VAULT_REFERENCE}}` under `Source References`; never place the physical raw path in generated knowledge notes.
+- Do not expose physical local paths inside generated notes. Physical paths may appear only in private operational content under MemoryPath when necessary.
+- Do not copy raw content verbatim into notes or insights; synthesize it.
+- Do not commit MemoryPath files to the public repository.
+- Public repository changes should normally be limited to source-independent scripts, prompts, validators and documentation—not source-specific output.
+- Do not update public `wiki/index.md` or `wiki/log.md` for a MemoryPath ingest.
+- Write in Turkish by default unless the source requires English.
 
-3. **Decide what to create or update:**
-   - New concept page? (Use concepts/ template from AGENTS.md)
-   - Update existing concept?
-   - Create synthesis page? (Use syntheses/ template)
-   - Create interview note? (Use interview/ template)
-   - Update project note? (Use projects/ template)
-   - Company/job analysis? (Use companies/ template)
+## Tasks
 
-4. **Structure your output using the Learning Output Rule:**
-   1. Explain the main insight
-   2. Connect to existing knowledge
-   3. Highlight practical implications
-   4. List related concepts
-   5. Note interview relevance
-   6. Suggest next steps
-   7. Flag open questions
-
-5. **Follow these rules:**
-   - Keep raw sources immutable
-   - Keep public wiki output generic, reusable, user-independent and public-safe
-   - If an external private insight target is supplied, write personal reflections there in Turkish by default
-   - Do not copy raw source content verbatim into a private insight note
-   - Do not copy a private insight note or its physical path into the public repository
-   - Add source references using the corresponding `vault://raw/...` logical path
-   - Link to related wiki pages
-   - Update wiki/index.md if you create new pages
-   - Append to wiki/log.md with the format:
-     ```
-     ## YYYY-MM-DD - action - Source Title
-     
-     Source:
-     - `{{SOURCE_PATH}}`
-     
-     Created:
-     - `wiki/concepts/example.md`
-     
-     Updated:
-     - `wiki/index.md`
-     - `wiki/log.md`
-     
-     Notes:
-     - Brief explanation
-     ```
-
-6. **Final summary** (include in your response):
-   - Created files
-   - Updated files
-   - Important decisions
-   - Recommended reading order
-   - Validation reminder
-   - Open questions
-
-Prefer synthesis pages first in the recommended reading order when a synthesis page exists.
+1. Analyze the main idea, technical claims, examples, .NET/backend relevance, distributed-systems relevance, agent-workflow relevance and interview value.
+2. Check existing external notes and update a canonical note instead of creating duplicates.
+3. Create only useful outputs among concepts, syntheses, interview, projects and reading paths.
+4. Create or update the private insight note with:
+   - Benim için ana fikir
+   - Bildiklerimle bağlantı
+   - Pratik backend/.NET çıkarımları
+   - Mikroservis/distributed systems bağlantısı
+   - Mülakat açısından nasıl anlatılır
+   - Kişisel eksikler / sonraki okuma
+   - Kısa hafıza kartı
+5. Finish with created/updated external files, important decisions, reading order and open questions. Mention public repository changes separately (normally none), without reproducing private insight content.
 
 ---
 
-## Example Response Structure
+## Legacy / Demo Mode
 
-When you finish the ingest:
-
-```
-## Ingest Summary
-
-### Main Insight
-[Explain what this source teaches]
-
-### Connection to Existing Knowledge
-[Link to wiki/projects/lothal-knowledgewiki.md and other relevant pages]
-
-### Practical Implications
-[Why this matters for .NET, microservices, etc.]
-
-### Related Concepts to Explore
-- [wiki/concepts/example.md](../concepts/example.md)
-- [wiki/syntheses/example.md](../syntheses/example.md)
-
-### Interview Relevance
-[How this appears in interviews]
-
-### Next Steps
-- Follow-up source: ...
-- Concept to deepen: ...
-- Project application: ...
-
-### Recommended Reading Order
-1. `wiki/syntheses/example.md`
-2. `wiki/concepts/example.md`
-
-### Open Questions
-- ?
-- ?
-
----
-
-### Files Created
-- `wiki/concepts/example.md`
-
-### Files Updated
-- `wiki/index.md`
-- `wiki/log.md`
-
-### Important Decisions
-- Reason for content organization
-
-### Remaining Questions
-- Areas needing clarification
-
-### Validation Reminder
-Run:
-
-```powershell
-.\scripts\validate-wiki.ps1
-```
-```
+When `-MemoryPath` is not supplied, existing repo-local helpers may generate public `wiki/` pages only from public-safe synthetic sources. In that mode, follow the repo-local index, log and validation rules in `AGENTS.md`.

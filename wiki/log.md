@@ -531,3 +531,25 @@ Notes:
 - Added the required Turkish private insight sections and prohibited verbatim raw copying or publishing private insight content.
 - Preserved the existing repo-local behavior when `-MemoryPath` is not supplied.
 - Kept `KnowledgeMemory/runs/` support as a future step for ingest summaries, review results and validation output.
+
+## 2026-06-30 - update - External Memory Generated Note Routing
+
+Source:
+- MemoryPath ingest architecture requirements
+
+Created:
+- None
+
+Updated:
+- `scripts/capture-and-prepare-ingest.ps1`
+- `README.md`
+- `.agent/prompts/ingest-source.md`
+- `.agent/prompts/review-ingest-output.md`
+- `wiki/projects/automation-roadmap.md`
+- `wiki/log.md`
+
+Notes:
+- Routed MemoryPath concept, synthesis, interview, project and reading-path outputs to external `KnowledgeMemory/notes/` targets.
+- Added runtime creation of required raw, notes, insights, runs and inbox parent folders.
+- Prohibited source-specific MemoryPath ingest output under public `wiki/` and kept repo-local generation as legacy/demo/public-example behavior.
+- Preserved `vault://raw/...` logical source references and separated reusable knowledge notes from personal insights.
