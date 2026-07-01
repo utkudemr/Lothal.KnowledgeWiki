@@ -167,7 +167,16 @@ function New-ExternalMemoryIngestPrompt {
         [string]$ReadingOrderPath,
 
         [Parameter(Mandatory = $true)]
-        [string]$HomePath
+        [string]$HomePath,
+
+        [Parameter(Mandatory = $true)]
+        [string]$ConceptIndexPath,
+
+        [Parameter(Mandatory = $true)]
+        [string]$SourceGraphPath,
+
+        [Parameter(Mandatory = $true)]
+        [string]$TopicMapsPath
     )
 
     # Build Turkish section names without depending on the script file's BOM/encoding.
@@ -222,6 +231,11 @@ $ReadingOrderPath
 External memory home target:
 $HomePath
 
+External memory map targets:
+- Concept index: $ConceptIndexPath
+- Source graph: $SourceGraphPath
+- Topic maps: $TopicMapsPath
+
 Private insight note target:
 $PrivateInsightPath
 
@@ -231,6 +245,9 @@ Instructions:
 - Do not modify the external raw source file.
 - MemoryPath mode overrides repo-local ingest rules in AGENTS.md: do not create or update generated knowledge pages under the public repository's wiki/ folder.
 - Create or update generated knowledge notes only under the external targets listed above.
+- Before writing, inspect existing notes under $ConceptsPath, $SynthesesPath, $InterviewPath and $ReadingPathsPath. Also inspect $ConceptIndexPath and $SourceGraphPath when they exist.
+- Identify 3-7 related existing notes when possible. Use only concrete semantic relationships and classify each as builds-on, contrasts-with, complements, prerequisite, follow-up, similar-pattern, applied-example or broader-context. Do not invent links to meet a quota.
+- Every generated note must include a "Hafıza Bağlantıları" section with "İlgili Notlar", "Bu kaynak neyi tamamlıyor?", "Bu kaynak hangi gerilimi veya farkı gösteriyor?" and "Sonraki bağlanabilecek konular" subsections. Format related notes as `[[note-name]] — relationship type: short reason`.
 - Keep generated notes reusable where possible, but treat them as private/synced memory outputs rather than public repository outputs.
 - Use relative markdown links between external notes and use lowercase kebab-case file names.
 - Preserve the raw source in generated notes only through this logical Source References value: $VaultReference
@@ -250,14 +267,18 @@ $privateInsightSectionList
 - Do not copy the private insight note or its private details into the public repository.
 - After generating notes and the private insight, create or update the reading order note at: $ReadingOrderPath
 - The reading order note must include: title, source type, the logical raw reference $VaultReference, created note list, recommended reading order, why this order, and optional follow-up reading or questions.
+- The reading order note must also include "Bağlantılı Okuma" with "Önce okunabilecekler", "Beraber okunabilecekler" and "Sonra okunabilecekler" subsections.
 - Link to generated notes from the reading order note with Obsidian wiki links when possible. Keep link targets portable and do not include physical local paths.
 - If $HomePath exists, append or update one entry under a "Recent Ingests" section. If it does not exist, create it with a "Recent Ingests" section.
 - The home entry must link to the reading order note and must not duplicate the reading order contents.
 - Treat the reading order note and home.md as private MemoryPath outputs. Never write their source-specific content to the public repository.
+- Create or update $ConceptIndexPath as a lightweight concept index; keep topic headings, note links and short keyword summaries rather than copying note content.
+- Create or update $SourceGraphPath. Under the source entry $VaultReference, record generated notes and concrete related-note edges with relationship type and a short reason.
+- When a coherent topic cluster clearly benefits from navigation, create or update a lowercase kebab-case topic map under $TopicMapsPath. Do not create a topic map merely to satisfy the workflow.
 - Run .\scripts\validate-wiki.ps1 only if the public repository was intentionally changed for an engine/framework improvement.
 - Never recommend committing external MemoryPath outputs to the public repository.
 
-Analyze the source for its main idea, technical claims, practical examples, .NET/backend relevance, distributed systems or microservices relevance, agent workflow relevance and interview value. Check existing external notes before deciding what to create or update. Analyze personal, company and career connections only for the private insight note.
+Analyze the source for its main idea, technical claims, practical examples, .NET/backend relevance, distributed systems or microservices relevance, agent workflow relevance and interview value. Inspect the existing external notes and maps before deciding what to create or update. Analyze personal, company and career connections only for the private insight note.
 
 Finish with a summary that lists external notes created or updated, the private insight note target, reading order target, home.md update, any public engine/framework changes (normally none), important decisions and open questions. Do not reproduce private insight content in the summary.
 "@
@@ -320,15 +341,22 @@ if ($PSBoundParameters.ContainsKey('MemoryPath')) {
     $interviewDirectory = Join-Path $notesRoot 'interview'
     $projectsDirectory = Join-Path $notesRoot 'projects'
     $readingPathsDirectory = Join-Path $notesRoot 'reading-paths'
-    $ingestSummariesDirectory = Join-Path (Join-Path $resolvedMemoryPath 'runs') 'ingest-summaries'
+    $runsRoot = Join-Path $resolvedMemoryPath 'runs'
+    $ingestsDirectory = Join-Path $runsRoot 'ingests'
+    $ingestRunDirectory = Join-Path $ingestsDirectory "$capturedAt-$slug"
     $reviewResultsDirectory = Join-Path (Join-Path $resolvedMemoryPath 'runs') 'review-results'
     $readingOrdersDirectory = Join-Path (Join-Path $resolvedMemoryPath 'runs') 'reading-orders'
+    $mapsDirectory = Join-Path $resolvedMemoryPath 'maps'
+    $topicMapsDirectory = Join-Path $mapsDirectory 'topics'
+    $conceptIndexPath = Join-Path $mapsDirectory 'concept-index.md'
+    $sourceGraphPath = Join-Path $mapsDirectory 'source-graph.md'
     $inboxDirectory = Join-Path $resolvedMemoryPath 'inbox'
     $homeTargetPath = Join-Path $resolvedMemoryPath 'home.md'
     $privateInsightFileName = "$capturedAt-$slug-insights.md"
     $privateInsightTargetPath = Join-Path $privateInsightDirectory $privateInsightFileName
     $readingOrderFileName = "$capturedAt-$slug-reading-order.md"
     $readingOrderTargetPath = Join-Path $readingOrdersDirectory $readingOrderFileName
+    $persistedIngestPromptPath = Join-Path $ingestRunDirectory 'ingest-prompt.md'
 }
 else {
     $targetDirectory = Join-Path $root $relativeFolder
@@ -362,9 +390,11 @@ if ($PSBoundParameters.ContainsKey('MemoryPath')) {
         $projectsDirectory,
         $readingPathsDirectory,
         $privateInsightDirectory,
-        $ingestSummariesDirectory,
+        $ingestRunDirectory,
         $reviewResultsDirectory,
         $readingOrdersDirectory,
+        $mapsDirectory,
+        $topicMapsDirectory,
         $inboxDirectory
     ) | ForEach-Object { New-Item -ItemType Directory -Path $_ -Force | Out-Null }
 
@@ -407,7 +437,13 @@ if ($PSBoundParameters.ContainsKey('MemoryPath')) {
     $privateInsightTargetPath = [System.IO.Path]::GetFullPath($privateInsightTargetPath)
     $readingOrderTargetPath = [System.IO.Path]::GetFullPath($readingOrderTargetPath)
     $homeTargetPath = [System.IO.Path]::GetFullPath($homeTargetPath)
-    $ingestPrompt = New-ExternalMemoryIngestPrompt -RepositoryRoot $root -SourcePath $createdPath -SourceUrl $Url -SourceTitle $Title -SourceType $Type -VaultReference $vaultSourceReference -PrivateInsightPath $privateInsightTargetPath -NotesRoot $notesRoot -ConceptsPath $conceptsDirectory -SynthesesPath $synthesesDirectory -InterviewPath $interviewDirectory -ReadingPathsPath $readingPathsDirectory -ProjectsPath $projectsDirectory -ReadingOrderPath $readingOrderTargetPath -HomePath $homeTargetPath
+    $conceptIndexPath = [System.IO.Path]::GetFullPath($conceptIndexPath)
+    $sourceGraphPath = [System.IO.Path]::GetFullPath($sourceGraphPath)
+    $topicMapsDirectory = [System.IO.Path]::GetFullPath($topicMapsDirectory)
+    $ingestRunDirectory = [System.IO.Path]::GetFullPath($ingestRunDirectory)
+    $persistedIngestPromptPath = [System.IO.Path]::GetFullPath($persistedIngestPromptPath)
+    $ingestPrompt = New-ExternalMemoryIngestPrompt -RepositoryRoot $root -SourcePath $createdPath -SourceUrl $Url -SourceTitle $Title -SourceType $Type -VaultReference $vaultSourceReference -PrivateInsightPath $privateInsightTargetPath -NotesRoot $notesRoot -ConceptsPath $conceptsDirectory -SynthesesPath $synthesesDirectory -InterviewPath $interviewDirectory -ReadingPathsPath $readingPathsDirectory -ProjectsPath $projectsDirectory -ReadingOrderPath $readingOrderTargetPath -HomePath $homeTargetPath -ConceptIndexPath $conceptIndexPath -SourceGraphPath $sourceGraphPath -TopicMapsPath $topicMapsDirectory
+    Set-Content -LiteralPath $persistedIngestPromptPath -Value $ingestPrompt -Encoding UTF8 -NoNewline
     Set-Clipboard -Value $ingestPrompt
 }
 else {
@@ -442,6 +478,10 @@ if ($PSBoundParameters.ContainsKey('MemoryPath')) {
     Write-Output "Generated notes root path: $notesRoot"
     Write-Output "Private insight note target path: $privateInsightTargetPath"
     Write-Output "Reading order note target path: $readingOrderTargetPath"
+    Write-Output "Concept index path: $conceptIndexPath"
+    Write-Output "Source graph path: $sourceGraphPath"
+    Write-Output "Run folder path: $ingestRunDirectory"
+    Write-Output "Persisted ingest prompt path: $persistedIngestPromptPath"
     Write-Output "Logical vault reference: $vaultSourceReference"
     Write-Output "Clipboard character count imported: $($clipboardText.Length)"
     Write-Output 'Ingest prompt copied to clipboard: Yes'

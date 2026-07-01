@@ -185,7 +185,7 @@ For most article, tweet and thread captures, the preferred workflow is:
 3. Review the created private raw source file and optionally improve its Context Notes.
 4. Paste the ingest prompt, which the helper copied to the clipboard, into the IDE agent/chat.
 
-The helper creates the raw file under external `KnowledgeMemory`, prepares `notes/{concepts,syntheses,interview,projects,reading-paths}`, the matching insight folder, `runs/{ingest-summaries,review-results,reading-orders}` and `inbox`, then imports clipboard content and prepares the ingest prompt. It computes a source-specific reading-order target and the external `home.md` target. It does not generate notes, fetch URLs, call an LLM or create commits; the IDE agent writes knowledge notes, insights, reading order and home entry to the supplied external targets.
+The helper creates the raw file under external `KnowledgeMemory`, prepares `notes/{concepts,syntheses,interview,projects,reading-paths}`, `maps/topics`, the matching insight folder, `runs/{ingests,reading-orders}` and `inbox`, then imports clipboard content and prepares the ingest prompt. It computes source-specific reading-order and run targets plus the external `home.md`, concept-index and source-graph targets. It does not generate notes, fetch URLs, call an LLM or create commits; the IDE agent writes knowledge notes, insights, reading order, memory maps and home entry to the supplied external targets.
 
 ### Private KnowledgeMemory Capture
 
@@ -214,6 +214,14 @@ Script gerekli external parent dizinlerini oluşturur ve tüm hedef path'leri in
 Public `wiki/` bu source-specific ingest sırasında değiştirilmez. Generated notes, reading orders ve `home.md` private/synced memory output'tur ve public repository'ye commit edilmez.
 
 Prompt ayrıca `vault://raw/<type-folder>/<filename>.md` logical reference'ını taşır. Physical local path generated knowledge notlarına yazılmaz. Raw, notes, insights ve run artefact'ları public repository'ye commit edilmez. `MemoryPath` root klasörü önceden var olmalıdır; alt klasörleri script oluşturur. `-MemoryPath` verilmediğinde backward-compatible repo-local davranış yalnızca legacy/demo/public-example amacıyla kalır.
+
+### Cross-Source Linking and Memory Maps
+
+MemoryPath ingest prompt'u yeni not yazmadan once mevcut concept, synthesis, interview ve reading-path notlarini; varsa `maps/concept-index.md` ve `maps/source-graph.md` dosyalarini inceletir. Agent, somut bir anlamsal bag varsa 3-7 mevcut notu `builds-on`, `contrasts-with`, `complements`, `prerequisite`, `follow-up`, `similar-pattern`, `applied-example` veya `broader-context` olarak siniflandirir. Sayiyi doldurmak icin link uretilmez.
+
+`concept-index.md`, konu basliklari altinda note linkleri ve kisa anahtar kelimeler tutan hafif bir navigasyon indeksidir; not iceriklerini kopyalamaz. `source-graph.md`, her `vault://raw/...` kaynagini generated note'lara ve gerekceli note-to-note iliskilerine baglar. Net bir konu kumesi varsa `maps/topics/<topic-slug>.md` altinda opsiyonel bir topic map guncellenir.
+
+Generated notlar `Hafiza Baglantilari` bolumunu; reading-order notlari ise once, beraber ve sonra okunabilecekleri ayiran `Baglantili Okuma` bolumunu tasir. Bu map'lerin tamami External Memory Store icinde yasar; public repo `wiki/` altina yazilmaz ve public repository'ye commit edilmez.
 
 ## Phase 2 Validation Workflow
 

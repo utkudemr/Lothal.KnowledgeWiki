@@ -196,6 +196,28 @@ MemoryPath ingest prompt'u, generated notes ve insight tamamlandıktan sonra `<M
 
 `<MemoryPath>/home.md` private memory'nin hafif navigation girişidir. Dosya yoksa oluşturulur; varsa `Recent Ingests` altındaki source entry eklenir veya güncellenir. Home entry ayrıntıları tekrar etmez, yalnızca ilgili reading-order note'a bağlanır. Reading-order ve home çıktıları source-specific private memory artefact'larıdır; public repository'ye yazılmaz veya commit edilmez.
 
+## Phase 4.4 - Cross-source Linking and Memory Maps (Completed)
+
+MemoryPath ingest akisi artik yeni kaynagi mevcut external notlarla anlamsal olarak baglar ve hafif memory map'leri gunceller.
+
+Uygulanan kapsam:
+
+- Mevcut concept, synthesis, interview ve reading-path notlarini ingest oncesinde incelemek.
+- Mumkun oldugunda 3-7 somut iliskiyi kontrollu bir iliski tipiyle siniflandirmak; sirf kota doldurmak icin link uretmemek.
+- Generated notlara `Hafiza Baglantilari`, reading-order notlarina `Baglantili Okuma` yapisini eklemek.
+- External `maps/concept-index.md` icinde hafif concept navigasyonu tutmak.
+- External `maps/source-graph.md` icinde source-to-note ve note-to-note baglantilarini izlemek.
+- Yalnizca acikca faydali oldugunda `maps/topics/<topic-slug>.md` guncellemek.
+- Ingest prompt'unu source-specific external run klasorunde kalici hale getirmek.
+
+Gelecek calismalar:
+
+- Automated similarity search.
+- Tag extraction.
+- Backlink validation.
+- Stale/duplicate note detection.
+- Full automated ingest runner.
+
 ## Phase 4.5 - Validation Ergonomics
 
 Validation su an dogru yerde duruyor: lokal script ve GitHub Actions gate'i. Sonraki ergonomi iyilestirmeleri sunlar olabilir:

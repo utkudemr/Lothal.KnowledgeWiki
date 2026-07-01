@@ -575,3 +575,24 @@ Notes:
 - External ingest prompts now require a structured reading-order note with portable Obsidian links after notes and insights are generated.
 - Added create/update behavior for a concise `Recent Ingests` entry in external `home.md`.
 - Kept reading-order and home outputs outside the public repository and preserved legacy/demo behavior without `-MemoryPath`.
+## 2026-07-01 - update - Cross-source Linking and Memory Maps
+
+Source:
+- External Memory Store workflow requirements
+
+Created:
+- None
+
+Updated:
+- `scripts/capture-and-prepare-ingest.ps1`
+- `README.md`
+- `.agent/prompts/ingest-source.md`
+- `.agent/prompts/review-ingest-output.md`
+- `wiki/projects/automation-roadmap.md`
+- `wiki/log.md`
+
+Notes:
+- Added runtime preparation for external maps, topic maps and source-specific ingest run folders.
+- Generated prompts now inspect existing notes, classify concrete cross-source relationships and require memory-link sections.
+- Added lightweight concept-index, source-graph and optional topic-map maintenance rules.
+- Persisted each external ingest prompt and expanded the final console summary with map and run paths.
